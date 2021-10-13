@@ -35,8 +35,6 @@ namespace Services
             MessageDistributer.Instance.Subscribe<UserGameLeaveResponse>(this.OnGameLeave);
 
         }
-
-
         public void Dispose()
         {
             //订阅用户注册响应
@@ -178,8 +176,7 @@ namespace Services
 
             }
         }
-
-
+        
         public void SendRegister(string user, string psw)
         {
             Debug.LogFormat("UserRegisterRequest::user :{0} psw:{1}", user, psw);
@@ -217,10 +214,9 @@ namespace Services
         /// </summary>
         /// <param name="name">角色名</param>
         /// <param name="cls">职业</param>
-
         public void SendCharacterCreate(string name, CharacterClass cls)
         {
-            Debug.LogFormat("UserCreateCharacterRequest::name :{0} class:{1}", name, cls);
+            Debug.LogFormat("用户创建角色请求::name :{0} class:{1}", name, cls);
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.createChar = new UserCreateCharacterRequest();
