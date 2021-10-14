@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 649691934863537065}
   - component: {fileID: 649691934863537066}
   - component: {fileID: 649691934863537067}
+  - component: {fileID: 3033516211692715604}
+  - component: {fileID: 1125317032440840306}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649691934863537060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.87, y: -2.37, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 649691934377569644}
@@ -63,6 +65,45 @@ CapsuleCollider:
   m_Height: 2.292878
   m_Direction: 1
   m_Center: {x: 0, y: 0.86119926, z: 0}
+--- !u!114 &3033516211692715604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649691934863537060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422006e2d7ced2f4b9b2415cf83e4629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 649691934387077772}
+  rb: {fileID: 649691934863537066}
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  speed: 0
+  animSpeed: 1.5
+  jumpPower: 3
+  isPlayer: 0
+--- !u!114 &1125317032440840306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649691934863537060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c99e2cbb8f032409e0e1d25c142557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 649691934863537066}
+  rotateSpeed: 2
+  turnAngle: 10
+  speed: 0
+  entityController: {fileID: 0}
+  onAir: 0
 --- !u!1001 &649691934377703404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,6 +160,12 @@ PrefabInstance:
 --- !u!4 &649691934377569644 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c9d8afea1d6f5614485dd29f43645b28,
+    type: 3}
+  m_PrefabInstance: {fileID: 649691934377703404}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &649691934387077772 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: c9d8afea1d6f5614485dd29f43645b28,
     type: 3}
   m_PrefabInstance: {fileID: 649691934377703404}
   m_PrefabAsset: {fileID: 0}

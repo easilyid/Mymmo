@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4229063607330060538}
   - component: {fileID: 4229063607330060539}
   - component: {fileID: 4229063607330060540}
+  - component: {fileID: 6219615821849726605}
+  - component: {fileID: 6207599017295683774}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4229063607330060541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.98, z: 1.6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4229063607767258611}
@@ -63,6 +65,45 @@ CapsuleCollider:
   m_Height: 2.1470625
   m_Direction: 1
   m_Center: {x: 0, y: 0.8987614, z: 0}
+--- !u!114 &6219615821849726605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4229063607330060541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422006e2d7ced2f4b9b2415cf83e4629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 4229063607774165951}
+  rb: {fileID: 4229063607330060539}
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  speed: 0
+  animSpeed: 1.5
+  jumpPower: 3
+  isPlayer: 0
+--- !u!114 &6207599017295683774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4229063607330060541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c99e2cbb8f032409e0e1d25c142557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4229063607330060539}
+  rotateSpeed: 2
+  turnAngle: 10
+  speed: 0
+  entityController: {fileID: 0}
+  onAir: 0
 --- !u!1001 &4229063607766863583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,6 +156,12 @@ PrefabInstance:
 --- !u!4 &4229063607767258611 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400172, guid: 0e1a4c822899f94408e78aeb63f616ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 4229063607766863583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4229063607774165951 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 0e1a4c822899f94408e78aeb63f616ea,
     type: 3}
   m_PrefabInstance: {fileID: 4229063607766863583}
   m_PrefabAsset: {fileID: 0}

@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Configuration;
 
 using System.Threading;
-
+using GameServer.Managers;
 using Network;
 using GameServer.Services;
 
@@ -23,10 +23,12 @@ namespace GameServer
         {
             int Port = Properties.Settings.Default.ServerPort;
             network = new NetService();
-            //network.Init(8000);
+            network.Init(Port);
             DBService.Instance.Init();
             UserService.Instance.Init();
-            
+            DataManager.Instance.Load();
+            MapService.Instance.Init();
+
             thread = new Thread(new ThreadStart(this.Update));
             return true;
         }

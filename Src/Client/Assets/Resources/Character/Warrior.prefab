@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1443151618221237994}
   - component: {fileID: 8405536143251960409}
   - component: {fileID: 5854879781914326736}
+  - component: {fileID: 7955434592094142807}
+  - component: {fileID: 789292857972915407}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3516649036521439427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.71, y: -2.058, z: 2.596}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 569436669772179695}
@@ -63,6 +65,45 @@ CapsuleCollider:
   m_Height: 2.0811357
   m_Direction: 1
   m_Center: {x: -0.010452151, y: 0.9401469, z: 0}
+--- !u!114 &7955434592094142807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516649036521439427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422006e2d7ced2f4b9b2415cf83e4629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 569436669762914135}
+  rb: {fileID: 8405536143251960409}
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  speed: 0
+  animSpeed: 1.5
+  jumpPower: 3
+  isPlayer: 0
+--- !u!114 &789292857972915407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516649036521439427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c99e2cbb8f032409e0e1d25c142557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 8405536143251960409}
+  rotateSpeed: 2
+  turnAngle: 10
+  speed: 0
+  entityController: {fileID: 0}
+  onAir: 0
 --- !u!1001 &569436669772313143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,6 +156,12 @@ PrefabInstance:
 --- !u!4 &569436669772179695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400088, guid: def21edb286cffc45a98c9cf4578f185,
+    type: 3}
+  m_PrefabInstance: {fileID: 569436669772313143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &569436669762914135 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: def21edb286cffc45a98c9cf4578f185,
     type: 3}
   m_PrefabInstance: {fileID: 569436669772313143}
   m_PrefabAsset: {fileID: 0}
