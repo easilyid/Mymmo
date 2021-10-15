@@ -6,6 +6,7 @@ using Entities;
 using Services;
 using SkillBridge.Message;
 using Managers;
+using Models;
 
 public class GameObjectManager : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public class GameObjectManager : MonoBehaviour
             {
                 if (character.Info.Id == Models.User.Instance.CurrentCharacter.Id)
                 {
+                    User.Instance.CurrentCharacterObject = go;
                     MainPlayerCamera.Instance.player = go;
                     pc.enabled = true;
                     pc.character = character;
