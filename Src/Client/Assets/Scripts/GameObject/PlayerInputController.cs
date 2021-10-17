@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Entities;
+using Services;
 using SkillBridge.Message;
 
 public class PlayerInputController : MonoBehaviour {
@@ -129,5 +130,6 @@ public class PlayerInputController : MonoBehaviour {
     {
         if (entityController != null)
             entityController.OnEntityEvent(entityEvent);
+        MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData);
     }
 }

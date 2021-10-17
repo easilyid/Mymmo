@@ -20,7 +20,9 @@ namespace Entities
         private NEntity entityData;
         public NEntity EntityData
         {
-            get {
+            get
+            {
+                UpdateEntityData();
                 return entityData;
             }
             set {
@@ -43,9 +45,6 @@ namespace Entities
                 Vector3 dir = this.direction;
                 this.position += Vector3Int.RoundToInt(dir * speed * delta / 100f);
             }
-            entityData.Position.FromVector3Int(this.position);
-            entityData.Direction.FromVector3Int(this.direction);
-            entityData.Speed = this.speed;
         }
 
         public void SetEntityData(NEntity entity)
@@ -54,5 +53,12 @@ namespace Entities
             this.direction = this.direction.FromNVector3(entity.Direction);
             this.speed = entity.Speed;
         }
+        private void UpdateEntityData()
+        {
+            entityData.Position.FromVector3Int(this.position);
+            entityData.Direction.FromVector3Int(this.direction);
+            entityData.Speed = this.speed;
+        }
+
     }
 }

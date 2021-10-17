@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Common;
 using Common.Data;
 using GameServer.Entities;
+using GameServer.Services;
 using Network;
 using SkillBridge.Message;
 
@@ -74,15 +75,15 @@ namespace GameServer.Models
             conn.SendData(data,0,data.Length);
 
         }
-        internal void CharacterLeave(NCharacterInfo cha)
+        internal void CharacterLeave(Character cha)
         {
-            Log.InfoFormat("CharacterLeave:Map:{0} characterId:{1]",this.Define.ID,cha.Id);
-            this.MapCharacters.Remove(cha.Id);
+            Log.InfoFormat("CharacterLeave:Map:{0} characterId:{1}",this.Define.ID,cha.Id);
             foreach (var kv in this.MapCharacters)
             {
                 this.SendCharacterLeaveMap(kv.Value.Connection, cha);
             }
-        } 
+            this.MapCharacters.Remove(cha.Id);
+        }
         void SendCharacterEnterMap(NetConnection<NetSession> conn, NCharacterInfo character)
         {
             NetMessage message = new NetMessage();
@@ -95,7 +96,7 @@ namespace GameServer.Models
             conn.SendData(data, 0, data.Length);
         }
         
-        void SendCharacterLeaveMap(NetConnection<NetSession> conn, NCharacterInfo character)
+        void SendCharacterLeaveMap(NetConnection<NetSession> conn, Character character)
         {
             NetMessage message = new NetMessage();
             message.Response = new NetMessageResponse();
@@ -106,7 +107,7 @@ namespace GameServer.Models
             conn.SendData(data, 0, data.Length);
         }
 
-        internal void UpdataEntity(NEntitySync entity)
+        internal void UpdateEntity(NEntitySync entity)
         {
             foreach (var kv in this.MapCharacters)
             {
@@ -118,20 +119,10 @@ namespace GameServer.Models
                 }
                 else
                 {
-                    this.SendEntityUpdata(kv.Value.Connection, entity);
+                    MapService.Instance.SendEntityUpdate(kv.Value.Connection, entity);
                 }
             }
         }
 
-         void SendEntityUpdata(NetConnection<NetSession> conn, NEntitySync entity)
-        {
-            NetMessage message = new NetMessage();
-            message.Response = new NetMessageResponse();
-            message.Response.mapEntitySync = new MapEntitySyncResponse();
-            message.Response.mapEntitySync.entitySyncs .Add(entity);
-
-            byte[] data = PackageHandler.PackMessage(message);
-            conn.SendData(data, 0, data.Length);
-        }
     }
 }

@@ -8,6 +8,7 @@ public static class UnityLogger
     public static void Init()
     {
         Application.logMessageReceived += onLogMessageReceived;
+        Common.Log.Init("Unity");
     }
 
     private static ILog log = LogManager.GetLogger("Unity");
@@ -18,7 +19,7 @@ public static class UnityLogger
     /// <param name="condition">条件</param>
     /// <param name="stackTrace">堆栈追踪</param>
     /// <param name="type">类型</param>
-    private static void onLogMessageReceived(string condition,string stackTrace, LogType type )
+    private static void onLogMessageReceived(string condition, string stackTrace, UnityEngine.LogType type)
     {
         switch (type)
         {

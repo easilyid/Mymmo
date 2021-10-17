@@ -15,7 +15,7 @@ public class LoadingManager : MonoBehaviour
     public Text progressText;
     public Text progressNumbrer;
 
-    private IEnumerator Start()
+     IEnumerator Start()
     {
         log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo("log4net.xml"));
         UnityLogger.Init();
@@ -30,7 +30,8 @@ public class LoadingManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         UITips.SetActive(false);
 
-        yield return DataManager.Instance.LoadData();
+        //yield return DataManager.Instance.LoadData();
+        StartCoroutine(DataManager.Instance.LoadData());
 
         //Init basic services
         MapService.Instance.Init();

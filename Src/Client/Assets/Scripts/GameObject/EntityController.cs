@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Entities;
+using Managers;
 
 
-public class EntityController : MonoBehaviour
+public class EntityController : MonoBehaviour,IEntityNotify
 {
 
     public Animator anim;
@@ -31,6 +32,7 @@ public class EntityController : MonoBehaviour
     void Start () {
         if (entity != null)
         {
+            EntityManager.Instance.RegisterEntityChangeNotify(entity.entityId,this);
             this.UpdateTransform();
         }
 
@@ -75,6 +77,15 @@ public class EntityController : MonoBehaviour
         }
     }
 
+    public void OnEntityRemoved()
+    {
+        if (UIWorldElementManager.Instance != null)
+        {
+            UIWorldElementManager.Instance.RemoveCharacterNameBar(this.transform);
+        }
+        Destroy(this.gameObject);
+    }
+
     public void OnEntityEvent(EntityEvent entityEvent)
     {
         switch(entityEvent)
@@ -93,5 +104,11 @@ public class EntityController : MonoBehaviour
                 anim.SetTrigger("Jump");
                 break;
         }
+    }
+
+    public void OnEntityChanged(Entity entity)
+    {
+        Debug.LogFormat("OnEntityChanged :ID{0} 位置：{1} 方向：{2} 速度：{3}", entity.entityId, entity.position,
+            entity.direction, entity.speed);
     }
 }

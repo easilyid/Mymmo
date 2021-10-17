@@ -13,10 +13,6 @@ public class SceneManager : MonoSingleton<SceneManager>
         
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 
     public void LoadScene(string name)
     {

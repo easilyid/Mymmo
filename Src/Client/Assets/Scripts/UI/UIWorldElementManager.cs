@@ -9,15 +9,6 @@ public class UIWorldElementManager : MonoSingleton<UIWorldElementManager> {
 
     private Dictionary<Transform, GameObject> elements = new Dictionary<Transform, GameObject>();
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 
     public void AddCharacterNameBar(Transform owner, Character character)

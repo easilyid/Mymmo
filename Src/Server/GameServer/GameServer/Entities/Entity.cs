@@ -55,7 +55,6 @@ namespace GameServer.Entities
         {
             get
             {
-                
                 return entityData;
             }
             set
@@ -65,7 +64,7 @@ namespace GameServer.Entities
             }
         }
 
-      
+
         public Entity(Vector3Int pos,Vector3Int dir)
         {
             this.entityData = new NEntity();
@@ -85,8 +84,5 @@ namespace GameServer.Entities
             this.Direction = entity.Direction;
             this.speed = entity.Speed;
         }
-
-       
-
     }
 }

@@ -36,12 +36,17 @@ namespace GameServer.Managers
         public Character AddCharacter(TCharacter cha)
         {
             Character character = new Character(CharacterType.Player, cha);
-            this.Characters[cha.ID] = character;
+            EntityManager.Instance.AddEntity(cha.MapID,character);
+            character.Info.Id = character.Id;
+            this.Characters[character.Id] = character;
             return character;
         }
 
         public void RemoveCharacter(int characterId)
         {
+            var cha = this.Characters[characterId];
+          
+            EntityManager.Instance.RemoveEntity(cha.Data.MapID,cha);
             this.Characters.Remove(characterId);
         }
     }
