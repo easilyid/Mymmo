@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIMainCity : MonoSingleton<UIMainCity>
+public class UIMain : MonoSingleton<UIMain>
 {
     public Text avatarName;
     public Text avatarLevel;
 
-	// Use this for initialization
     protected override void OnStart()
     {
         this.UpdateAvatar();
@@ -30,5 +29,10 @@ public class UIMainCity : MonoSingleton<UIMainCity>
     {
         SceneManager.Instance.LoadScene("CharSelect");
         Services.UserService.Instance.SendGameLeave();
+    }
+
+    public void OnUITest()
+    {
+        UIManager.Instance.Show<UITest>();
     }
 }

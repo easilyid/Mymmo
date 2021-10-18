@@ -116,7 +116,7 @@ namespace GameServer.Services
                 MapPosY = 4000,
                 MapPosZ = 820,
             };
-            character= DBService.Instance.Entities.Characters.Add(character);
+            character = DBService.Instance.Entities.Characters.Add(character);
             sender.Session.User.Player.Characters.Add(character);
             DBService.Instance.Entities.SaveChanges();
 
@@ -156,15 +156,14 @@ namespace GameServer.Services
             byte[] data = PackageHandler.PackMessage(message);
             sender.SendData(data, 0, data.Length);
             sender.Session.Character = character;
-            MapManager.Instance[dbchar.MapID].CharacterEnter(sender,character);
+            MapManager.Instance[dbchar.MapID].CharacterEnter(sender, character);
         }
         void OnGameLeave(NetConnection<NetSession> sender, UserGameLeaveRequest request)
         {
             Character character = sender.Session.Character;
             Log.InfoFormat("用户离开游戏请求：characterID:{0}:{1} Map:{2}", character.Id, character.Info.Name, character.Info.mapId);
 
-            CharacterManager.Instance.RemoveCharacter(character.Id);
-            MapManager.Instance[character.Info.mapId].CharacterLeave(character);
+            CharacterLeave(character);
             NetMessage message = new NetMessage();
             message.Response = new NetMessageResponse();
             message.Response.gameLeave = new UserGameLeaveResponse();
@@ -175,6 +174,11 @@ namespace GameServer.Services
             sender.SendData(data, 0, data.Length);
         }
 
+        public void CharacterLeave(Character character)
+        {
+            CharacterManager.Instance.RemoveCharacter(character.Id);
+            MapManager.Instance[character.Info.mapId].CharacterLeave(character);
+        }
     }
 }
 
