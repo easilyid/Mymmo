@@ -1,6 +1,7 @@
 ﻿using Services;
 using System;
 using System.Collections;
+using Manager;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -36,6 +37,8 @@ public class LoadingManager : MonoBehaviour
         //Init basic services
         MapService.Instance.Init();
         UserService.Instance.Init();
+
+        TestManager.Instance.Init();
         
        for (float i = 0; i < 100;)
        {
