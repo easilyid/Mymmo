@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Managers;
 using Common;
 using Network;
 using UnityEngine;
@@ -278,8 +279,10 @@ namespace Services
 
             if (response.Result==Result.Success)
             {
-                //Models.User.Instance.Info.Player.Characters.Clear();
-                //Models.User.Instance.Info.Player.Characters.AddRange(response.Characters);
+                if (response.Character!=null)
+                {
+                    ItemManager.Instance.Init(response.Character.Items);
+                }
             }
         }
 
