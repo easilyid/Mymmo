@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Data;
 using SkillBridge.Message;
 
-namespace Assets.Scripts.Models
+namespace Models
 {
     public class Item
     {
         public int Id;
         public int Count;
+        public ItemDefine Define;
 
         public Item(NItemInfo item)
         {
             this.Id = item.Id;
             this.Count = item.Count;
+            this.Define = DataManager.Instance.Items[item.Id];
         }
 
         public override string ToString()

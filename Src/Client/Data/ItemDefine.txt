@@ -9,6 +9,8 @@
     "UseCD": 1.0,
     "Price": 200,
     "SellPrice": 100,
+    "StackLimit": 99,
+    "Icon": "UI/Items/hongp",
     "Function": "RecoverHP",
     "Param": 500
   },
@@ -22,6 +24,8 @@
     "UseCD": 1.0,
     "Price": 200,
     "SellPrice": 100,
+    "StackLimit": 99,
+    "Icon": "UI/Items/lanp",
     "Function": "RecoverMP",
     "Param": 500
   },
@@ -35,6 +39,8 @@
     "UseCD": 5.0,
     "Price": 200,
     "SellPrice": 100,
+    "StackLimit": 99,
+    "Icon": "UI/Items/mbao",
     "Function": "AddBuff",
     "Param": 1
   },
@@ -48,6 +54,8 @@
     "UseCD": 5.0,
     "Price": 200,
     "SellPrice": 100,
+    "StackLimit": 99,
+    "Icon": "UI/Items/haixiant",
     "Function": "AddBuff",
     "Param": 2
   },
@@ -59,7 +67,9 @@
     "Category": "经验书",
     "CanUse": true,
     "UseCD": 0.0,
-    "SellPrice": 1,
+    "SellPrice": 5,
+    "StackLimit": 1,
+    "Icon": "UI/Items/jinengsh",
     "Function": "AddExp"
   },
   "6": {
@@ -69,7 +79,9 @@
     "Type": "MATERIAL",
     "Category": "徽章",
     "UseCD": 0.0,
-    "SellPrice": 1
+    "SellPrice": 5,
+    "StackLimit": 99,
+    "Icon": "UI/Items/huizhang"
   },
   "7": {
     "ID": 7,
@@ -79,7 +91,9 @@
     "Category": "钱袋",
     "CanUse": true,
     "UseCD": 0.0,
-    "SellPrice": 1,
+    "SellPrice": 5,
+    "StackLimit": 1,
+    "Icon": "UI/Items/xiaoqiandai",
     "Function": "AddMoney",
     "Param": 1000
   },
@@ -91,7 +105,9 @@
     "Category": "钱袋",
     "CanUse": true,
     "UseCD": 0.0,
-    "SellPrice": 1,
+    "SellPrice": 5,
+    "StackLimit": 1,
+    "Icon": "UI/Items/daqiandai",
     "Function": "AddMoney",
     "Param": 10000
   },
@@ -103,20 +119,10 @@
     "Category": "装备盒",
     "CanUse": true,
     "UseCD": 0.0,
-    "SellPrice": 1,
-    "Function": "AddItem",
-    "Params": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10
-    ]
+    "SellPrice": 5,
+    "StackLimit": 1,
+    "Icon": "UI/Items/baoxiang",
+    "Function": "AddItem"
   },
   "10": {
     "ID": 10,
@@ -126,7 +132,9 @@
     "Category": "技能书",
     "CanUse": true,
     "UseCD": 0.0,
-    "SellPrice": 1,
+    "SellPrice": 5,
+    "StackLimit": 1,
+    "Icon": "UI/Items/jinengshu",
     "Function": "AddSkillPoint",
     "Param": 1
   }

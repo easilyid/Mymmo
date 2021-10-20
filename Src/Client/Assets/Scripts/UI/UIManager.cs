@@ -17,7 +17,9 @@ public class UIManager : Singleton<UIManager>
 
     public UIManager()
     {
-        this.UIResources.Add(typeof(UITest),new UIElement(){Resources = "UI/UITest",Cache = true});
+        this.UIResources.Add(typeof(UITest), new UIElement() { Resources = "UI/UITest", Cache = true });
+        this.UIResources.Add(typeof(UIBag), new UIElement() { Resources = "UI/UIBag", Cache = true });
+
     }
 
     ~UIManager()
@@ -32,14 +34,14 @@ public class UIManager : Singleton<UIManager>
         if (this.UIResources.ContainsKey(type))
         {
             UIElement info = this.UIResources[type];
-            if (info.Instance!=null)
+            if (info.Instance != null)
             {
                 info.Instance.SetActive(true);
             }
             else
             {
                 UnityEngine.Object prefab = Resources.Load(info.Resources);
-                if (prefab ==null)
+                if (prefab == null)
                 {
                     return default(T);
                 }

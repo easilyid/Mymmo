@@ -1,0 +1,16 @@
+2021-04-22 15:54:50,416 [ 1] INFO  Unity: LoadingManager start
+2021-04-22 15:54:54,337 [ 1] INFO  Unity: DataManager > DataManager()
+2021-04-22 15:57:04,443 [ 1] FATAL Unity: <log4net.Error>Exception during StringFormat: Input string was not in a correct format. <format>{0
+{1}</format><args>{ArgumentOutOfRangeException: Argument is out of range.
+Parameter name: index, System.Collections.Generic.List`1[UnityEngine.UICharInfo].get_Item (Int32 index) (at /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Collections.Generic/List.cs:633)
+UnityEngine.UI.InputField.SetDrawRangeToContainCaretPosition (Int32 caretPos) (at D:/unity/Extensions/guisystem/UnityEngine.UI/UI/Core/InputField.cs:1834)
+UnityEngine.UI.InputField.UpdateLabel () (at D:/unity/Extensions/guisystem/UnityEngine.UI/UI/Core/InputField.cs:1702)
+UnityEngine.UI.InputField.OnValidate () (at D:/unity/Extensions/guisystem/UnityEngine.UI/UI/Core/InputField.cs:550)
+UnityEngine.GUIUtility:ProcessEvent(Int32, IntPtr)
+}</args></log4net.Error>
+2021-04-22 15:57:16,204 [ 1] INFO  Unity: OnDestroy NetworkManager.
+2021-04-22 15:57:16,206 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
+UnityEngine.Debug:LogWarning(Object)
+Network.NetClient:CloseConnection(Int32) (at Assets/Scripts/Network/NetClient.cs:180)
+Network.NetClient:OnDestroy() (at Assets/Scripts/Network/NetClient.cs:175)
+

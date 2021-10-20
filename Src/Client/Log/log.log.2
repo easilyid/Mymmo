@@ -1,0 +1,16 @@
+2021-04-22 16:35:02,809 [ 1] INFO  Unity: LoadingManager start
+2021-04-22 16:35:06,505 [ 1] INFO  Unity: DataManager > DataManager()
+2021-04-22 16:44:30,491 [ 1] FATAL Unity: <log4net.Error>Exception during StringFormat: Input string was not in a correct format. <format>{0
+{1}</format><args>{InvalidOperationException: HashSet have been modified while it was iterated over, System.Collections.Generic.HashSet`1+Enumerator[UnityEngine.UI.Text].CheckState ()
+System.Collections.Generic.HashSet`1+Enumerator[UnityEngine.UI.Text].MoveNext ()
+UnityEngine.UI.FontUpdateTracker.RebuildForFont (UnityEngine.Font f) (at D:/unity/Extensions/guisystem/UnityEngine.UI/UI/Core/FontUpdateTracker.cs:40)
+UnityEngine.Font.InvokeTextureRebuilt_Internal (UnityEngine.Font font) (at D:/unity/Modules/TextRendering/TextRendering.bindings.cs:354)
+UnityEditorInternal.InternalEditorUtility:ProjectWindowDrag(HierarchyProperty, Boolean)
+UnityEngine.GUIUtility:ProcessEvent(Int32, IntPtr)
+}</args></log4net.Error>
+2021-04-22 16:48:10,129 [ 1] INFO  Unity: OnDestroy NetworkManager.
+2021-04-22 16:48:10,132 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
+UnityEngine.Debug:LogWarning(Object)
+Network.NetClient:CloseConnection(Int32) (at Assets/Scripts/Network/NetClient.cs:180)
+Network.NetClient:OnDestroy() (at Assets/Scripts/Network/NetClient.cs:175)
+

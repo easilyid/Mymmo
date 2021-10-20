@@ -28,6 +28,8 @@ namespace Common.Data
         public float UserCD { get; set; }
         public int Price { get; set; }
         public int SellPrice { get; set; }
+        public int StackLimit { get; set; }//堆叠限制
+        public string Icon { get; set; }
         public ItemFunction Function { get; set; }//道具功能
         public int Param { get; set; }
         public List<int> Params { get; set; }

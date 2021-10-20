@@ -1,0 +1,8 @@
+2021-07-01 21:36:39,582 [ 1] INFO  Unity: LoadingManager start
+2021-07-01 21:36:42,864 [ 1] INFO  Unity: DataManager > DataManager()
+2021-07-01 21:36:47,094 [ 1] INFO  Unity: OnDestroy NetworkManager.
+2021-07-01 21:36:47,096 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
+UnityEngine.Debug:LogWarning(Object)
+Network.NetClient:CloseConnection(Int32) (at Assets/Scripts/Network/NetClient.cs:180)
+Network.NetClient:OnDestroy() (at Assets/Scripts/Network/NetClient.cs:175)
+
