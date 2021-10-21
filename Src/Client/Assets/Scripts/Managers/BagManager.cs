@@ -86,5 +86,44 @@ namespace Managers
             return Info;
         }
 
+        public void RemoveItem(int itemId, int count)
+        {
+            
+        }
+
+        public void AddItem(int itemId, int count)
+        {
+            var addCount = (ushort)count;
+            for (var i = 0; i < Items.Length; i++)
+            {
+                if (Items[i].ItemId == itemId)
+                {
+                    var canAdd = (ushort)(DataManager.Instance.Items[itemId].StackLimit-this.Items[i].Count);
+                    if (canAdd>=addCount)
+                    {
+                        Items[i].Count += addCount;
+                        addCount = 0;
+                        break;
+                    }
+                    else
+                    {
+                        Items[i].Count += canAdd;
+                        addCount -= canAdd;
+                    }
+                }
+            }
+            if (addCount>0)
+            {
+                for (var i = 0; i < Items.Length; i++)
+                {
+                    if (Items[i].ItemId==0)
+                    {
+                        Items[i].ItemId = (ushort) itemId;
+                        this.Items[i].Count = addCount;
+                    }
+                }
+            }
+        }
+
     }
 }

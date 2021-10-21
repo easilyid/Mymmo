@@ -1222,7 +1222,7 @@ MonoBehaviour:
   - {fileID: 1925502763569122312}
   - {fileID: 1925502763268434921}
   BagItem: {fileID: 1998580892786704, guid: 727339bfd1dde3940a1b4e8cbc739f01, type: 3}
-  Money: {fileID: 0}
+  Money: {fileID: 1925502762759717654}
 --- !u!1 &1925502762487074006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,8 +1910,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1925502763144082970}
   m_HandleRect: {fileID: 1925502763144082971}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.71487945
+  m_Value: 1.0000006
+  m_Size: 0.7148794
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
