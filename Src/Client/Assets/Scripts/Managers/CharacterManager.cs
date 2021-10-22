@@ -25,7 +25,6 @@ namespace Managers
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public void Init()
@@ -35,6 +34,11 @@ namespace Managers
 
         public void Clear()
         {
+            var keys = Characters.Keys.ToArray();
+            foreach (var key in keys)
+            {
+                RemoveCharacter(key);
+            }
             this.Characters.Clear();
         }
 
@@ -50,19 +54,26 @@ namespace Managers
             }
         }
 
-        public void RemoveCharacter(int characrerId)
+        public void RemoveCharacter(int entityId)
         {
-            Debug.LogFormat("RemoveCharacter:{0}", characrerId);
-            if (this.Characters.ContainsKey(characrerId))
+            Debug.LogFormat("RemoveCharacter:{0}", entityId);
+            if (this.Characters.ContainsKey(entityId))
             {
-                EntityManager.Instance.RemoveEntity(this.Characters[characrerId].Info.Entity);
-                if (OnCharacterLeave!=null)
+                EntityManager.Instance.RemoveEntity(this.Characters[entityId].Info.Entity);
+                if (OnCharacterLeave != null)
                 {
-                    OnCharacterLeave(this.Characters[characrerId]);
+                    OnCharacterLeave(this.Characters[entityId]);
                 }
 
-                this.Characters.Remove(characrerId);
+                this.Characters.Remove(entityId);
             }
+        }
+
+        public Character GetCharacter(int id)
+        {
+            Character character;
+            this.Characters.TryGetValue(id, out character);
+            return character;
         }
     }
 }

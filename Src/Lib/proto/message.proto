@@ -47,9 +47,22 @@ enum ENTITY_EVENT
 }
 
 enum ITEM_TYPE{
-    NORMAL = 0;
-    MATERIAL = 1;
-    TASK = 2;
+	NORMAL = 0;
+	MATERIAL = 1;
+	TASK = 2;  //�������
+	EQUIP = 3;
+}
+
+enum EQUIP_SLOT
+{
+	WEAPON = 0;
+	ACCESSORY = 1;
+	HELMET = 2; //ͷ��
+	CHEST = 3; //�ؼ�
+	SHOULDER = 4; //����
+	PANTS = 5; //����
+	BOOTS = 6; //ѥ��
+	SLOT_MAX = 7;
 }
 
 message NUserInfo {
@@ -74,6 +87,7 @@ message NCharacterInfo {
 	int64 gold = 9;
 	repeated NItemInfo Items = 10;
 	NBagInfo Bag = 11;
+	bytes Equips = 12;
 }
 
 message NItemInfo
@@ -146,7 +160,7 @@ message NEntitySync {
 	int32 id = 1;
 	ENTITY_EVENT event = 2;
 	NEntity entity = 3;
-	
+	int32 param = 4;
 }
 
 
@@ -175,6 +189,7 @@ message NetMessageRequest{
 	MapTeleportRequest mapTeleport = 9;
 
 	ItemBuyRequest itemBuy = 10;
+	ItemEquipRequest itemEquip = 11;
 }
 
 message NetMessageResponse{
@@ -190,6 +205,7 @@ message NetMessageResponse{
 	MapEntitySyncResponse mapEntitySync = 8;
 	
 	ItemBuyResponse itemBuy = 10;
+	ItemEquipResponse itemEquip = 11;
 
 	StatusNotify statusNotify = 100;
 }
@@ -302,6 +318,18 @@ message BagSaveRequest
   NBagInfo BagInfo = 1;
 }
 message BagSaveResponse
+{
+	RESULT result = 1;
+	string errormsg = 2;
+}
+message ItemEquipRequest
+{
+	int32 slot = 1;
+	int32 itemId = 2;
+	bool isEquip = 3;
+}
+
+message ItemEquipResponse
 {
 	RESULT result = 1;
 	string errormsg = 2;

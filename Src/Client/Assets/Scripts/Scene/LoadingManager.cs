@@ -39,7 +39,7 @@ public class LoadingManager : MonoBehaviour
         MapService.Instance.Init();
         UserService.Instance.Init();
         ShopManager.Instance.Init();
-        TestManager.Instance.Init();
+        //TestManager.Instance.Init();
         
        for (float i = 0; i < 100;)
        {

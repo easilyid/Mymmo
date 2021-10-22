@@ -116,6 +116,7 @@ namespace GameServer.Services
                 MapPosY = 4000,
                 MapPosZ = 820,
                 Gold = 100000,
+                Equips = new byte[28],
             };
             //背包初始化
             var bag = new TCharacterBag();
@@ -124,8 +125,19 @@ namespace GameServer.Services
             bag.Unlocked = 20;
             character.Bag = DBService.Instance.Entities.CharacterBags.Add(bag);
             character = DBService.Instance.Entities.Characters.Add(character);
+            character.Items.Add(new TCharacterItem()
+            {
+                Owner = character,
+                ItemID = 1,
+                ItemCount = 20,
+            });
+            character.Items.Add(new TCharacterItem()
+            {
+                Owner = character,
+                ItemID = 2,
+                ItemCount = 20,
+            });
             sender.Session.User.Player.Characters.Add(character);
-
             DBService.Instance.Entities.SaveChanges();
 
             NetMessage message = new NetMessage();
@@ -165,7 +177,7 @@ namespace GameServer.Services
             message.Response.gameEnter.Character = character.Info;
 
             //道具系统测试
-            int itemId = 2;
+            /**int itemId = 2;
             bool hasItem = character.ItemManager.HasItem(itemId);
             Log.InfoFormat("HasItem:[{0}] {1}",itemId,hasItem);
             if (hasItem)
@@ -182,7 +194,8 @@ namespace GameServer.Services
             }
             Models.Item item = character.ItemManager.GetItem(itemId);
             Log.InfoFormat("Item:[{0}] {1}", itemId, hasItem);
-            DBService.Instance.Save();
+            DBService.Instance.Save();**/
+
 
             byte[] data = PackageHandler.PackMessage(message);
             sender.SendData(data, 0, data.Length);

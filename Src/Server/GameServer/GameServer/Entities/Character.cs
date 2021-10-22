@@ -41,6 +41,8 @@ namespace GameServer.Entities
             this.Info.Bag.Items = this.Data.Bag.Items;
 
             this.StatusManager = new StatusManager(this);
+
+            this.Info.Equips = this.Data.Equips;
         }
 
         public long Gold
