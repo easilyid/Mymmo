@@ -21,7 +21,7 @@ public class TabButton : MonoBehaviour
     {
         tabImage.overrideSprite = select ? activeImage : normalImage;
     }
-    private void OnClick()
+    public void OnClick()
     {
         TabView.SelectTab(TabIndex);
     }

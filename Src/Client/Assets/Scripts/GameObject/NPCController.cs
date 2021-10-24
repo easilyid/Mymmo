@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour{
+public class NPCController : MonoBehaviour
+{
     public int npcId;
 
     new SkinnedMeshRenderer renderer;
@@ -13,6 +14,8 @@ public class NPCController : MonoBehaviour{
     Color orignColor;
     private bool inInteractive = false;
     NpcDefine npc;
+
+    NpcQuestStatus questStatus;
     void Start()
     {
         renderer = this.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -20,8 +23,32 @@ public class NPCController : MonoBehaviour{
         orignColor = renderer.sharedMaterial.color;
         npc = NPCManager.Instance.GetNpcDefine(npcId);
         this.StartCoroutine(Actions());
-        
+        RefreshNpcStatus();
+        QuestManager.Instance.OnQuestStatusChanged += OnQuestStatusChanged;
+
     }
+
+    private void RefreshNpcStatus()
+    {
+        questStatus = QuestManager.Instance.GetQuestStatusByNpc(this.npcId);
+        UIWorldElementManager.Instance.AddNpcQuestStatus(this.transform, questStatus);
+    }
+
+    private void OnQuestStatusChanged(Quest quest)
+    {
+        this.RefreshNpcStatus();
+    }
+
+    private void OnDestroy()
+    {
+        QuestManager.Instance.OnQuestStatusChanged -= OnQuestStatusChanged;
+        if (UIWorldElementManager.Instance != null)
+        {
+            UIWorldElementManager.Instance.RemoveNpcQuestStatus(this.transform);
+        }
+    }
+
+
 
     IEnumerator Actions()
     {
@@ -30,16 +57,16 @@ public class NPCController : MonoBehaviour{
             if (inInteractive)
                 yield return new WaitForSeconds(2f);
             else
-                yield return new WaitForSeconds(Random.Range(5f,10f));
+                yield return new WaitForSeconds(Random.Range(5f, 10f));
             this.Relax();
         }
     }
 
-     void Relax()
+    void Relax()
     {
         anim.SetTrigger("Relax");
     }
-     void Interactive()
+    void Interactive()
     {
         if (!inInteractive)
         {
@@ -48,22 +75,22 @@ public class NPCController : MonoBehaviour{
         }
     }
 
-     IEnumerator DoInteractive()
-     {
-         yield return FaceToPlayer();
-         if (NPCManager.Instance.Interactive(npc))
-         {
-             anim.SetTrigger("Talk");
-         }
+    IEnumerator DoInteractive()
+    {
+        yield return FaceToPlayer();
+        if (NPCManager.Instance.Interactive(npc))
+        {
+            anim.SetTrigger("Talk");
+        }
 
-         yield return new WaitForSeconds(3f);
-         inInteractive = false;
-     }
+        yield return new WaitForSeconds(3f);
+        inInteractive = false;
+    }
 
     IEnumerator FaceToPlayer()
     {
         Vector3 faceTo = (User.Instance.CurrentCharacterObject.transform.position - this.transform.position).normalized;
-        while (Mathf.Abs(Vector3.Angle(this.gameObject.transform.forward,faceTo))>5)
+        while (Mathf.Abs(Vector3.Angle(this.gameObject.transform.forward, faceTo)) > 5)
         {
             this.gameObject.transform.forward =
                 Vector3.Lerp(this.gameObject.transform.forward, faceTo, Time.deltaTime * 5f);
@@ -88,20 +115,20 @@ public class NPCController : MonoBehaviour{
     }
     private void OnMouseExit()
     {
-        Highlight(false);    
+        Highlight(false);
     }
     void Highlight(bool highlight)
     {
         if (highlight)
         {
-            if (renderer.sharedMaterial.color!=Color.white)
+            if (renderer.sharedMaterial.color != Color.white)
             {
                 renderer.sharedMaterial.color = Color.white;
             }
         }
         else
         {
-            if (renderer.sharedMaterial.color!=orignColor)
+            if (renderer.sharedMaterial.color != orignColor)
             {
                 renderer.sharedMaterial.color = orignColor;
             }
