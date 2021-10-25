@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\GameObject\MapController.cs" />
     <Compile Include="Assets\Scripts\GameObject\NPCController.cs" />
     <Compile Include="Assets\Scripts\GameObject\PlayerInputController.cs" />
+    <Compile Include="Assets\Scripts\GameObject\SpawnPoint.cs" />
     <Compile Include="Assets\Scripts\GameObject\TeleporterObject.cs" />
     <Compile Include="Assets\Scripts\Log\UnityLogger.cs" />
     <Compile Include="Assets\Scripts\Managers\BagManager.cs" />

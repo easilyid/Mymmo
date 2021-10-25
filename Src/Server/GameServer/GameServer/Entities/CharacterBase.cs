@@ -1,5 +1,6 @@
 ﻿using Common.Data;
 using GameServer.Core;
+using GameServer.Managers;
 using SkillBridge.Message;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace GameServer.Entities
         }
         public NCharacterInfo Info;
         public CharacterDefine Define;
-
+        public string Name => this.Info.Name;
         public CharacterBase(Vector3Int pos, Vector3Int dir):base(pos,dir)
         {
 
