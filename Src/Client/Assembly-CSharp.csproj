@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Scripts\Managers\EntityManager.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\FriendManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ItemManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MiniMapManager.cs" />
     <Compile Include="Assets\Scripts\Managers\NpcManager.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Scripts\Network\NetClient.cs" />
     <Compile Include="Assets\Scripts\Scene\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\Services\FriendService.cs" />
     <Compile Include="Assets\Scripts\Services\ItemService.cs" />
     <Compile Include="Assets\Scripts\Services\MapService.cs" />
     <Compile Include="Assets\Scripts\Services\QuestService.cs" />
@@ -106,9 +108,11 @@
     <Compile Include="Assets\Scripts\UI\CharEquip\UICharEquip.cs" />
     <Compile Include="Assets\Scripts\UI\CharEquip\UIEquipIcon.cs" />
     <Compile Include="Assets\Scripts\UI\CharEquip\UIEquipItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Friend\UIFriend.cs" />
+    <Compile Include="Assets\Scripts\UI\Friend\UIFriendItem.cs" />
+    <Compile Include="Assets\Scripts\UI\InputBox\InputBox.cs" />
     <Compile Include="Assets\Scripts\UI\ListView\ListView.cs" />
     <Compile Include="Assets\Scripts\UI\MInimap\UIMinimap.cs" />
-    <Compile Include="Assets\Scripts\UI\MessageBox.cs" />
     <Compile Include="Assets\Scripts\UI\QuestSystem\UIQuestDialog.cs" />
     <Compile Include="Assets\Scripts\UI\QuestSystem\UIQuestInfo.cs" />
     <Compile Include="Assets\Scripts\UI\QuestSystem\UIQuestItem.cs" />
@@ -118,13 +122,15 @@
     <Compile Include="Assets\Scripts\UI\Shop\UIShopItem.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabButton.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabView.cs" />
+    <Compile Include="Assets\Scripts\UI\Tips\MessageBox.cs" />
+    <Compile Include="Assets\Scripts\UI\Tips\UIInputBox.cs" />
+    <Compile Include="Assets\Scripts\UI\Tips\UIMessageBox.cs" />
     <Compile Include="Assets\Scripts\UI\UICharInfo.cs" />
     <Compile Include="Assets\Scripts\UI\UICharacterSelect.cs" />
     <Compile Include="Assets\Scripts\UI\UICharacterView.cs" />
     <Compile Include="Assets\Scripts\UI\UILogin.cs" />
     <Compile Include="Assets\Scripts\UI\UIMain.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
-    <Compile Include="Assets\Scripts\UI\UIMessageBox.cs" />
     <Compile Include="Assets\Scripts\UI\UINameBar.cs" />
     <Compile Include="Assets\Scripts\UI\UIRegister.cs" />
     <Compile Include="Assets\Scripts\UI\UITest.cs" />
