@@ -42,6 +42,7 @@ public class LoadingManager : MonoBehaviour
         //TestManager.Instance.Init();
         StatusService.Instance.Init();
         FriendService.Instance.Init();
+        TeamService.Instance.Init();
         
         
        for (float i = 0; i < 100;)

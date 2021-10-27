@@ -27,8 +27,6 @@ public class UIQuestSystem : UIWindow
         this.listBranch.OnItemSelected += this.OnQuestSelected;
         this.Tabs.OnTabSelect += OnSelectTab;
         RefreshUI();
-        //TODO
-        //QuestManager.Instance.OnQuestChanged+=RefreshUI;
 
     }
     void OnSelectTab(int idx)
@@ -37,10 +35,6 @@ public class UIQuestSystem : UIWindow
         RefreshUI();
     }
 
-    private void OnDestroy()
-    {
-       // QueststManager.Instance.OnQuestChnagecd -= RefreshUI;
-    }
 
 
   

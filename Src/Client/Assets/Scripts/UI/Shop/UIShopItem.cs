@@ -42,9 +42,8 @@ public class UIShopItem:MonoBehaviour ,ISelectHandler
         this.Price.text = ShopItem.Price.ToString();
         
         this.Icon.overrideSprite = Resloader.Load<Sprite>(item.Icon);
-        //TODO
-        //if (this.item.Type == ItemType.Equip)
-        //    this.LimitClass.text = this.item.LimitClass.ToString();
+        if (this.item.Type == ItemType.Equip)
+            this.LimitClass.text = this.item.LimitClass.ToString();
     }
 
     public void OnSelect(BaseEventData eventData)

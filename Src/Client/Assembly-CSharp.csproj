@@ -89,6 +89,8 @@
     <Compile Include="Assets\Scripts\Managers\NpcQuestStatus.cs" />
     <Compile Include="Assets\Scripts\Managers\QuestManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ShopManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\SpriteManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\TeamManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TestManager.cs" />
     <Compile Include="Assets\Scripts\Models\BagItem.cs" />
     <Compile Include="Assets\Scripts\Models\Item.cs" />
@@ -102,14 +104,15 @@
     <Compile Include="Assets\Scripts\Services\MapService.cs" />
     <Compile Include="Assets\Scripts\Services\QuestService.cs" />
     <Compile Include="Assets\Scripts\Services\StatusService.cs" />
+    <Compile Include="Assets\Scripts\Services\TeamService.cs" />
     <Compile Include="Assets\Scripts\Services\UserService.cs" />
     <Compile Include="Assets\Scripts\UI\Bag\UIBag.cs" />
     <Compile Include="Assets\Scripts\UI\Bag\UIIconItem.cs" />
     <Compile Include="Assets\Scripts\UI\CharEquip\UICharEquip.cs" />
     <Compile Include="Assets\Scripts\UI\CharEquip\UIEquipIcon.cs" />
     <Compile Include="Assets\Scripts\UI\CharEquip\UIEquipItem.cs" />
-    <Compile Include="Assets\Scripts\UI\Friend\UIFriend.cs" />
     <Compile Include="Assets\Scripts\UI\Friend\UIFriendItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Friend\UIFriends.cs" />
     <Compile Include="Assets\Scripts\UI\InputBox\InputBox.cs" />
     <Compile Include="Assets\Scripts\UI\ListView\ListView.cs" />
     <Compile Include="Assets\Scripts\UI\MInimap\UIMinimap.cs" />
@@ -122,6 +125,8 @@
     <Compile Include="Assets\Scripts\UI\Shop\UIShopItem.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabButton.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabView.cs" />
+    <Compile Include="Assets\Scripts\UI\Team\UITeam.cs" />
+    <Compile Include="Assets\Scripts\UI\Team\UITeamItem.cs" />
     <Compile Include="Assets\Scripts\UI\Tips\MessageBox.cs" />
     <Compile Include="Assets\Scripts\UI\Tips\UIInputBox.cs" />
     <Compile Include="Assets\Scripts\UI\Tips\UIMessageBox.cs" />

@@ -75,7 +75,6 @@ public class UIShop : UIWindow
             return;
         }
         //发送商店ID及选中的道具ID
-        //TODO
         if (!ShopManager.Instance.BuyItem(this.shop.ID, this.selectedItem.ShopItemID))
         {
 

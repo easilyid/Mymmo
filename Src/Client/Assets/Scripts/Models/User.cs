@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Common.Data;
+using SkillBridge.Message;
 using UnityEngine;
 
 namespace Models
@@ -31,6 +32,8 @@ namespace Models
         ///当前游戏对象
         /// </summary>
         public GameObject CurrentCharacterObject { get; set; }
+
+        public NTeamInfo TeamInfo { get; set; }
 
         public void AddGold(int gold)
         {

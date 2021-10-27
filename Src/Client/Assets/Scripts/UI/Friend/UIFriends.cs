@@ -4,7 +4,7 @@ using Models;
 using Services;
 using UnityEngine;
 
-public class UIFriend : UIWindow
+public class UIFriends : UIWindow
 {
     private UIFriendItem selectedItem;
     public ListView ListMain;
@@ -42,7 +42,7 @@ public class UIFriend : UIWindow
     {
         foreach (var item in FriendManager.Instance.allFriends)
         {
-            var go = Instantiate(ItemPrefab,ListMain.transform);
+            var go = Instantiate(ItemPrefab, ListMain.transform);
             var ui = go.GetComponent<UIFriendItem>();
             ui.SetFriendInfo(item);
             ListMain.AddItem(ui);
@@ -95,9 +95,8 @@ public class UIFriend : UIWindow
             return;
         }
 
-        MessageBox.Show(String.Format("确定删除好友[{0}]吗？", selectedItem.Info.friendInfo.Name), "删除好友",
-            MessageBoxType.Confirm, "删除", "取消").OnYes = (
-            () =>
+        MessageBox.Show(String.Format("确定删除好友[{0}]吗？",
+                selectedItem.Info.friendInfo.Name), "删除好友", MessageBoxType.Confirm, "删除", "取消").OnYes = (() =>
             {
                 FriendService.Instance.SendFriendRemoveRequest(selectedItem.Info.Id, selectedItem.Info.friendInfo.Id);
             });
@@ -118,11 +117,14 @@ public class UIFriend : UIWindow
             return;
         }
 
-        MessageBox.Show($"确定要邀请好友【{selectedItem.Info.friendInfo.Name}】加入队伍吗?", "邀请好友组队", MessageBoxType.Confirm
-            , "邀请", "取消").OnYes = () =>
+        MessageBox.Show(string.Format("确定要邀请好友【{0}】加入队伍吗?", 
+            selectedItem.Info.friendInfo.Name), "邀请好友组队", MessageBoxType.Confirm, "邀请", "取消").OnYes = () =>
         {
-            //TODO
+            TeamService.Instance.SendTeamInviteRequest(this.selectedItem.Info.friendInfo.Id, this.selectedItem.Info.friendInfo.Name);
         };
+
     }
+
 }
+
 

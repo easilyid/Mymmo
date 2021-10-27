@@ -94,10 +94,15 @@ namespace GameServer.Managers
                 friendInfo.friendInfo.Name = character.Info.Name;
                 friendInfo.friendInfo.Class = character.Info.Class;
                 friendInfo.friendInfo.Level = character.Info.Level;
+                if (friend.Level!=character.Info.Level)
+                {
+                    friend.Level = character.Info.Level;
+                }
                 character.FriendManager.UpdateFriendInfo(this.Owner.Info, 1);
                 friendInfo.Status = 1;
             }
 
+            Log.InfoFormat("{0}:{1} GetFriendInfo: {2}:{3} Status: {4}",this.Owner.Id,this.Owner.Info.Name,friendInfo.friendInfo.Id,friendInfo.friendInfo.Name,friendInfo.Status);
             return friendInfo;
         }
 
@@ -139,10 +144,24 @@ namespace GameServer.Managers
             this.friendChanged = true;
         }
 
+        //避免反复在线下线导致好友列表不对
+        public void offlineNotify()
+        {
+            foreach (var friendInfo in this.friends)
+            {
+                var friend = CharacterManager.Instance.GetCharacter(friendInfo.friendInfo.Id);
+                if (friend!=null)
+                {
+                    friend.FriendManager.UpdateFriendInfo(this.Owner.Info,0);
+                }
+            }
+        }
+
         public void PostProcess(NetMessageResponse message)
         {
             if (friendChanged)
             {
+                Log.InfoFormat("PostProcess > FriendManager : characterID:{0}:{1}",this.Owner.Id,this.Owner.Info.Name);
                 this.InitFriends();
                 if (message.friendList==null)
                 {
