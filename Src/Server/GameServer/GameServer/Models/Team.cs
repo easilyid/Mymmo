@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Utils;
 
 namespace GameServer.Models
 {
     class Team
     {
         public int Id;
-        public int TimeStamp;
+        public double TimeStamp;
         public Character Leader;
         public  List<Character> Members = new List<Character>();
 
@@ -29,7 +30,7 @@ namespace GameServer.Models
             }
             Members.Add(member);
             member.Team = this;
-            TimeStamp = Time.timestamp;
+            TimeStamp = TimeUtil.timestamp;
         }
 
         public void Leave(Character member)
@@ -42,7 +43,7 @@ namespace GameServer.Models
             }
 
             member.Team = null;
-            TimeStamp = Time.timestamp;
+            TimeStamp = TimeUtil.timestamp;
         }
 
         public void PostProcess(NetMessageResponse message)

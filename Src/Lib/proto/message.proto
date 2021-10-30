@@ -49,7 +49,7 @@ enum ENTITY_EVENT
 enum ITEM_TYPE{
 	NORMAL = 0;
 	MATERIAL = 1;
-	TASK = 2;  //�������
+	TASK = 2;  //任务道具
 	EQUIP = 3;
 }
 
@@ -57,11 +57,11 @@ enum EQUIP_SLOT
 {
 	WEAPON = 0;
 	ACCESSORY = 1;
-	HELMET = 2; //ͷ��
-	CHEST = 3; //�ؼ�
-	SHOULDER = 4; //����
-	PANTS = 5; //����
-	BOOTS = 6; //ѥ��
+	HELMET = 2; //头盔
+	CHEST = 3; //胸甲
+	SHOULDER = 4; //护肩
+	PANTS = 5; //裤子
+	BOOTS = 6; //靴子
 	SLOT_MAX = 7;
 }
 
@@ -92,6 +92,7 @@ message NCharacterInfo {
 
 	repeated NQuestInfo quests = 14;
 	repeated NFriendInfo friends = 15;
+	NGuildInfo guild = 16;
 }
 
 message NItemInfo
@@ -206,6 +207,16 @@ message NetMessageRequest{
 	TeamInviteResponse teamInviteRes = 20;
 	TeamInfoRequest teamInfo = 21;
 	TeamLeaveRequest teamLeave = 22;
+	//(公会系统)
+	GuildCreateRequest guildCreate = 23;
+	GuildJoinRequest guildJoinReq = 24;
+	GuildJoinResponse guildJoinRes = 25;
+	GuildRequest guild = 26;
+	GuildLeaveRequest guildLeave = 27;
+	GuildListRequest guildList = 28;
+	//公会管理权限
+	GuildAdminRequest guildAdmin = 29;
+	GuildNoticeChangeRequest guildNoticeChange = 30;
 }
 
 message NetMessageResponse{
@@ -222,9 +233,9 @@ message NetMessageResponse{
 	
 	ItemBuyResponse itemBuy = 10;
 	ItemEquipResponse itemEquip = 11;
-    	QuestListResponse questList = 12;
+    QuestListResponse questList = 12;
 	QuestAcceptResponse questAccept = 13;
-    	QuestSubmitResponse questSubmit = 14;
+    QuestSubmitResponse questSubmit = 14;
 
 	FriendAddRequest friendAddReq = 15;
 	FriendAddResponse friendAddRes = 16;
@@ -234,6 +245,15 @@ message NetMessageResponse{
 	TeamInviteResponse teamInviteRes = 20;
 	TeamInfoResponse teamInfo = 21;
 	TeamLeaveResponse teamLeave = 22;
+	//(公会系统)
+	GuildCreateResponse guildCreate = 23;
+	GuildJoinRequest guildJoinReq = 24;
+	GuildJoinResponse guildJoinRes = 25;
+	GuildResponse guild = 26;
+	GuildLeaveResponse guildLeave = 27;
+	GuildListResponse guildList = 28;
+	GuildAdminResponse guildAdmin = 29;
+	GuildNoticeChangeResponse guildNoticeChange = 30;
 	StatusNotify statusNotify = 100;
 }
 
@@ -512,4 +532,133 @@ message TeamLeaveResponse{
 	RESULT result = 1;
 	string errormsg = 2;
 	int32 characterId = 3;
+}
+//(公会系统)
+//职位
+enum GUILD_TITLE{
+	NONE = 0;//普通成员
+	PRESIDENT = 1;//会长
+	VICE_PRESIDENT = 2;//副会长
+}
+//公会申请结果
+enum APPLY_RESULT{
+	NONE = 0;//没有处理
+	ACCEPT = 1;//通过
+	REJECT = 2;//拒绝
+}
+//公会信息
+message NGuildInfo{
+	int32 id = 1;//公会id
+	string guild_name = 2;//公会名称
+	int32 leaderId = 3;//会长id
+	string leaderName = 4;//会长名称
+	string notice = 5;//公会公告
+	int32 memberCount = 6;//成员数量
+	repeated NGuildMemberInfo members = 7;//成员列表
+	repeated NGuildApplyInfo applies = 8;//申请加入信息
+	int64 createTime = 9;//创建公会时间
+}
+//公会成员信息
+message NGuildMemberInfo{
+	int32 id = 1;//成员ID
+	int32 characterId = 2;//角色ID
+	GUILD_TITLE title = 3;//职位
+	NCharacterInfo info = 4;//角色信息
+	int64 joinTime = 5;//加入时间
+	int64 lastTime = 6;//上次在线时间
+	int32 status = 7;//在线状态
+}
+//公会加入申请信息
+message NGuildApplyInfo{
+	int32 guild_id = 1;
+	int32 characterId = 2;
+	string name = 3;
+	int32 class = 4;
+	int32 level = 5;
+	APPLY_RESULT result = 6;
+}
+
+//创建公会请求
+message GuildCreateRequest{
+	string guild_name = 1;
+	string guild_notice = 2;
+}
+//创建公会响应
+message GuildCreateResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	NGuildInfo guildInfo = 3;//公会信息
+}
+
+message GuildNoticeChangeRequest{
+	string guild_notice = 1;
+}
+
+message GuildNoticeChangeResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	NGuildInfo guildInfo = 3;//公会信息
+}
+
+//加入公会请求[发送者-服务器-会长]
+message GuildJoinRequest{
+	NGuildApplyInfo apply = 1;//存储数据库
+}
+//加入公会响应
+message GuildJoinResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	NGuildApplyInfo apply = 3;//存储数据库
+}
+
+//公会列表请求
+message GuildListRequest{
+
+}
+//公会列表响应
+message GuildListResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	repeated NGuildInfo guilds = 3;
+}
+
+//公会信息请求
+message GuildRequest{
+
+}
+//公会信息响应
+message GuildResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	NGuildInfo guilds = 3;
+}
+
+//退出公会请求
+message GuildLeaveRequest{
+
+}
+//退出公会响应
+message GuildLeaveResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+}
+
+//公会管理权限
+enum GUILD_ADMIN_COMMAND{
+	KICKOUT = 1;//踢人
+	PROMOTE = 2;//晋升
+	DEPOST = 3;//罢免
+	TRANSFER = 4;//转让会长
+}
+
+//公会管理请求
+message GuildAdminRequest{
+	GUILD_ADMIN_COMMAND command = 1;
+	int32 target = 2;
+}
+//公会管理响应
+message GuildAdminResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	GuildAdminRequest command =3;
 }

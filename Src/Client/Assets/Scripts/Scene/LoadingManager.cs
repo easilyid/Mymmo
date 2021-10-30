@@ -43,7 +43,7 @@ public class LoadingManager : MonoBehaviour
         StatusService.Instance.Init();
         FriendService.Instance.Init();
         TeamService.Instance.Init();
-        
+        GuildService.Instance.Init();
         
        for (float i = 0; i < 100;)
        {

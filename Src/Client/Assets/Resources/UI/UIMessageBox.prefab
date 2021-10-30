@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 222007845134913610}
   - component: {fileID: 114221949012556840}
   m_Layer: 5
-  m_Name: Text
+  m_Name: btnok
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
     m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0

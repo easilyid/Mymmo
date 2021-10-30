@@ -90,7 +90,7 @@ namespace GameServer.Managers
             }
             else
             {
-                friendInfo.friendInfo = GetBasicInfo(character.Info);
+                friendInfo.friendInfo = character.GetBasicInfo();
                 friendInfo.friendInfo.Name = character.Info.Name;
                 friendInfo.friendInfo.Class = character.Info.Class;
                 friendInfo.friendInfo.Level = character.Info.Level;

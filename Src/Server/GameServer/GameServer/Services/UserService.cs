@@ -164,6 +164,9 @@ namespace GameServer.Services
             sender.Session.Response.gameEnter.Errormsg = "None";
 
             //进入成功，发送初始角色信息
+            sender.Session.Character = character;
+            sender.Session.PostResponser = character;
+
             sender.Session.Response.gameEnter.Character = character.Info;
             sender.SendResponse();
 
@@ -188,8 +191,6 @@ namespace GameServer.Services
             DBService.Instance.Save();**/
 
 
-            sender.Session.Character = character;
-            sender.Session.PostResponser = character;
             MapManager.Instance[dbchar.MapID].CharacterEnter(sender, character);
         }
         void OnGameLeave(NetConnection<NetSession> sender, UserGameLeaveRequest request)

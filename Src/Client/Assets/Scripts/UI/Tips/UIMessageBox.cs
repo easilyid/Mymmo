@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class UIMessageBox : MonoBehaviour {
 
-    public UnityEngine.UI.Text title;
-    public UnityEngine.UI.Text message;
+    public Text title;
+    public Text message;
     public Image[] icons;
     public Button buttonYes;
     public Button buttonNo;
     public Button buttonClose;
 
-    public UnityEngine.UI.Text buttonYesTitle;
-    public UnityEngine.UI.Text buttonNoTitle;
+    public Text buttonYesTitle;
+    public Text buttonNoTitle;
 
     public UnityAction OnYes;
     public UnityAction OnNo;
@@ -34,8 +34,8 @@ public class UIMessageBox : MonoBehaviour {
         this.icons[1].enabled = type == MessageBoxType.Confirm;
         this.icons[2].enabled = type == MessageBoxType.Error;
 
-        if (!string.IsNullOrEmpty(btnOK)) this.buttonYesTitle.text = title;
-        if (!string.IsNullOrEmpty(btnCancel)) this.buttonNoTitle.text = title;
+        if (!string.IsNullOrEmpty(btnOK)) this.buttonYesTitle.text = btnOK;
+        if (!string.IsNullOrEmpty(btnCancel)) this.buttonNoTitle.text = btnCancel;
 
         this.buttonYes.onClick.AddListener(OnClickYes);
         this.buttonNo.onClick.AddListener(OnClickNo);

@@ -73,7 +73,7 @@ namespace GameServer.Services
                 request.FromName, request.ToId, request.ToName);
             friend.Session.Response.friendAddReq = request;
             friend.SendResponse();
-            return;
+            
         }
         private void OnFriendAddResponse(NetConnection<NetSession> sender, FriendAddResponse response)
         {
@@ -96,6 +96,7 @@ namespace GameServer.Services
                     character.FriendManager.AddFriend(requester.Session.Character);
                     requester.Session.Character.FriendManager.AddFriend(character);
                     DBService.Instance.Save();
+                    requester.Session.Response.friendAddRes = response;
                     sender.Session.Response.friendAddRes.Result = Result.Success;
                     sender.Session.Response.friendAddRes.Errormsg = "添加好友成功";
                     requester.SendResponse();

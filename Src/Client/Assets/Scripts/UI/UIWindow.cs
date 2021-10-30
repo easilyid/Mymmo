@@ -20,7 +20,6 @@ public abstract class UIWindow : MonoBehaviour
 
     public void Close(WindowResult result =WindowResult.None)
     {
-        //TODO
         //SoundManager.Instance.PlaySound(SoundDefine.SFX_UI_Win_Close);
         UIManager.Instance.Close(Type);
         if (OnClose!=null)

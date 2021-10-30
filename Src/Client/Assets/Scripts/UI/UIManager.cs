@@ -24,7 +24,12 @@ public class UIManager : Singleton<UIManager>
         this.UIResources.Add(typeof(UIQuestSystem), new UIElement() { Resources = "UI/UIQuestSystem", Cache = false });
         this.UIResources.Add(typeof(UIQuestDialog), new UIElement() { Resources = "UI/UIQuestDialog", Cache = false });
         this.UIResources.Add(typeof(UIFriends), new UIElement() { Resources = "UI/UIFriends", Cache = false });
-
+        this.UIResources.Add(typeof(UIGuild), new UIElement() { Resources = "UI/Guild/UIGuild", Cache = false });
+        this.UIResources.Add(typeof(UIGuildList), new UIElement() { Resources = "UI/Guild/UIGuildList", Cache = false });
+        this.UIResources.Add(typeof(UIGuildPopNoGuild), new UIElement() { Resources = "UI/Guild/UIGuildPopNoGuild", Cache = false });
+        this.UIResources.Add(typeof(UIGuildPopCreate), new UIElement() { Resources = "UI/Guild/UIGuildPopCreate", Cache = false });
+        this.UIResources.Add(typeof(UIGuildApplyList), new UIElement() { Resources = "UI/Guild/UIGuildApplyList", Cache = false });
+        this.UIResources.Add(typeof(UIChangeNewNotice), new UIElement() { Resources = "UI/Guild/UIChangeNewNotice", Cache = false });
     }
 
     ~UIManager()
@@ -33,7 +38,6 @@ public class UIManager : Singleton<UIManager>
     }
     public T Show<T>()
     {
-        //TODO
         //SoundManager.Instance.PlaySound("ui_open");
         Type type = typeof(T);
         if (this.UIResources.ContainsKey(type))
@@ -58,7 +62,6 @@ public class UIManager : Singleton<UIManager>
     }
     public void Close(Type type)
     {
-        //TODO
         //SoundManager.Instance.PlaySound("ui_close");
         if (UIResources.ContainsKey(type))
         {

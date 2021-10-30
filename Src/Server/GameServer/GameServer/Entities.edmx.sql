@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/26/2021 21:07:34
+-- Date Created: 10/28/2021 12:09:42
 -- Generated from EDMX file: F:\Github Depot\Mymmo\Src\Server\GameServer\GameServer\Entities.edmx
 -- --------------------------------------------------
 
@@ -96,6 +96,7 @@ CREATE TABLE [dbo].[Characters] (
     [Equips] binary(28)  NOT NULL,
     [Level] int  NOT NULL,
     [Exp] bigint  NOT NULL,
+    [GuildId] int  NOT NULL,
     [Player_ID] int  NOT NULL,
     [Bag_Id] int  NOT NULL
 );
@@ -138,6 +139,46 @@ CREATE TABLE [dbo].[CharacterFriends] (
     [FriendName] nvarchar(max)  NOT NULL,
     [Class] int  NOT NULL,
     [Level] int  NOT NULL
+);
+GO
+
+-- Creating table 'Guilds'
+CREATE TABLE [dbo].[Guilds] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [LeaderID] int  NOT NULL,
+    [LeaderName] nvarchar(max)  NOT NULL,
+    [Notice] nvarchar(max)  NOT NULL,
+    [CreateTime] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'GuildMembers'
+CREATE TABLE [dbo].[GuildMembers] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CharacterId] int  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Class] int  NOT NULL,
+    [Level] int  NOT NULL,
+    [Title] int  NOT NULL,
+    [JoinTime] datetime  NOT NULL,
+    [LastTime] datetime  NOT NULL,
+    [GuildId] int  NOT NULL,
+    [TGuildId] int  NOT NULL
+);
+GO
+
+-- Creating table 'GuildApplies'
+CREATE TABLE [dbo].[GuildApplies] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CharacterId] int  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Class] int  NOT NULL,
+    [Level] int  NOT NULL,
+    [ApplyTime] datetime  NOT NULL,
+    [GuildId] int  NOT NULL,
+    [Result] int  NOT NULL,
+    [TGuildId] int  NOT NULL
 );
 GO
 
@@ -184,6 +225,24 @@ GO
 -- Creating primary key on [Id] in table 'CharacterFriends'
 ALTER TABLE [dbo].[CharacterFriends]
 ADD CONSTRAINT [PK_CharacterFriends]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Guilds'
+ALTER TABLE [dbo].[Guilds]
+ADD CONSTRAINT [PK_Guilds]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'GuildMembers'
+ALTER TABLE [dbo].[GuildMembers]
+ADD CONSTRAINT [PK_GuildMembers]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'GuildApplies'
+ALTER TABLE [dbo].[GuildApplies]
+ADD CONSTRAINT [PK_GuildApplies]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -279,6 +338,36 @@ GO
 CREATE INDEX [IX_FK_CharacterFriend]
 ON [dbo].[CharacterFriends]
     ([CharacterID]);
+GO
+
+-- Creating foreign key on [TGuildId] in table 'GuildMembers'
+ALTER TABLE [dbo].[GuildMembers]
+ADD CONSTRAINT [FK_TGuildTGuildMember]
+    FOREIGN KEY ([TGuildId])
+    REFERENCES [dbo].[Guilds]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TGuildTGuildMember'
+CREATE INDEX [IX_FK_TGuildTGuildMember]
+ON [dbo].[GuildMembers]
+    ([TGuildId]);
+GO
+
+-- Creating foreign key on [TGuildId] in table 'GuildApplies'
+ALTER TABLE [dbo].[GuildApplies]
+ADD CONSTRAINT [FK_TGuildTGuildApply]
+    FOREIGN KEY ([TGuildId])
+    REFERENCES [dbo].[Guilds]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TGuildTGuildApply'
+CREATE INDEX [IX_FK_TGuildTGuildApply]
+ON [dbo].[GuildApplies]
+    ([TGuildId]);
 GO
 
 -- --------------------------------------------------
