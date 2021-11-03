@@ -27,11 +27,6 @@ public class UIMain : MonoSingleton<UIMain>
 		
 	}
 
-    public void BackToCharSelect()
-    {
-        SceneManager.Instance.LoadScene("CharSelect");
-        Services.UserService.Instance.SendGameLeave();
-    }
 
     public void OnUITest()
     {
@@ -73,6 +68,7 @@ public class UIMain : MonoSingleton<UIMain>
 
     public void OnclickSetting()
     {
+        UIManager.Instance.Show<UISetting>();
     }
     public void OnClickSkill()
     {

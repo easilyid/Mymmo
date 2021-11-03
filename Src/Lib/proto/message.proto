@@ -44,6 +44,7 @@ enum ENTITY_EVENT
 	MOVE_FWD = 2;
 	MOVE_BACK = 3;
 	JUMP = 4;
+	RIDE = 5;//(坐骑系统)
 }
 
 enum ITEM_TYPE{
@@ -51,6 +52,7 @@ enum ITEM_TYPE{
 	MATERIAL = 1;
 	TASK = 2;  //任务道具
 	EQUIP = 3;
+	RIDE = 4;//(坐骑系统)
 }
 
 enum EQUIP_SLOT
@@ -93,6 +95,7 @@ message NCharacterInfo {
 	repeated NQuestInfo quests = 14;
 	repeated NFriendInfo friends = 15;
 	NGuildInfo guild = 16;
+	int32 ride = 18;//坐骑ID(坐骑系统)
 }
 
 message NItemInfo
@@ -217,6 +220,7 @@ message NetMessageRequest{
 	//公会管理权限
 	GuildAdminRequest guildAdmin = 29;
 	GuildNoticeChangeRequest guildNoticeChange = 30;
+	ChatRequest chat = 31;
 }
 
 message NetMessageResponse{
@@ -254,6 +258,8 @@ message NetMessageResponse{
 	GuildListResponse guildList = 28;
 	GuildAdminResponse guildAdmin = 29;
 	GuildNoticeChangeResponse guildNoticeChange = 30;
+    ChatResponse chat = 31;
+	
 	StatusNotify statusNotify = 100;
 }
 
@@ -661,4 +667,42 @@ message GuildAdminResponse{
 	RESULT result = 1;
 	string errormsg = 2;
 	GuildAdminRequest command =3;
+}
+//（聊天系统）
+//聊天频道
+enum CHAT_CHANNEL{
+	ALL = -1; //所有
+	LOCAL = 1; //本地
+	WORLD = 2;//世界
+	SYSTEM = 4;//系统
+	PRIVATE = 8;//私聊
+	TEAM = 16;//队伍
+	GUILD = 32;//公会
+}
+//聊天消息结构
+message ChatMessage{
+	CHAT_CHANNEL channel = 1;//频道
+	int32 id = 2;//聊天记录索引
+	int32 from_id = 3;//来源
+	string from_name = 4;
+	int32 to_id = 5;//接收者
+	string to_name = 6;
+	string message = 7;//消息
+	double time = 8;//时间
+}
+//聊天请求
+message ChatRequest{
+	ChatMessage message = 1;//填充聊天消息结构发送
+}
+//聊天响应
+message ChatResponse{
+	RESULT result = 1;
+	string errormsg = 2;
+	//分频道构建消息
+	repeated ChatMessage localMessages = 3;
+	repeated ChatMessage worldMessages = 4;
+	repeated ChatMessage systemMessages = 5;
+	repeated ChatMessage privateMessages = 6;
+	repeated ChatMessage teamMessages = 7;
+	repeated ChatMessage guildMessages = 8;
 }

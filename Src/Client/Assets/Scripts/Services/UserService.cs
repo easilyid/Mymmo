@@ -25,6 +25,7 @@ namespace Services
 
         bool connected = false;
 
+        bool isQuitGame = false;
         public UserService()
         {
             NetClient.Instance.OnConnect += OnGameServerConnect;
@@ -266,7 +267,7 @@ namespace Services
         {
             Debug.LogFormat("UserGameEnterRequest::characterId :{0}",characterIdx);
             //进游戏前初始化
-            CharacterManager.Instance.Init();
+            ChatManager.Instance.Init();
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.gameEnter = new UserGameEnterRequest();
@@ -294,8 +295,9 @@ namespace Services
             }
         }
 
-        public void SendGameLeave()
+        public void SendGameLeave(bool isQuitGame = false)
         {
+            this.isQuitGame = isQuitGame;
             Debug.Log("UserGameLeaveRequest");
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
@@ -308,14 +310,16 @@ namespace Services
             MapService.Instance.CurrentMapId = 0;
             User.Instance.CurrentCharacter = null;
             Debug.LogFormat("OnGameLeave:{0} [{1}]",response.Result,response.Errormsg);
+
+            if (this.isQuitGame)
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+            }
         }
 
-        /*void OnCharacterEnter(object sender, MapCharacterEnterResponse message)
-        {
-            Debug.LogFormat("OnCharacterEnter:{0}", message.mapId);
-            NCharacterInfo info = message.Characters[0];
-            User.Instance.CurrentCharacter = info;
-            SceneManager.Instance.LoadScene(DataManager.Instance.Maps[message.mapId].Resource);
-        }*/
     }
 }
