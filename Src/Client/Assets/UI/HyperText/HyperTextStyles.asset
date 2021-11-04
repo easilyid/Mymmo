@@ -45,7 +45,7 @@ MonoBehaviour:
       m_FadeDuration: 0.1
     m_ColorTintMode: 1
     m_ColorTweenMode: 0
-  m_DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+  m_DefaultTextColor: {r: 0.9142666, g: 0.9150943, b: 0.09064613, a: 1}
   m_Font: {fileID: 12800000, guid: 9cdf50e78f84cd44498bdc93925ab83e, type: 3}
   m_FontSize: 20
   m_InheritedStyles: []

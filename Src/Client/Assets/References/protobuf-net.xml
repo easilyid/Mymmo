@@ -1424,7 +1424,7 @@
         </member>
         <member name="E:ProtoBuf.Meta.RuntimeTypeModel.LockContended">
             <summary>
-            If a lock-contention is detected, this event signals the *owner* of the lock responsible for the blockage, indicating
+            If a lock-contention is detected, this entityEvent signals the *owner* of the lock responsible for the blockage, indicating
             what caused the problem; this is only raised if the lock-owning code successfully completes.
             </summary>
         </member>

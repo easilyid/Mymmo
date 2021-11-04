@@ -63,7 +63,7 @@ namespace GameServer.Models
         /// <param name="character"></param>
         internal void CharacterEnter(NetConnection<NetSession> conn, Character character)
         {
-            Log.InfoFormat("CharacterEnter:Map:{0} characterId:{1}",this.Define.ID,character.Id);
+            Log.InfoFormat("CharacterEnter:Map:{0} characterId:{1}", this.Define.ID, character.Id);
 
             character.Info.mapId = this.ID;
 
@@ -74,7 +74,7 @@ namespace GameServer.Models
             foreach (var kv in this.MapCharacters)
             {
                 conn.Session.Response.mapCharacterEnter.Characters.Add(kv.Value.character.Info);
-                if (kv.Value.character!=character)
+                if (kv.Value.character != character)
                 {
                     this.AddCharacterEnterMap(kv.Value.Connection, character.Info);
                 }
@@ -88,7 +88,7 @@ namespace GameServer.Models
         }
         internal void CharacterLeave(Character cha)
         {
-            Log.InfoFormat("CharacterLeave:Map:{0} characterId:{1}",this.Define.ID,cha.Id);
+            Log.InfoFormat("CharacterLeave:Map:{0} characterId:{1}", this.Define.ID, cha.Id);
             foreach (var kv in this.MapCharacters)
             {
                 this.SendCharacterLeaveMap(kv.Value.Connection, cha);
@@ -97,7 +97,7 @@ namespace GameServer.Models
         }
         void AddCharacterEnterMap(NetConnection<NetSession> conn, NCharacterInfo character)
         {
-            if (conn.Session.Response.mapCharacterEnter==null)
+            if (conn.Session.Response.mapCharacterEnter == null)
             {
                 conn.Session.Response.mapCharacterEnter = new MapCharacterEnterResponse();
                 conn.Session.Response.mapCharacterEnter.mapId = this.Define.ID;
@@ -106,7 +106,7 @@ namespace GameServer.Models
             conn.Session.Response.mapCharacterEnter.Characters.Add(character);
             conn.SendResponse();
         }
-        
+
         void SendCharacterLeaveMap(NetConnection<NetSession> conn, Character character)
         {
             Log.InfoFormat($"SendCharacterLeaveMap to {{0}}:{{1}} : Map:{{2}}Character:{{3}}:{{4}}", conn.Session.Character.Id, conn.Session.Character.Info.Name, this.Define.ID, character.Id, character.Info.Name);
@@ -117,15 +117,23 @@ namespace GameServer.Models
             conn.SendResponse();
         }
 
+
+        /// <summary>
+        /// 同步
+        /// </summary>
         internal void UpdateEntity(NEntitySync entity)
         {
             foreach (var kv in this.MapCharacters)
             {
-                if (kv.Value.character.entityId==entity.Id)
+                if (kv.Value.character.entityId == entity.Id)
                 {
                     kv.Value.character.Position = entity.Entity.Position;
                     kv.Value.character.Direction = entity.Entity.Direction;
                     kv.Value.character.Speed = entity.Entity.Speed;
+                    if (entity.Event == EntityEvent.Ride)
+                    {
+                        kv.Value.character.Ride = entity.Param;
+                    }
                 }
                 else
                 {
@@ -136,7 +144,7 @@ namespace GameServer.Models
         //怪物进入
         internal void MonsterEnter(Monster monster)
         {
-            Log.InfoFormat("MonsterEnter:Map:{0} monsterId:{1}",this.Define.ID,monster.Id);
+            Log.InfoFormat("MonsterEnter:Map:{0} monsterId:{1}", this.Define.ID, monster.Id);
             foreach (var kv in this.MapCharacters)
             {
                 this.AddCharacterEnterMap(kv.Value.Connection, monster.Info);

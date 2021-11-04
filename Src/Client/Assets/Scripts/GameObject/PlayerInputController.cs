@@ -127,10 +127,10 @@ public class PlayerInputController : MonoBehaviour {
         this.transform.position = this.rb.transform.position;
     }
 
-    void SendEntityEvent(EntityEvent entityEvent)
+    public void SendEntityEvent(EntityEvent entityEvent, int param = 0)
     {
         if (entityController != null)
-            entityController.OnEntityEvent(entityEvent);
-        MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData);
+            entityController.OnEntityEvent(entityEvent,param);
+        MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData,param);
     }
 }
