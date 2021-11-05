@@ -32,6 +32,7 @@ public class UIManager : Singleton<UIManager>
         this.UIResources.Add(typeof(UIChangeNewNotice), new UIElement() { Resources = "UI/Guild/UIChangeNewNotice", Cache = false });
         this.UIResources.Add(typeof(UIPopCharMenu), new UIElement() { Resources = "UI/UIPopCharMenu", Cache = false });
         this.UIResources.Add(typeof(UIRide), new UIElement() { Resources = "UI/UIRide", Cache = false });
+        this.UIResources.Add(typeof(UISystemConfig), new UIElement() { Resources = "UI/UISystemConfig", Cache = false });
 
 
     }
@@ -42,7 +43,7 @@ public class UIManager : Singleton<UIManager>
     }
     public T Show<T>()
     {
-        //SoundManager.Instance.PlaySound("ui_open");
+        SoundManager.Instance.PlaySound("ui_open");
         Type type = typeof(T);
         if (this.UIResources.ContainsKey(type))
         {
@@ -66,7 +67,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void Close(Type type)
     {
-        //SoundManager.Instance.PlaySound("ui_close");
+        SoundManager.Instance.PlaySound("ui_close");
         if (UIResources.ContainsKey(type))
         {
             UIElement info = UIResources[type];

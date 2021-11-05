@@ -78,6 +78,7 @@ namespace Services
                 MapDefine map = DataManager.Instance.Maps[mapId];
                 User.Instance.CurrentMapData = map;
                 SceneManager.Instance.LoadScene(map.Resource);
+                SoundManager.Instance.PlayMusic(map.Music);
             }
             else
                 Debug.LogErrorFormat("EnterMap: Map {0} not existed", mapId);
@@ -106,7 +107,7 @@ namespace Services
             sb.AppendLine();
             foreach (var entity in response.entitySyncs)
             {
-                Managers.EntityManager.Instance.OnEntitySync(entity);
+                EntityManager.Instance.OnEntitySync(entity);
                 sb.AppendFormat("   [{0}]evt:{1} entity:{2}", entity.Id, entity.Event, entity.Entity.String());
                 sb.AppendLine();
             }

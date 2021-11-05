@@ -42,11 +42,13 @@ namespace Models
 
         public int CurrentRide = 0;
 
+        public int oldRide;
         internal void Ride(int id)
         {
             if (CurrentRide != id)
             {
                 CurrentRide = id;
+                oldRide = id;
                 CurrentCharacterObject.SendEntityEvent(EntityEvent.Ride, CurrentRide);
             }
             else

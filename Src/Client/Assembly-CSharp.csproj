@@ -118,6 +118,8 @@
     <Compile Include="Assets\Scripts\UI\CharEquip\UIEquipIcon.cs" />
     <Compile Include="Assets\Scripts\UI\CharEquip\UIEquipItem.cs" />
     <Compile Include="Assets\Scripts\UI\Chat\UIChat.cs" />
+    <Compile Include="Assets\Scripts\UI\Config\Config.cs" />
+    <Compile Include="Assets\Scripts\UI\Config\UISystemConfig.cs" />
     <Compile Include="Assets\Scripts\UI\Friend\UIFriendItem.cs" />
     <Compile Include="Assets\Scripts\UI\Friend\UIFriends.cs" />
     <Compile Include="Assets\Scripts\UI\Guild\UIChangeNewNotice.cs" />
@@ -144,6 +146,8 @@
     <Compile Include="Assets\Scripts\UI\Setting\UISetting.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\UIShop.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\UIShopItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Sound\SoundDefine.cs" />
+    <Compile Include="Assets\Scripts\UI\Sound\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabButton.cs" />
     <Compile Include="Assets\Scripts\UI\TabView\TabView.cs" />
     <Compile Include="Assets\Scripts\UI\Team\UITeam.cs" />
