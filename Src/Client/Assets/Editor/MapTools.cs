@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-public class MapTools : MonoBehaviour
+public class MapTools 
 {
 
     [MenuItem("Map Tools/Export Teleporters")]

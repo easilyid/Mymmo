@@ -72,6 +72,12 @@ public class UIQuestInfo : MonoBehaviour
         {
             this.npc = quest.Define.SubmitNPC;
         }
+
+        if (navButton!=null)
+        {
+            this.navButton.gameObject.SetActive(this.npc > 0);
+
+        }
         foreach (var fitter in this.GetComponentsInChildren<ContentSizeFitter>())
         {
             fitter.SetLayoutVertical();
@@ -84,6 +90,8 @@ public class UIQuestInfo : MonoBehaviour
 
     public void OnClickNav()
     {
+        Vector3 pos = NPCManager.Instance.GetNpcPosition(this.npc);
+        User.Instance.CurrentCharacterObject.StartNav(pos);
         UIManager.Instance.Close<UIQuestSystem>();
     }
 }
