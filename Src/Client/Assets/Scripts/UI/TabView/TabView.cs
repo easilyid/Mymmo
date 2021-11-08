@@ -6,7 +6,7 @@ public class TabView : MonoBehaviour
 {
     public TabButton[] TabButtons;
     public GameObject[] TabPages;
-    private int index = -1;
+    public int index = -1;
     public UnityAction<int> OnTabSelect;
     IEnumerator Start()
     {

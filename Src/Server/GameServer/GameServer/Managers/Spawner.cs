@@ -18,7 +18,7 @@ namespace GameServer.Managers
         /// <summary>
         /// 刷新时间
         /// </summary>
-        private float spawnTime = 0;
+        private float spawnTime;
 
         /// <summary>
         /// 消失时间

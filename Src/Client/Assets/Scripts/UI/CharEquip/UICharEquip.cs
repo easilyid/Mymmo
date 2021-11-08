@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Common.Battle;
+using Common.Data;
 using Managers;
 using Models;
 using SkillBridge.Message;
@@ -13,6 +15,13 @@ public class UICharEquip : UIWindow
     public Transform ItemListRoot;
     public List<Transform> Slots;
 
+    public Text hp;
+    public Slider hpBar;
+
+    public Text mp;
+    public Slider mpBar;
+
+    public Text[] attrs;
 
     private void Start()
     {
@@ -32,7 +41,9 @@ public class UICharEquip : UIWindow
         InitAllEquipItems();
         ClearEquippedList();
         InitEquippedItems();
-        Money.text = User.Instance.CurrentCharacter.Gold.ToString();
+        Money.text = User.Instance.CurrentCharacterInfo.Gold.ToString();
+
+        InitAttributes();
     }
 
     private Queue<Item> items = new Queue<Item>();
@@ -44,7 +55,7 @@ public class UICharEquip : UIWindow
     {
         foreach (var kv in ItemManager.Instance.Items)
         {
-            if (kv.Value.Define.Type==ItemType.Equip && kv.Value.Define.LimitClass == User.Instance.CurrentCharacter.Class)
+            if (kv.Value.Define.Type==ItemType.Equip && kv.Value.Define.LimitClass == User.Instance.CurrentCharacterInfo.Class)
             {
                 if (EquipManager.Instance.Contains(kv.Key))
                 {
@@ -115,4 +126,28 @@ public class UICharEquip : UIWindow
     {
         EquipManager.Instance.UnEquipItem(item);
     }
+
+    private void InitAttributes()
+    {
+        var charattr = User.Instance.CurrentCharacter.Attributes;
+        this.hp.text = string.Format("{0}/{1}", charattr.HP, charattr.MaxHP);
+        this.mp.text = string.Format("{0}/{1}", charattr.MP, charattr.MaxMP);
+        this.hpBar.maxValue = charattr.MaxHP;
+        this.hpBar.value = charattr.HP;
+        this.mpBar.maxValue = charattr.MaxMP;
+        this.mpBar.value = charattr.MP;
+
+        for (int i = (int)AttributeType.STR; i < (int)AttributeType.MAX; i++)
+        {
+            if (i == (int)AttributeType.CRI)
+            {
+                this.attrs[i - 2].text = string.Format("{0:f2}%", charattr.Final.Data[i] * 100);
+            }
+            else
+            {
+                this.attrs[i - 2].text = ((int)charattr.Final.Data[i]).ToString();
+            }
+        }
+    }
+
 }

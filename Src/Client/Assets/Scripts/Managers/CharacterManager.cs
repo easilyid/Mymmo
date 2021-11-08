@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Models;
 using SkillBridge.Message;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,8 @@ namespace Managers
             {
                 OnCharacterEnter(character);
             }
+            if (cha.EntityId == User.Instance.CurrentCharacterInfo.EntityId)
+                User.Instance.CurrentCharacter = character;
         }
 
         public void RemoveCharacter(int entityId)

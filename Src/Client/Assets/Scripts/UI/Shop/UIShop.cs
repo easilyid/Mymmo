@@ -21,7 +21,7 @@ public class UIShop : UIWindow
 
     private void Update()
     {
-        this.Money.text = User.Instance.CurrentCharacter.Gold.ToString();
+        this.Money.text = User.Instance.CurrentCharacterInfo.Gold.ToString();
         this.InitItems();
     }
     private IEnumerator InitItems()
@@ -54,7 +54,7 @@ public class UIShop : UIWindow
     {
         this.shop = shop;
         Title.text = shop.Name;
-        Money.text = User.Instance.CurrentCharacter.Gold.ToString();
+        Money.text = User.Instance.CurrentCharacterInfo.Gold.ToString();
     }
 
     public void SelectShopItem(UIShopItem uiShopItem)

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Common.Battle;
+using Common.Data;
+using Managers;
 using SkillBridge.Message;
 using UnityEngine;
 
@@ -11,8 +14,9 @@ namespace Entities
     {
         public NCharacterInfo Info;
 
-        public Common.Data.CharacterDefine Define;
+        public CharacterDefine Define;
 
+        public Attributes Attributes;
 
         public int Id { get { return this.Info.Id; } }
 
@@ -20,11 +24,14 @@ namespace Entities
 
         public bool IsPlayer { get { return this.Info.Type == CharacterType.Player; } }
 
-        public bool IsCurrentPlater { get { if (!IsPlayer) return false; return this.Info.Id == Models.User.Instance.CurrentCharacter.Id; } }
+        public bool IsCurrentPlater { get { if (!IsPlayer) return false; return this.Info.Id == Models.User.Instance.CurrentCharacterInfo.Id; } }
         public Character(NCharacterInfo info) : base(info.Entity)
         {
             this.Info = info;
             this.Define = DataManager.Instance.Characters[info.ConfigId];
+            this.Attributes = new Attributes();
+            var equips = EquipManager.Instance.GetEquipDefines();
+            this.Attributes.Init(this.Define, this.Info.Level, equips, this.Info.attrDynamic);
         }
 
         public void MoveForward()

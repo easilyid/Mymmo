@@ -273,7 +273,7 @@ namespace Services
             if (message.Command.Command == GuildAdminCommand.Kickout)
             {
                 //获取message中的tragetid是否和玩家一致
-                if (User.Instance.CurrentCharacter.Id == message.Command.Target)
+                if (User.Instance.CurrentCharacterInfo.Id == message.Command.Target)
                 {
                     GuildManager.Instance.Init(null);
                 }

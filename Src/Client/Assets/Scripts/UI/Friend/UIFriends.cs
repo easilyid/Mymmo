@@ -71,7 +71,7 @@ public class UIFriends : UIWindow
             friendName = input;
         }
 
-        if (friendId == User.Instance.CurrentCharacter.Id || friendName == User.Instance.CurrentCharacter.Name)
+        if (friendId == User.Instance.CurrentCharacterInfo.Id || friendName == User.Instance.CurrentCharacterInfo.Name)
         {
             tips = "不能够添加自己哦！";
             return false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Common.Data;
+using Entities;
 using SkillBridge.Message;
 using UnityEngine;
 
@@ -27,7 +28,10 @@ namespace Models
         /// 当前地图Data
         /// </summary>
         public MapDefine CurrentMapData { get; set; }
-        public SkillBridge.Message.NCharacterInfo CurrentCharacter { get; set; }
+
+        public Character CurrentCharacter { get; set; }
+
+        public SkillBridge.Message.NCharacterInfo CurrentCharacterInfo { get; set; }
         /// <summary>
         ///当前游戏对象
         /// </summary>
@@ -37,7 +41,7 @@ namespace Models
 
         public void AddGold(int gold)
         {
-            this.CurrentCharacter.Gold += gold;
+            this.CurrentCharacterInfo.Gold += gold;
         }
 
         public int CurrentRide = 0;

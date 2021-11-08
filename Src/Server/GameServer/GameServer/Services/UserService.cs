@@ -105,12 +105,14 @@ namespace GameServer.Services
                 Name = request.Name,
                 Class = (int)request.Class,
                 TID = (int)request.Class,
-                Level=1,
+                Level = 1,
                 MapID = 1,
                 MapPosX = 5000,
                 MapPosY = 4000,
                 MapPosZ = 820,
                 Gold = 100000,
+                HP = 1000,
+                MP = 1000,
                 Equips = new byte[28],
             };
             //背包初始化
@@ -158,7 +160,7 @@ namespace GameServer.Services
             TCharacter dbchar = sender.Session.User.Player.Characters.ElementAt(request.characterIdx);
             Log.InfoFormat("用户进入游戏请求:charaterID:{0}:{1} Map{2}", dbchar.ID, dbchar.Name, dbchar.MapID);
             Character character = CharacterManager.Instance.AddCharacter(dbchar);
-            SessionManager.Instance.AddSession(character.Id,sender);
+            SessionManager.Instance.AddSession(character.Id, sender);
             sender.Session.Response.gameEnter = new UserGameEnterResponse();
             sender.Session.Response.gameEnter.Result = Result.Success;
             sender.Session.Response.gameEnter.Errormsg = "None";
