@@ -55,6 +55,12 @@ enum ITEM_TYPE{
 	RIDE = 4;//(坐骑系统)
 }
 
+enum TARGET_TYPE {
+	None = 0;
+	Target = 1;
+	Position = 2;
+	Self = 3;
+}
 enum EQUIP_SLOT
 {
 	WEAPON = 0;

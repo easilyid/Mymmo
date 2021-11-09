@@ -1639,6 +1639,15 @@ namespace SkillBridge.Message
         Ride = 4,
     }
 
+    [global::ProtoBuf.ProtoContract(Name = @"TARGET_TYPE")]
+    public enum TargetType
+    {
+        None = 0,
+        Target = 1,
+        Position = 2,
+        Self = 3,
+    }
+
     [global::ProtoBuf.ProtoContract(Name = @"EQUIP_SLOT")]
     public enum EquipSlot
     {
