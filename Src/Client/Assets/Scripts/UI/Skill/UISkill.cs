@@ -28,7 +28,7 @@ public class UISkill : UIWindow
     private void OnItemSelected(ListView.ListViewItem item)
     {
         selectedItem = item as UISkillItem;
-        this.descript.text = this.selectedItem.item.Description;
+        this.descript.text = this.selectedItem.item.Define.Description;
     }
 
     private void RefreshUI()
@@ -41,14 +41,14 @@ public class UISkill : UIWindow
     /// </summary>
     private void InitItems()
     {
-        var Skills = DataManager.Instance.Skills[(int) User.Instance.CurrentCharacterInfo.Class];
-        foreach (var kv in Skills)
+        var Skills = User.Instance.CurrentCharacter.SkillMgr.Skills;
+        foreach (var skill in Skills)
         {
-            if (kv.Value.Type == SkillType.Skill)
+            if (skill.Define.Type == SkillType.Skill)
             {
                 var go = Instantiate(ItemPrefab, listMain.transform);
                 var ui = go.GetComponent<UISkillItem>();
-                ui.SetItem(kv.Value, this, false);
+                ui.SetItem(skill,this,false);
                 listMain.AddItem(ui);
             }
         }

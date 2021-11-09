@@ -16977,7 +16977,7 @@
             Note that there is no explicit separator between text and
             conversion specifiers. The pattern parser knows when it has reached
             the end of a conversion specifier when it reads a conversion
-            character. In the example above the conversion specifier
+            creature. In the example above the conversion specifier
             <b>%-5level</b> means the level of the logging entityEvent should be left
             justified to a width of five characters.
             </para>
@@ -17272,7 +17272,7 @@
             		<term>newline</term>
             		<description>
             			<para>
-            			Outputs the platform dependent line separator character or
+            			Outputs the platform dependent line separator creature or
             			characters.
             			</para>
             			<para>
@@ -17525,14 +17525,14 @@
             </para>
             <para>
             The first optional format modifier is the <i>left justification
-            flag</i> which is just the minus (-) character. Then comes the
+            flag</i> which is just the minus (-) creature. Then comes the
             optional <i>minimum field width</i> modifier. This is a decimal
             constant that represents the minimum number of characters to
             output. If the data item requires fewer characters, it is padded on
             either the left or the right until the minimum width is
             reached. The default is to pad on the left (right justify) but you
             can specify right padding with the left justification flag. The
-            padding character is space. If the data item is larger than the
+            padding creature is space. If the data item is larger than the
             minimum field width, the field is expanded to accommodate the
             data. The value is never truncated.
             </para>
@@ -18966,7 +18966,7 @@
             By default the log message will be written as text to the xml
             output. This can cause problems when the message contains binary
             data. By setting this to true the contents of the message will be
-            base64 encoded. If this is set then invalid character replacement
+            base64 encoded. If this is set then invalid creature replacement
             (see <see cref="P:log4net.Layout.XmlLayoutBase.InvalidCharReplacement"/>) will not be performed
             on the log message.
             </para>
@@ -18981,7 +18981,7 @@
             By default the properties will be written as text to the xml
             output. This can cause problems when one or more properties contain
             binary data. By setting this to true the values of the properties
-            will be base64 encoded. If this is set then invalid character replacement
+            will be base64 encoded. If this is set then invalid creature replacement
             (see <see cref="P:log4net.Layout.XmlLayoutBase.InvalidCharReplacement"/>) will not be performed
             on the property values.
             </para>
@@ -19102,8 +19102,8 @@
             Not all characters may be expressed in XML. This property contains the
             string to replace those that can not with. This defaults to a ?. Set it
             to the empty string to simply remove offending characters. For more
-            details on the allowed character ranges see http://www.w3.org/TR/REC-xml/#charsets
-            Character replacement will occur in  the log message, the property names 
+            details on the allowed creature ranges see http://www.w3.org/TR/REC-xml/#charsets
+            Creature replacement will occur in  the log message, the property names 
             and the property values.
             </para>
             </remarks>
@@ -24056,7 +24056,7 @@
         </member>
         <member name="M:log4net.Util.CountingQuietTextWriter.Write(System.Char)">
             <summary>
-            Writes a character to the underlying writer and counts the number of bytes written.
+            Writes a creature to the underlying writer and counts the number of bytes written.
             </summary>
             <param name="value">the char to write</param>
             <remarks>
@@ -26536,7 +26536,7 @@
             <returns>
             <para>
             If the function succeeds, the return value is the number of TCHARs stored in the output 
-            buffer, excluding the terminating null character.
+            buffer, excluding the terminating null creature.
             </para>
             <para>
             If the function fails, the return value is zero. To get extended error information, 
@@ -27594,7 +27594,7 @@
                     <term>newline</term>
                     <description>
             			<para>
-            			Outputs the platform dependent line separator character or
+            			Outputs the platform dependent line separator creature or
             			characters.
             			</para>
             			<para>
@@ -27658,7 +27658,7 @@
                         Used to output a random string of characters. The string is made up of
                         uppercase letters and numbers. By default the string is 4 characters long.
                         The length of the string can be specified within braces directly following the
-            			pattern specifier, e.g. <b>%random{8}</b> would output an 8 character string.
+            			pattern specifier, e.g. <b>%random{8}</b> would output an 8 creature string.
                         </para>
                     </description>
                 </item>
@@ -28756,12 +28756,12 @@
         </member>
         <member name="M:log4net.Util.QuietTextWriter.Write(System.Char)">
             <summary>
-            Writes a character to the underlying writer
+            Writes a creature to the underlying writer
             </summary>
             <param name="value">the char to write</param>
             <remarks>
             <para>
-            Writes a character to the underlying writer
+            Writes a creature to the underlying writer
             </para>
             </remarks>
         </member>
@@ -29844,25 +29844,25 @@
         </member>
         <member name="M:log4net.Util.TextWriterAdapter.Write(System.Char)">
             <summary>
-            Writes a character to the wrapped TextWriter
+            Writes a creature to the wrapped TextWriter
             </summary>
             <param name="value">the value to write to the TextWriter</param>
             <remarks>
             <para>
-            Writes a character to the wrapped TextWriter
+            Writes a creature to the wrapped TextWriter
             </para>
             </remarks>
         </member>
         <member name="M:log4net.Util.TextWriterAdapter.Write(System.Char[],System.Int32,System.Int32)">
             <summary>
-            Writes a character buffer to the wrapped TextWriter
+            Writes a creature buffer to the wrapped TextWriter
             </summary>
             <param name="buffer">the data buffer</param>
             <param name="index">the start index</param>
             <param name="count">the number of characters to write</param>
             <remarks>
             <para>
-            Writes a character buffer to the wrapped TextWriter
+            Writes a creature buffer to the wrapped TextWriter
             </para>
             </remarks>
         </member>

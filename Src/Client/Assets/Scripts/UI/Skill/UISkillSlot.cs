@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Battle;
+using Common.Battle;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,7 +14,7 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
     public Image icon;
     public Image overlay;
     public Text cdText;
-    private SkillDefine skill;
+    private Skill skill;
 
     private float overlaySpeed = 0;
     private float cdRemain = 0;
@@ -25,7 +27,7 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
     {
         if (overlay.fillAmount>0)
         {
-            overlay.fillAmount = this.cdRemain / this.skill.CD;
+            overlay.fillAmount = this.cdRemain / this.skill.Define.CD;
             this.cdText.text = ((int) Math.Ceiling(this.cdRemain)).ToString();
             this.cdRemain -= Time.deltaTime;
         }
@@ -44,15 +46,23 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (this.overlay.fillAmount>0)
+        SkillResult result = this.skill.CanCast();
+
+        switch (result)
         {
-            MessageBox.Show("技能：" + this.skill.Name + "正在冷却");
+            case SkillResult.InvalidTarget:
+                MessageBox.Show("技能"+ this.skill.Define.Name + "目标无效");
+                return;
+            case SkillResult.OutOfMP:
+                MessageBox.Show("技能" + this.skill.Define.Name + "MP不足");
+                return;
+            case SkillResult.Cooldown:
+                MessageBox.Show("技能" + this.skill.Define.Name + "正在冷却");
+                return;
+
         }
-        else
-        {
-            MessageBox.Show("释放技能：" + this.skill.Name);
-            this.SetCD(this.skill.CD);
-        }
+        MessageBox.Show("释放技能：" + this.skill.Define.Name);
+        this.SetCD(this.skill.Define.CD);
     }
 
     private void SetCD(float cd)
@@ -65,13 +75,13 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
         cdRemain = cd;
     }
 
-    internal void SetSkill(SkillDefine value)
+    internal void SetSkill(Skill value)
     {
         this.skill = value;
         if (this.icon!=null)
         {
-            this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Icon);
-            this.SetCD(this.skill.CD);
+            this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Define.Icon);
+            this.SetCD(this.skill.Define.CD);
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using Common.Data;
+﻿using Battle;
+using Common.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class UISkillItem : ListView.ListViewItem
         this.background.overrideSprite = selected ? selectedBg : normalBg;
     }
 
-    public SkillDefine item;
+    public Skill item;
 
     private void Start()
     {
@@ -27,13 +28,13 @@ public class UISkillItem : ListView.ListViewItem
     }
 
 
-    public void SetItem(SkillDefine item, UISkill owner, bool equiped)
+    public void SetItem(Skill item, UISkill owner, bool equiped)
     {
         this.item = item;
 
-        if (this.title!=null) this.title.text = this.item.Name;
-        if (this.level != null) this.level.text = item.UnlockLevel.ToString();
-        if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.item.Icon);
+        if (this.title!=null) this.title.text = this.item.Define.Name;
+        if (this.level != null) this.level.text = item.Info.Level.ToString();
+        if (this.icon != null) this.icon.overrideSprite = Resloader.Load<Sprite>(this.item.Define.Icon);
 
     }
 }

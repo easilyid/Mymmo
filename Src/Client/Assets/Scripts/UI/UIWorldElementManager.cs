@@ -12,12 +12,12 @@ public class UIWorldElementManager : MonoSingleton<UIWorldElementManager> {
     private readonly Dictionary<Transform, GameObject> elementNames = new Dictionary<Transform, GameObject>();
 
 
-    public void AddCharacterNameBar(Transform owner, Character character)
+    public void AddCharacterNameBar(Transform owner, Creature creature)
     {
         GameObject goNameBar = Instantiate(nameBarPrefab, this.transform);
-        goNameBar.name = "NameBar" + character.entityId;
+        goNameBar.name = "NameBar" + creature.entityId;
         goNameBar.GetComponent<UIWorldElement>().owner = owner;
-        goNameBar.GetComponent<UINameBar>().character = character;
+        goNameBar.GetComponent<UINameBar>().Creature = creature;
         goNameBar.SetActive(true);
         this.elementNames[owner] = goNameBar;
     }

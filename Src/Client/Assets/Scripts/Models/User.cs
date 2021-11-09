@@ -29,7 +29,7 @@ namespace Models
         /// </summary>
         public MapDefine CurrentMapData { get; set; }
 
-        public Character CurrentCharacter { get; set; }
+        public Creature CurrentCharacter { get; set; }
 
         public SkillBridge.Message.NCharacterInfo CurrentCharacterInfo { get; set; }
         /// <summary>

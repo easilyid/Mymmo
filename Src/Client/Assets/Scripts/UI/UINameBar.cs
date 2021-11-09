@@ -8,9 +8,9 @@ public class UINameBar : MonoBehaviour
 {
     public Text avaverName;
     // Start is called before the first frame update
-    public Character character;
+    public Creature Creature;
     void Start () {
-		if(this.character!=null)
+		if(this.Creature!=null)
         {
             
         }
@@ -24,9 +24,9 @@ public class UINameBar : MonoBehaviour
 
     void UpdateInfo()
     {
-        if (this.character != null)
+        if (this.Creature != null)
         {
-            string name = this.character.Name + " Lv." + this.character.Info.Level;
+            string name = this.Creature.Name + " Lv." + this.Creature.Info.Level;
             if(name != this.avaverName.text)
             {
                 this.avaverName.text = name;

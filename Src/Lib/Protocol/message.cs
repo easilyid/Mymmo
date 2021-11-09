@@ -101,6 +101,9 @@ namespace SkillBridge.Message
         [global::ProtoBuf.ProtoMember(19, Name = @"ride")]
         public int Ride { get; set; }
 
+        [global::ProtoBuf.ProtoMember(20)]
+        public global::System.Collections.Generic.List<NSkillInfo> Skills { get; } = new global::System.Collections.Generic.List<NSkillInfo>();
+
     }
 
     [global::ProtoBuf.ProtoContract()]
@@ -130,6 +133,21 @@ namespace SkillBridge.Message
 
         [global::ProtoBuf.ProtoMember(2, Name = @"count")]
         public int Count { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class NSkillInfo : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+            => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+
+        [global::ProtoBuf.ProtoMember(1, Name = @"id")]
+        public int Id { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2, Name = @"level")]
+        public int Level { get; set; }
 
     }
 
@@ -1637,15 +1655,6 @@ namespace SkillBridge.Message
         Equip = 3,
         [global::ProtoBuf.ProtoEnum(Name = @"RIDE")]
         Ride = 4,
-    }
-
-    [global::ProtoBuf.ProtoContract(Name = @"TARGET_TYPE")]
-    public enum TargetType
-    {
-        None = 0,
-        Target = 1,
-        Position = 2,
-        Self = 3,
     }
 
     [global::ProtoBuf.ProtoContract(Name = @"EQUIP_SLOT")]

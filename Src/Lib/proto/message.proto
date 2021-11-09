@@ -55,12 +55,6 @@ enum ITEM_TYPE{
 	RIDE = 4;//(坐骑系统)
 }
 
-enum TARGET_TYPE {
-	None = 0;
-	Target = 1;
-	Position = 2;
-	Self = 3;
-}
 enum EQUIP_SLOT
 {
 	WEAPON = 0;
@@ -105,6 +99,8 @@ message NCharacterInfo {
 	repeated NFriendInfo friends = 17;
 	NGuildInfo guild = 18;
 	int32 ride = 19;//坐骑ID(坐骑系统)
+
+	repeated NSkillInfo Skills = 20;
 }
 
 message NAttributeDynamic {
@@ -116,6 +112,11 @@ message NItemInfo
 {
     int32 id = 1;
 	int32 count = 2;
+}
+
+message NSkillInfo {
+	int32 id = 1;
+	int32 level = 2;
 }
 
 message NVector3
