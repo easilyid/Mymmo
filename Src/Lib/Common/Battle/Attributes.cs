@@ -178,7 +178,7 @@ namespace Common.Battle
         public void LoadGrowthAttribute(AttributeData attr, CharacterDefine define)
         {
             attr.STR = define.GrowthSTR;
-            attr.INT = define.GrowthINI;
+            attr.INT = define.GrowthINT;
             attr.DEX = define.GrowthDEX;
         }
 

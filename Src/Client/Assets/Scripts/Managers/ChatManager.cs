@@ -7,9 +7,9 @@ using UnityEngine.Events;
 
 public class ChatManager : Singleton<ChatManager>
 {
-    public enum  LocalChannel
+    public enum LocalChannel
     {
-        All =0,
+        All = 0,
         Local = 1,
         World = 2,
         Team = 3,
@@ -60,8 +60,8 @@ public class ChatManager : Singleton<ChatManager>
         this.OnChat?.Invoke();
     }
 
-    
-    public void SendChat(string content, int toId=0, string toName="")
+
+    public void SendChat(string content, int toId = 0, string toName = "")
     {
         ChatService.Instance.SendChat(this.SendChannel, content, toId, toName);
     }
@@ -86,21 +86,21 @@ public class ChatManager : Singleton<ChatManager>
         }
     }
 
-    
+
     public bool SetSendChannel(LocalChannel channel)
     {
-        if (channel==LocalChannel.Team)
+        if (channel == LocalChannel.Team)
         {
-            if (User.Instance.TeamInfo==null)
+            if (User.Instance.TeamInfo == null)
             {
                 AddSystemMessage("你没有加入任何队伍");
                 return false;
             }
         }
 
-        if (channel==LocalChannel.Guild)
+        if (channel == LocalChannel.Guild)
         {
-            if (User.Instance.CurrentCharacterInfo.Guild==null)
+            if (User.Instance.CurrentCharacterInfo.Guild == null)
             {
                 AddSystemMessage("你没有加入任何公会");
                 return false;
@@ -170,27 +170,26 @@ public class ChatManager : Singleton<ChatManager>
     {
         for (var ch = 0; ch < 6; ch++)
         {
-            if ((this.channelFilter[ch]&channel)==channel)
+            if ((this.channelFilter[ch] & channel) == channel)
             {
                 Messages[ch].AddRange(messages);
             }
         }
         OnChat?.Invoke();
     }
-
-    private void AddSystemMessage(string msg,string from = "")
+    public void AddSystemMessage(string msg, string from = "")
     {
-        this.Messages[(int) LocalChannel.All].Add(new ChatMessage
+        this.Messages[(int)LocalChannel.All].Add(new ChatMessage
         {
             Channel = ChatChannel.System,
             Message = msg,
             FromName = from
         });
-       OnChat?.Invoke();
+        OnChat?.Invoke();
     }
 
 
-    
+
 }
 
 

@@ -10,7 +10,7 @@ using UnityEngine.AI;
 public class PlayerInputController : MonoBehaviour {
 
     public Rigidbody rb;
-    SkillBridge.Message.CharacterState state;
+    CharacterState state;
 
     public Character character;
 
@@ -30,7 +30,7 @@ public class PlayerInputController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        state = SkillBridge.Message.CharacterState.Idle;
+        state = CharacterState.Idle;
         if(this.character == null)
         {
             DataManager.Instance.Load();
@@ -40,10 +40,12 @@ public class PlayerInputController : MonoBehaviour {
             cinfo.ConfigId = 1;
             cinfo.Entity = new NEntity();
             cinfo.Entity.Position = new NVector3();
-            cinfo.Entity.Direction = new NVector3();
-            cinfo.Entity.Direction.X = 0;
-            cinfo.Entity.Direction.Y = 100;
-            cinfo.Entity.Direction.Z = 0;
+            cinfo.Entity.Direction = new NVector3
+            {
+                X = 0,
+                Y = 100,
+                Z = 0
+            };
             cinfo.attrDynamic = new NAttributeDynamic();
             this.character = new Character(cinfo);
 

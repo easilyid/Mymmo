@@ -114,10 +114,6 @@ message NItemInfo
 	int32 count = 2;
 }
 
-message NSkillInfo {
-	int32 id = 1;
-	int32 level = 2;
-}
 
 message NVector3
 {
@@ -237,6 +233,8 @@ message NetMessageRequest{
 	GuildAdminRequest guildAdmin = 29;
 	GuildNoticeChangeRequest guildNoticeChange = 30;
 	ChatRequest chat = 31;
+
+	SkillCastRequest skillCast = 50;
 }
 
 message NetMessageResponse{
@@ -276,6 +274,8 @@ message NetMessageResponse{
 	GuildNoticeChangeResponse guildNoticeChange = 30;
     ChatResponse chat = 31;
 	
+	SkillCastResponse skillCast = 50;
+
 	StatusNotify statusNotify = 100;
 }
 
@@ -722,3 +722,51 @@ message ChatResponse{
 	repeated ChatMessage teamMessages = 7;
 	repeated ChatMessage guildMessages = 8;
 }
+
+
+
+
+enum SKILL_RESULT
+{
+	OK = 0;
+	OUT_OF_MP = 1;//本地
+	COOL_DOWN = 2;//冷却
+	INVALID_TARGET = 3;
+	OutOfRange = 4;
+}
+
+message NSkillCastInfo
+{
+	int32 skillId = 1;
+	int32 casterId = 2;
+	int32 targetId = 3;
+	NVector3 position = 4;
+}
+
+message SkillCastRequest
+{
+    NSkillCastInfo castInfo = 1;
+}
+
+message SkillCastResponse
+{
+	RESULT result = 1;
+	string errormsg = 2;
+	NSKillCastInfo castInfo = 3;
+	NDamageInfo damage = 4;
+}
+
+message NDamageInfo
+{
+	int32 entityId = 1;
+	int32 damage = 2;
+	bool will_dead = 3;//此次伤害后死亡
+}
+
+message NSkillInfo{
+	int32 id = 1;
+	int32 level = 2;
+}
+
+
+

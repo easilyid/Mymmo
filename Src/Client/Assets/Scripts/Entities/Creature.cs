@@ -6,6 +6,7 @@ using Battle;
 using Common.Battle;
 using Common.Data;
 using Managers;
+using Models;
 using SkillBridge.Message;
 using UnityEngine;
 
@@ -27,7 +28,33 @@ namespace Entities
 
         public bool IsPlayer { get { return this.Info.Type == CharacterType.Player; } }
 
-        public bool IsCurrentPlater { get { if (!IsPlayer) return false; return this.Info.Id == Models.User.Instance.CurrentCharacterInfo.Id; } }
+        public bool IsCurrentPlayer
+        {
+            get
+            {
+                if (!IsPlayer)
+                {
+                    return false;
+                }
+
+                return Info.Id == User.Instance.CurrentCharacterInfo.Id;
+            }
+        }
+        private bool battleState;
+
+        public bool BattleState
+        {
+            get => battleState;
+            set
+            {
+                if (battleState!=value)
+                {
+                    battleState = value;
+                    SetStandby(value);
+                }
+            }
+        }
+        public Skill CastingSkill = null;
         public Creature(NCharacterInfo info) : base(info.Entity)
         {
             this.Info = info;
@@ -70,6 +97,27 @@ namespace Entities
         {
             Debug.LogFormat("SetPosition:{0}", position);
             this.position = position;
+        }
+        public void CastSkill(int skillId, Entity target, NVector3 position)
+        {
+            this.SetStandby(true);
+            var skill = this.SkillMgr.GetSkill(skillId);
+            skill.BeginCast();
+        }
+
+        public void SetStandby(bool standby)
+        {
+            Controller?.SetStandby(standby);
+        }
+        public void PlayAnim(string name)
+        {
+            Controller?.PlayAnim(name);
+        }
+
+        public override void OnUpdate(float delta)
+        {
+            base.OnUpdate(delta);
+            this.SkillMgr.OnUpdate(delta);
         }
     }
 }

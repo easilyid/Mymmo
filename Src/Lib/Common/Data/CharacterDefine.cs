@@ -33,7 +33,7 @@ namespace Common.Data
         /// <summary>
         /// 智力成长
         /// </summary>
-        public float GrowthINI { get; set; }
+        public float GrowthINT { get; set; }
         /// <summary>
         /// 敏捷成长
         /// </summary>

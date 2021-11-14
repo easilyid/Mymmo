@@ -151,5 +151,15 @@ namespace GameServer.Models
             }
         }
 
+        internal void BroadcasrBattleResponse(NetMessageResponse response)
+        {
+            foreach (var kv in MapCharacters)
+            {
+                kv.Value.Connection.Session.Response.skillCast = response.skillCast;
+                kv.Value.Connection.SendResponse();
+            }
+        }
+
+
     }
 }

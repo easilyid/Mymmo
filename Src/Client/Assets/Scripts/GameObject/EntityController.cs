@@ -6,7 +6,7 @@ using Entities;
 using Managers;
 
 
-public class EntityController : MonoBehaviour,IEntityNotify
+public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
 {
 
     public Animator anim;
@@ -34,10 +34,11 @@ public class EntityController : MonoBehaviour,IEntityNotify
 
     public Transform rideBone;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (entity != null)
         {
-            EntityManager.Instance.RegisterEntityChangeNotify(entity.entityId,this);
+            EntityManager.Instance.RegisterEntityChangeNotify(entity.entityId, this);
             this.UpdateTransform();
         }
 
@@ -55,7 +56,7 @@ public class EntityController : MonoBehaviour,IEntityNotify
         this.lastPosition = this.position;
         this.lastRotation = this.rotation;
     }
-	
+
     void OnDestroy()
     {
         if (entity != null)
@@ -91,9 +92,9 @@ public class EntityController : MonoBehaviour,IEntityNotify
         Destroy(this.gameObject);
     }
 
-    public void OnEntityEvent(EntityEvent entityEvent,int param)
+    public void OnEntityEvent(EntityEvent entityEvent, int param)
     {
-        switch(entityEvent)
+        switch (entityEvent)
         {
             case EntityEvent.Idle:
                 anim.SetBool("Move", false);
@@ -109,9 +110,9 @@ public class EntityController : MonoBehaviour,IEntityNotify
                 anim.SetTrigger("Jump");
                 break;
             case EntityEvent.Ride:
-            {
-                this.Ride(param);
-            }
+                {
+                    this.Ride(param);
+                }
                 break;
         }
 
@@ -126,9 +127,9 @@ public class EntityController : MonoBehaviour,IEntityNotify
 
     public void Ride(int rideId)
     {
-        if (currentRide==rideId) return;
+        if (currentRide == rideId) return;
         currentRide = rideId;
-        if (rideId>0)
+        if (rideId > 0)
         {
             this.rideController = GameObjectManager.Instance.LoadRide(rideId, this.transform);
         }
@@ -138,20 +139,34 @@ public class EntityController : MonoBehaviour,IEntityNotify
             this.rideController = null;
         }
 
-        if (this.rideController==null)
+        if (this.rideController == null)
         {
-            this.anim.transform.localPosition=Vector3.zero;
-            this.anim.SetLayerWeight(1,0);
+            this.anim.transform.localPosition = Vector3.zero;
+            this.anim.SetLayerWeight(1, 0);
         }
         else
         {
             this.rideController.SetRider(this);
-            this.anim.SetLayerWeight(1,1);
+            this.anim.SetLayerWeight(1, 1);
         }
     }
 
     public void SetRidePosition(Vector3 position)
     {
         this.anim.transform.position = position + (this.anim.transform.position - this.rideBone.position);
+    }
+
+    void OnMouseDown()
+    {
+        BattleManager.Instance.CurrentTarget = this.entity as Creature;
+    }
+    public void PlayAnim(string name)
+    {
+        this.anim.SetTrigger(name);
+    }
+
+    public void SetStandby(bool standby)
+    {
+        this.anim.SetBool("Standby", standby);
     }
 }

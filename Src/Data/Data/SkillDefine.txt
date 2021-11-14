@@ -12,6 +12,7 @@
       "CD": 3.0,
       "MPCost": 0,
       "AOERange": 0,
+      "SkillAnim": "Attack",
       "AP": 0.0,
       "ADFator": 1.0
     },
@@ -28,6 +29,7 @@
       "CD": 8.0,
       "MPCost": 10,
       "AOERange": 0,
+      "SkillAnim": "SkillA",
       "Buff": [
         1,
         2
@@ -49,6 +51,7 @@
       "CD": 7.0,
       "MPCost": 20,
       "AOERange": 2,
+      "SkillAnim": "SkillB",
       "Duration": 3.5,
       "Interval ": 0.8,
       "Buff": [
@@ -71,6 +74,7 @@
       "CD": 12.0,
       "MPCost": 15,
       "AOERange": 0,
+      "SkillAnim": "SkillC",
       "AD": 100.0,
       "AP": 0.0,
       "ADFator": 0.2
@@ -91,6 +95,7 @@
       "Bullet": true,
       "BulletSpeed": 800.0,
       "AOERange": 0,
+      "SkillAnim": "Attack",
       "APFator": 1.0
     },
     "202": {
@@ -108,6 +113,7 @@
       "Bullet": true,
       "BulletSpeed": 800.0,
       "AOERange": 0,
+      "SkillAnim": "SkillA",
       "AD": 0.0,
       "AP": 80.0,
       "APFator": 0.125
@@ -125,6 +131,7 @@
       "CD": 12.0,
       "MPCost": 30,
       "AOERange": 3,
+      "SkillAnim": "SkillB",
       "Duration": 3.5,
       "Interval ": 0.8,
       "AD": 0.0,
@@ -144,6 +151,7 @@
       "CD": 7.0,
       "MPCost": 25,
       "AOERange": 0,
+      "SkillAnim": "SkillC",
       "Buff": [
         4
       ],
@@ -167,6 +175,7 @@
       "Bullet": true,
       "BulletSpeed": 800.0,
       "AOERange": 0,
+      "SkillAnim": "Attack",
       "ADFator": 1.0
     },
     "302": {
@@ -184,6 +193,7 @@
       "Bullet": true,
       "BulletSpeed": 800.0,
       "AOERange": 0,
+      "SkillAnim": "SkillA",
       "Buff": [
         5
       ],
@@ -204,6 +214,7 @@
       "CD": 7.0,
       "MPCost": 25,
       "AOERange": 3,
+      "SkillAnim": "SkillB",
       "Buff": [
         6
       ],
@@ -226,6 +237,7 @@
       "Bullet": true,
       "BulletSpeed": 800.0,
       "AOERange": 0,
+      "SkillAnim": "SkillC",
       "AD": 70.0,
       "AP": 0.0,
       "ADFator": 0.2
