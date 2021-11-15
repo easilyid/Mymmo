@@ -36,17 +36,23 @@ namespace Battle
         {
             //技能检查，测试时关闭
 
-            //if (this.Define.CastTarget == TargetType.Target)
-            //{
-            //    if (target == null || target == this.Owner)
-            //    {
-            //        return SkillResult.InvalidTarget;
-            //    }
-            //}
-            //if (this.Define.CastTarget == TargetType.Position && BattleManager.Instance.CurrentPosition == null)
-            //{
-            //    return SkillResult.InvalidTarget;
-            //}
+            if (this.Define.CastTarget == TargetType.Target)
+            {
+                if (target == null || target == this.Owner)
+                {
+                    return SkillResult.InvalidTarget;
+                }
+
+                int distance = (int) Vector3Int.Distance(this.Owner.position, target.position);
+                if (distance>this.Define.CastRange)
+                {
+                    return SkillResult.OutOFRANGE;
+                }
+            }
+            if (this.Define.CastTarget == TargetType.Position && BattleManager.Instance.CurrentPosition == null)
+            {
+                return SkillResult.InvalidTarget;
+            }
             if (this.Owner.Attributes.MP < this.Define.MPCost)
             {
                 return SkillResult.OutOfMp;

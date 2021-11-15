@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Data;
+using Entities;
 using Models;
 using UnityEngine;
 using Managers;
@@ -30,7 +31,7 @@ namespace Services
             MessageDistributer.Instance.Unsubscribe<MapCharacterEnterResponse>(this.OnMapCharacterEnter);
             MessageDistributer.Instance.Unsubscribe<MapCharacterLeaveResponse>(this.OnMapCharacterLeave);
 
-            MessageDistributer.Instance.Unsubscribe<MapEntitySyncResponse>(this.OnEntitySync);
+            //MessageDistributer.Instance.Unsubscribe<MapEntitySyncResponse>(this.OnEntitySync);
         }
 
         public void Init()
@@ -42,13 +43,20 @@ namespace Services
             Debug.LogFormat("OnMapCharacterEnter:Map:{0} Count:{1}", response.mapId, response.Characters.Count);
             foreach (var cha in response.Characters)
             {
-                if (User.Instance.CurrentCharacterInfo == null || (cha.Type==CharacterType.Player&&User.Instance.CurrentCharacterInfo.Id == cha.Id))
+                if (User.Instance.CurrentCharacterInfo == null || (cha.Type == CharacterType.Player && User.Instance.CurrentCharacterInfo.Id == cha.Id))
                 {
                     //当前角色切换地图成功
                     User.Instance.CurrentCharacterInfo = cha;
+                    if (User.Instance.CurrentCharacter == null)
+                        User.Instance.CurrentCharacter = new Character(cha);
+                    else //不是第一次进游戏，而是换地图就更新角色信息
+                        User.Instance.CurrentCharacter.UpdateInfo(cha);
+
+                    CharacterManager.Instance.AddCharacter(User.Instance.CurrentCharacter);
+                    continue;
                 }
 
-                CharacterManager.Instance.AddCharacter(cha);
+                CharacterManager.Instance.AddCharacter(new Character(cha));
             }
 
             if (CurrentMapId != response.mapId)
@@ -66,9 +74,7 @@ namespace Services
                 CharacterManager.Instance.RemoveCharacter(response.entityId);
             }
             else
-            {
                 CharacterManager.Instance.Clear();
-            }
         }
 
         void EnterMap(int mapId)
@@ -84,7 +90,7 @@ namespace Services
                 Debug.LogErrorFormat("EnterMap: Map {0} not existed", mapId);
         }
 
-        public void SendMapEntitySync(EntityEvent entityEvent, NEntity entity,int param)
+        public void SendMapEntitySync(EntityEvent entityEvent, NEntity entity, int param)
         {
             Debug.LogFormat("MapEntityUpdateRequest :ID{0} POS:{1} DIR:{2} SPD:{3}", entity.Id, entity.Position.String(), entity.Direction.String(), entity.Speed);
             NetMessage message = new NetMessage();
@@ -115,7 +121,7 @@ namespace Services
         }
         public void SendMapTeleport(int teleporterID)
         {
-            Debug.LogFormat("MapTeleportRequest :teleporterID:{0}",teleporterID);
+            Debug.LogFormat("MapTeleportRequest :teleporterID:{0}", teleporterID);
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.mapTeleport = new MapTeleportRequest();

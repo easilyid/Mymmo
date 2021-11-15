@@ -4092,7 +4092,6 @@ GameObject:
   - component: {fileID: 470391719}
   - component: {fileID: 470391723}
   - component: {fileID: 470391722}
-  - component: {fileID: 470391721}
   - component: {fileID: 470391720}
   m_Layer: 0
   m_Name: SpawnPoint7
@@ -4128,19 +4127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 7
---- !u!135 &470391721
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470391718}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &470391722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5625,7 +5611,6 @@ GameObject:
   - component: {fileID: 574000735}
   - component: {fileID: 574000739}
   - component: {fileID: 574000738}
-  - component: {fileID: 574000737}
   - component: {fileID: 574000736}
   m_Layer: 0
   m_Name: SpawnPoint8
@@ -5661,19 +5646,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 8
---- !u!135 &574000737
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574000734}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &574000738
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10964,7 +10936,6 @@ GameObject:
   - component: {fileID: 1153071695}
   - component: {fileID: 1153071699}
   - component: {fileID: 1153071698}
-  - component: {fileID: 1153071697}
   - component: {fileID: 1153071696}
   m_Layer: 0
   m_Name: SpawnPoint1
@@ -11000,19 +10971,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
---- !u!135 &1153071697
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153071694}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &1153071698
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14831,7 +14789,6 @@ GameObject:
   - component: {fileID: 1583917072}
   - component: {fileID: 1583917076}
   - component: {fileID: 1583917075}
-  - component: {fileID: 1583917074}
   - component: {fileID: 1583917073}
   m_Layer: 0
   m_Name: SpawnPoint6
@@ -14867,19 +14824,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 6
---- !u!135 &1583917074
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583917071}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &1583917075
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16792,7 +16736,6 @@ GameObject:
   - component: {fileID: 1719572893}
   - component: {fileID: 1719572897}
   - component: {fileID: 1719572896}
-  - component: {fileID: 1719572895}
   - component: {fileID: 1719572894}
   m_Layer: 0
   m_Name: SpawnPoint2
@@ -16828,19 +16771,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 2
---- !u!135 &1719572895
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719572892}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &1719572896
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19024,7 +18954,6 @@ GameObject:
   - component: {fileID: 1923025545}
   - component: {fileID: 1923025549}
   - component: {fileID: 1923025548}
-  - component: {fileID: 1923025547}
   - component: {fileID: 1923025546}
   m_Layer: 0
   m_Name: SpawnPoint4
@@ -19060,19 +18989,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 4
---- !u!135 &1923025547
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923025544}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &1923025548
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20002,7 +19918,6 @@ GameObject:
   - component: {fileID: 2007677317}
   - component: {fileID: 2007677321}
   - component: {fileID: 2007677320}
-  - component: {fileID: 2007677319}
   - component: {fileID: 2007677318}
   m_Layer: 0
   m_Name: SpawnPoint5
@@ -20038,19 +19953,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 5
---- !u!135 &2007677319
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007677316}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &2007677320
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21103,7 +21005,6 @@ GameObject:
   - component: {fileID: 2110615291}
   - component: {fileID: 2110615295}
   - component: {fileID: 2110615294}
-  - component: {fileID: 2110615293}
   - component: {fileID: 2110615292}
   m_Layer: 0
   m_Name: SpawnPoint3
@@ -21139,19 +21040,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 3
---- !u!135 &2110615293
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2110615290}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!23 &2110615294
 MeshRenderer:
   m_ObjectHideFlags: 0

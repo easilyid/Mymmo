@@ -65,6 +65,10 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
             case SkillResult.CoolDown:
                 MessageBox.Show("技能" + this.skill.Define.Name + "正在冷却");
                 return;
+            case SkillResult.OutOFRANGE:
+                MessageBox.Show("技能" + this.skill.Define.Name + "释放范围不足");
+                return;
+
             case SkillResult.OutOfMp:
                 MessageBox.Show("技能" + this.skill.Define.Name + "MP不足");
                 return;

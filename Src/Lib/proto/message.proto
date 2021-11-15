@@ -732,7 +732,7 @@ enum SKILL_RESULT
 	OUT_OF_MP = 1;//本地
 	COOL_DOWN = 2;//冷却
 	INVALID_TARGET = 3;
-	OutOfRange = 4;
+	Out_OF_RANGE = 4;
 }
 
 message NSkillCastInfo

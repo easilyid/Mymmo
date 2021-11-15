@@ -11,16 +11,16 @@ namespace Models
 {
     class User : Singleton<User>
     {
-        SkillBridge.Message.NUserInfo userInfo;
+        NUserInfo userInfo;
 
 
-        public SkillBridge.Message.NUserInfo Info
+        public NUserInfo Info
         {
             get { return userInfo; }
         }
 
         //本地映射 随时获取用户信息
-        public void SetupUserInfo(SkillBridge.Message.NUserInfo info)
+        public void SetupUserInfo(NUserInfo info)
         {
             this.userInfo = info;
         }
@@ -29,9 +29,9 @@ namespace Models
         /// </summary>
         public MapDefine CurrentMapData { get; set; }
 
-        public Creature CurrentCharacter { get; set; }
+        public Character CurrentCharacter { get; set; }
 
-        public SkillBridge.Message.NCharacterInfo CurrentCharacterInfo { get; set; }
+        public NCharacterInfo CurrentCharacterInfo { get; set; }
         /// <summary>
         ///当前游戏对象
         /// </summary>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using Entities;
+using System;
 
 public class UIMain : MonoSingleton<UIMain>
 {
@@ -11,9 +13,13 @@ public class UIMain : MonoSingleton<UIMain>
     public Text avatarLevel;
 
     public UITeam TeamWindow;
+
+    public UICreatureInfo targetUI;
     protected override void OnStart()
     {
         this.UpdateAvatar();
+        this.targetUI.gameObject.SetActive(false);
+        BattleManager.Instance.OnTargetChanged += OnTargetChanged;
     }
 
     void UpdateAvatar()
@@ -75,5 +81,19 @@ public class UIMain : MonoSingleton<UIMain>
     {
         UIManager.Instance.Show<UISkill>();
     }
+
+    private void OnTargetChanged(Creature target)
+    {
+        if (target!=null)
+        {
+            if (!targetUI.isActiveAndEnabled)targetUI.gameObject.SetActive(true);
+            targetUI.Target = target;
+        }
+        else
+        {
+            targetUI.gameObject.SetActive(false);
+        }
+    }
+
 
 }
