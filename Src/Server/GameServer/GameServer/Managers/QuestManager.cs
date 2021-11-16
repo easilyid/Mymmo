@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GameServer.Managers
 {
-    class QuestManager
+    public class QuestManager
     {
         public QuestManager(Character owner)
         {

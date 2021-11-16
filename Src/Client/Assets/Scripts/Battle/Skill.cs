@@ -28,7 +28,7 @@ namespace Battle
         {
             this.Info = skillInfo;
             this.Owner = owner;
-            Define = DataManager.Instance.Skills[(int) this.Owner.Define.Class][this.Info.Id];
+            Define = DataManager.Instance.Skills[(int)this.Owner.Define.Class][this.Info.Id];
             cd = 0;
         }
 
@@ -43,8 +43,8 @@ namespace Battle
                     return SkillResult.InvalidTarget;
                 }
 
-                int distance = (int) Vector3Int.Distance(this.Owner.position, target.position);
-                if (distance>this.Define.CastRange)
+                int distance = (int)Vector3Int.Distance(this.Owner.position, target.position);
+                if (distance > this.Define.CastRange)
                 {
                     return SkillResult.OutOFRANGE;
                 }
@@ -65,33 +65,56 @@ namespace Battle
             return SkillResult.Ok;
         }
 
-        public void BeginCast()
+        public void BeginCast(NDamageInfo damage)
         {
             this.IsCasting = true;
             this.castTime = 0;
             this.cd = this.Define.CD;
-            //this.skillTime = 0;
+            this.skillTime = 0;
+            this.Damage = damage;
             Owner.PlayAnim(this.Define.SkillAnim);
         }
+
+        public NDamageInfo Damage;
+        public int hit;
 
         public void OnUpdate(float delta)
         {
             if (this.IsCasting)
             {
-                
+                this.skillTime += delta;
+                if (skillTime > 0.5f && hit == 0)
+                {
+                    this.DoHit();
+                }
+
+                if (skillTime >= Define.CD)
+                {
+                    skillTime = 0;
+                }
             }
 
             UpdateCD(delta);
         }
 
+        private void DoHit()
+        {
+            if (Damage!=null)
+            {
+                var cha = CharacterManager.Instance.GetCharacter(Damage.entityId);
+                cha.DoDamage(Damage);
+            }
+            hit++;
+        }
+
         private void UpdateCD(float delta)
         {
-            if (this.cd>0)
+            if (this.cd > 0)
             {
                 this.cd -= delta;
             }
 
-            if (cd<0)
+            if (cd < 0)
             {
                 this.cd = 0;
             }

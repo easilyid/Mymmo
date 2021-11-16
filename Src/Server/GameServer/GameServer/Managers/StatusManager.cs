@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GameServer.Managers
 {
-    class StatusManager
+    public class StatusManager
     {
         public bool HasStatus => this.Status.Count > 0;
 

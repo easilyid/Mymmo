@@ -13,7 +13,7 @@ using GameServer.Models;
 
 namespace GameServer.Entities
 {
-    class Character : Creature,IPostResponser
+    public class Character : Creature,IPostResponser
     {
        
         public TCharacter Data;

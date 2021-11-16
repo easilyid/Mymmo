@@ -13,7 +13,7 @@ using SkillBridge.Message;
 
 namespace GameServer.Models
 {
-    class Map
+    public class Map
     {
         internal class MapCharacter
         {
@@ -41,6 +41,9 @@ namespace GameServer.Models
 
 
         private SpawnManager spawnManager = new SpawnManager();
+
+        public Battle.Battle Battle;
+
         public MonsterManager MonsterManager = new MonsterManager();
 
 
@@ -49,11 +52,13 @@ namespace GameServer.Models
             this.Define = define;
             this.spawnManager.Init(this);
             this.MonsterManager.Init(this);
+            this.Battle = new Battle.Battle(this);
         }
 
         internal void Update()
         {
             spawnManager.Update();
+            Battle.Update();
         }
 
         /// <summary>

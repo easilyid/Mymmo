@@ -7,7 +7,7 @@ using SkillBridge.Message;
 
 namespace GameServer.Managers
 {
-    class FriendManager
+    public class FriendManager
     {
         private Character Owner;
         private List<NFriendInfo> friends = new List<NFriendInfo>();

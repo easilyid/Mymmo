@@ -11,7 +11,7 @@ using SkillBridge.Message;
 
 namespace Network
 {
-    class NetSession : INetSession
+    public class NetSession : INetSession
     {
         public TUser User { get; set; }
         public Character Character { get; set; }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameServer.Models
 {
-    class Chat
+    public class Chat
     {
         private readonly Character owner;
         public int LocalIdx;

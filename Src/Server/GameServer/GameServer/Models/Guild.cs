@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GameServer.Models
 {
-    class Guild
+    public class Guild
     {
         public int Id { get { return this.Data.Id; } }
 

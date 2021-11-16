@@ -23,6 +23,8 @@ namespace GameServer.Entities
         public Attributes Attributes;
         public SkillManager SkillMger;
 
+        public bool IsDeath = false;
+
         public Creature(CharacterType type, int configId, int level, Vector3Int pos, Vector3Int dir) :
            base(pos, dir)
         {
@@ -51,6 +53,27 @@ namespace GameServer.Entities
         public virtual List<EquipDefine> GetEquips()
         {
             return null;
+        }
+
+        internal void Caskill(BattleContext context, int skillId)
+        {
+            Skill skill = this.SkillMger.GetSkill(skillId);
+            context.Result = skill.Cast(context);
+        }
+
+        public void DoDamage(NDamageInfo damage)
+        {
+            this.Attributes.HP -= damage.Damage;
+            if (this.Attributes.HP<0)
+            {
+                this.IsDeath = true;
+                damage.WillDead = true;
+            }
+        }
+
+        public override void Update()
+        {
+            this.SkillMger.Update();
         }
     }
 }

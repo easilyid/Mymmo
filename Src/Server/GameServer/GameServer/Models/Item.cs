@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameServer.Models
 {
-    class Item
+    public class Item
     {
         TCharacterItem dbItem;
         public int ItemID;

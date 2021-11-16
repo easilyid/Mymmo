@@ -10,7 +10,7 @@ using Common.Utils;
 
 namespace GameServer.Models
 {
-    class Team
+    public class Team
     {
         public int Id;
         public double TimeStamp;

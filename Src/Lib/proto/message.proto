@@ -759,7 +759,7 @@ message SkillCastResponse
 message NDamageInfo
 {
 	int32 entityId = 1;
-	int32 damage = 2;
+	int32 damage = 2; //伤害
 	bool will_dead = 3;//此次伤害后死亡
 }
 
