@@ -15,11 +15,15 @@ public class UIMain : MonoSingleton<UIMain>
     public UITeam TeamWindow;
 
     public UICreatureInfo targetUI;
+
+    public UISkillSlots SkillSlots;
     protected override void OnStart()
     {
         this.UpdateAvatar();
         this.targetUI.gameObject.SetActive(false);
         BattleManager.Instance.OnTargetChanged += OnTargetChanged;
+        User.Instance.OnCharacterInit += this.SkillSlots.UpdateSkills;
+        this.SkillSlots.UpdateSkills();
     }
 
     void UpdateAvatar()

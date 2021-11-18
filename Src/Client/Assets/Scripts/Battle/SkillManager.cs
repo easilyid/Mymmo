@@ -11,9 +11,9 @@ namespace Battle
     { 
         Creature Owner;
 
-        public delegate void SkillInfoUpdateHandle();
+        //public delegate void SkillInfoUpdateHandle();
 
-        public event SkillInfoUpdateHandle OnSkillInfoUpdate;
+        //public event SkillInfoUpdateHandle OnSkillInfoUpdate;
 
         public List<Skill> Skills { get; private set; }
 
@@ -33,10 +33,6 @@ namespace Battle
                 this.AddSkill(skill);
             }
 
-            if (OnSkillInfoUpdate!=null)
-            {
-                OnSkillInfoUpdate();
-            }
         }
 
         public void UpdateSkills()
@@ -54,10 +50,6 @@ namespace Battle
                 }
             }
 
-            if (OnSkillInfoUpdate!=null)
-            {
-                OnSkillInfoUpdate();
-            }
         }
 
         public void AddSkill(Skill skill)
@@ -66,11 +58,11 @@ namespace Battle
         }
         public Skill GetSkill(int skillId)
         {
-            foreach (var skill in Skills)
+            for (int i = 0; i < this.Skills.Count; i++)
             {
-                if (skill.Define.ID==skillId)
+                if (this.Skills[i].Define.ID==skillId)
                 {
-                    return skill;
+                    return this.Skills[i];
                 }
             }
             return null;

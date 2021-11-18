@@ -26,6 +26,8 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
 
     void Update()
     {
+        if(this.skill==null)return;
+
         if (this.skill.CD>0)
         {
             if (!overlay.enabled)
@@ -84,6 +86,7 @@ public class UISkillSlot : MonoBehaviour,IPointerClickHandler
         if (this.icon!=null)
         {
             this.icon.overrideSprite = Resloader.Load<Sprite>(this.skill.Define.Icon);
+            this.icon.SetAllDirty();
         }
     }
 

@@ -22,7 +22,9 @@ namespace Battle
         public bool IsCasting;
         private float castTime;
         private float skillTime;
+        private SkillStatus Status;
 
+        private Dictionary<int, List<NDamageInfo>> HitMap = new Dictionary<int, List<NDamageInfo>>();
 
         public Skill(NSkillInfo skillInfo, Creature owner)
         {
@@ -43,7 +45,7 @@ namespace Battle
                     return SkillResult.InvalidTarget;
                 }
 
-                int distance = (int)Vector3Int.Distance(this.Owner.position, target.position);
+                int distance = this.Owner.Distance(target);
                 if (distance > this.Define.CastRange)
                 {
                     return SkillResult.OutOFRANGE;
@@ -71,40 +73,104 @@ namespace Battle
             this.castTime = 0;
             this.cd = this.Define.CD;
             this.skillTime = 0;
+            this.Hit = 0;
             this.Damage = damage;
             Owner.PlayAnim(this.Define.SkillAnim);
+
+            if (this.Define.CastTime>0)
+            {
+                this.Status = SkillStatus.Casting;
+            }
+            else
+            {
+                this.Status = SkillStatus.Running;
+            }
         }
 
         public NDamageInfo Damage;
-        public int hit;
+        public int Hit;
 
         public void OnUpdate(float delta)
         {
-            if (this.IsCasting)
+            UpdateCD(delta);
+            if (this.Status == SkillStatus.Casting)
             {
-                this.skillTime += delta;
-                if (skillTime > 0.5f && hit == 0)
+                this.UpdateCasting();
+            }
+            else if(this.Status == SkillStatus.Running)
+            {
+                this.UpdateSkill();
+            }
+        }
+
+        private void UpdateSkill()
+        {
+            skillTime += Time.deltaTime;
+            if (Define.Duration > 0)
+            {
+                if (skillTime > Define.Interval * (Hit + 1))
                 {
-                    this.DoHit();
+                    DoHit();
                 }
 
-                if (skillTime >= Define.CD)
+                if (skillTime >= Define.Duration)
                 {
-                    skillTime = 0;
+                    this.Status = SkillStatus.None;
+                    this.IsCasting = false;
+                    Debug.LogFormat("Skill[{0}].UpdateSkill Finish", Define.Name);
                 }
             }
+            else if (Define.HitTimes != null && Define.HitTimes.Count > 0)
+            {
+                if (this.Hit < Define.HitTimes.Count)
+                {
+                    if (skillTime > Define.HitTimes[Hit])
+                    {
+                        DoHit();
+                    }
+                }
+                else
+                {
+                    this.Status = SkillStatus.None;
+                    this.IsCasting = false;
+                    Debug.LogFormat("Skill[{0}] .UpdateSkill Finish", Define.Name);
+                }
+            }
+        }
 
-            UpdateCD(delta);
+        private void UpdateCasting()
+        {
+            if (castTime < Define.CastTime)
+            {
+                castTime += Time.deltaTime;
+            }
+            else
+            {
+                castTime = 0;
+                Status = SkillStatus.Running;
+                Debug.LogFormat("Skill[{0}] .UpdateCasting Finish", Define.Name);
+
+            }
         }
 
         private void DoHit()
         {
-            if (Damage!=null)
+            List<NDamageInfo> damages;
+            if (this.HitMap.TryGetValue(this.Hit,out damages))
             {
-                var cha = CharacterManager.Instance.GetCharacter(Damage.entityId);
-                cha.DoDamage(Damage);
+                DoHitDamages(damages);
             }
-            hit++;
+            Hit++;
+        }
+
+        private void DoHitDamages(List<NDamageInfo> damages)
+        {
+            foreach (var dmg in damages)
+            {
+                Creature target=EntityManager.Instance.GetEntity(dmg.entityId)as Creature;
+                if (target==null)continue;
+                target.DoDamage(dmg);
+            }
         }
 
         private void UpdateCD(float delta)
@@ -117,6 +183,18 @@ namespace Battle
             if (cd < 0)
             {
                 this.cd = 0;
+            }
+        }
+
+        internal void DoHit(int hitId, List<NDamageInfo> damages)
+        {
+            if (hitId<=this.Hit)
+            {
+                this.HitMap[hitId] = damages;
+            }
+            else
+            {
+                DoHitDamages(damages);
             }
         }
     }

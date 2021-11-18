@@ -2876,6 +2876,7 @@ MonoBehaviour:
   avatarLevel: {fileID: 1083986304735010562}
   TeamWindow: {fileID: 4216626527936079444}
   targetUI: {fileID: 4488693536557930950}
+  SkillSlots: {fileID: 1083986305464209550}
 --- !u!1 &1083986306346979301
 GameObject:
   m_ObjectHideFlags: 0
@@ -4890,7 +4891,7 @@ PrefabInstance:
     - target: {fileID: 7319469523508581007, guid: ea3fb8b8977d204498833b21b0e0e03b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -305.12167
+      value: -305.12158
       objectReference: {fileID: 0}
     - target: {fileID: 7319469523508581007, guid: ea3fb8b8977d204498833b21b0e0e03b,
         type: 3}
@@ -4910,7 +4911,7 @@ PrefabInstance:
     - target: {fileID: 7429018192949284799, guid: ea3fb8b8977d204498833b21b0e0e03b,
         type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.99999
       objectReference: {fileID: 0}
     - target: {fileID: 7429018192949284799, guid: ea3fb8b8977d204498833b21b0e0e03b,
         type: 3}

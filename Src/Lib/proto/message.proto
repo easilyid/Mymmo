@@ -275,6 +275,7 @@ message NetMessageResponse{
     ChatResponse chat = 31;
 	
 	SkillCastResponse skillCast = 50;
+	SkillHitResponse skillHits = 51;
 
 	StatusNotify statusNotify = 100;
 }
@@ -723,8 +724,11 @@ message ChatResponse{
 	repeated ChatMessage guildMessages = 8;
 }
 
-
-
+////////////////////////////////////////////////////////////////
+//
+//  战斗系统
+//
+////////////////////////////////////////////////////////////////
 
 enum SKILL_RESULT
 {
@@ -767,12 +771,28 @@ message NDamageInfo
 {
 	int32 entityId = 1;
 	int32 damage = 2; //伤害
-	bool will_dead = 3;//此次伤害后死亡
+	bool crit = 3;
+	bool will_dead = 4;//此次伤害后死亡
+
 }
 
 message NSkillInfo{
 	int32 id = 1;
 	int32 level = 2;
+}
+message NSkillHitInfo
+{
+	int32 skillId = 1;
+	int32 casterId = 2;
+	int32 hitId = 3;
+	repeated NDamageInfo damages = 4;
+}
+
+
+message SkillHitResponse {
+	RESULT  result = 1;
+	string errormsg =2;
+	repeated NSkillHitInfo hits = 3;
 }
 
 

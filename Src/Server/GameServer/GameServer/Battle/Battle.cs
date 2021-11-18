@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameServer.Core;
 using GameServer.Entities;
 using GameServer.Managers;
 using GameServer.Models;
@@ -27,6 +28,8 @@ namespace GameServer.Battle
         /// </summary>
         private List<Creature> DeahPool = new List<Creature>();
 
+        private List<NSkillHitInfo> Hits = new List<NSkillHitInfo>();
+
         public Battle(Map map)
         {
             this.Map = map;
@@ -45,6 +48,7 @@ namespace GameServer.Battle
 
         public void Update()
         {
+            this.Hits.Clear();
             if (this.Actions.Count>0)
             {
                 NSkillCastInfo skillCast = this.Actions.Dequeue();
@@ -52,26 +56,10 @@ namespace GameServer.Battle
             }
 
             this.UpdateUnits();
+
+            this.BroadcastHitsMessage();
         }
 
-        private void UpdateUnits()
-        {
-            this.DeahPool.Clear();
-            foreach (var kv in this.AllUnits)
-            {
-                kv.Value.Update();
-                if (kv.Value.IsDeath)
-                {
-                    this.DeahPool.Add(kv.Value);
-                }
-            }
-            //更新完从战斗上清除
-            foreach (var unit in this.DeahPool)
-            {
-                this.LeaveBattle(unit);
-            }
-
-        }
 
         private void ExecuteAction(NSkillCastInfo cast)
         {
@@ -104,6 +92,55 @@ namespace GameServer.Battle
         public void LeaveBattle(Creature unit)
         {
             this.AllUnits.Remove(unit.entityId);
+        }
+
+        public List<Creature> FindUnitsInRange(Vector3Int pos, float range)
+        {
+            List<Creature> result = new List<Creature>();
+            foreach (var unit in this.AllUnits)
+            {
+                if (unit.Value.Distance(pos)<range)
+                {
+                    result.Add(unit.Value);
+                }
+            }
+
+            return result;
+        }
+
+        public void AddHitInfo(NSkillHitInfo hitInfo)
+        {
+
+        }
+        private void BroadcastHitsMessage()
+        {
+            if(this.Hits.Count==0)return;
+            NetMessageResponse message = new NetMessageResponse();
+            message.skillHits = new SkillHitResponse();
+            message.skillHits.Hits.AddRange(Hits);
+            message.skillHits.Result = Result.Success;
+            message.skillHits.Errormsg = "";
+            this.Map.BroadcasrBattleResponse(message);
+
+        }
+
+        private void UpdateUnits()
+        {
+            this.DeahPool.Clear();
+            foreach (var kv in this.AllUnits)
+            {
+                kv.Value.Update();
+                if (kv.Value.IsDeath)
+                {
+                    this.DeahPool.Add(kv.Value);
+                }
+            }
+            //更新完从战斗上清除
+            foreach (var unit in this.DeahPool)
+            {
+                this.LeaveBattle(unit);
+            }
+
         }
 
     }

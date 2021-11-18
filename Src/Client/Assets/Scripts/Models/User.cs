@@ -62,5 +62,16 @@ namespace Models
             }
         }
 
+        public delegate void CharacterInitHandle();
+
+        public event CharacterInitHandle OnCharacterInit;
+
+        internal void CharacterInited()
+        {
+            if (OnCharacterInit!=null)
+            {
+                OnCharacterInit();
+            }
+        }
     }
 }

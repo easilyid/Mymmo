@@ -21,11 +21,14 @@ namespace Services
         public BattleService()
         {
             MessageDistributer.Instance.Subscribe<SkillCastResponse>(OnSkillCast);
-
+            MessageDistributer.Instance.Subscribe<SkillHitResponse>(OnSkillHit);
         }
+
+
         public void Dispose()
         {
             MessageDistributer.Instance.Unsubscribe<SkillCastResponse>(OnSkillCast);
+            MessageDistributer.Instance.Unsubscribe<SkillHitResponse>(OnSkillHit);
         }
 
         public void SendSkillCast(int skillId, int casterId, int targetId, NVector3 position)
@@ -56,7 +59,9 @@ namespace Services
 
         private void OnSkillCast(object sender, SkillCastResponse message)
         {
-            Debug.LogFormat($"OnSkillCast: skill: {message.castInfo.skillId} caster:{message.castInfo.casterId} target:{message.castInfo.targetId} pos:{message.castInfo.Position}");
+            Debug.LogFormat("OnSkillCast: skill:{0} caster:{1} target:{2} pos:{3} result:{4}", message.castInfo.skillId,
+                message.castInfo.casterId, message.castInfo.targetId, message.castInfo.Position.String(),
+                message.Result);
             if (message.Result == Result.Success)
             {
                 Creature caster = EntityManager.Instance.GetEntity(message.castInfo.casterId) as Creature;
@@ -69,6 +74,23 @@ namespace Services
             else
             {
                 ChatManager.Instance.AddSystemMessage(message.Errormsg);
+            }
+        }
+
+
+        private void OnSkillHit(object sender, SkillHitResponse message)
+        {
+            Debug.LogFormat("OnSkillHit: count:{0}",message.Hits.Count);
+            if (message.Result==Result.Success)
+            {
+                foreach (var hit in message.Hits)
+                {
+                    Creature caster = EntityManager.Instance.GetEntity(hit.casterId) as Creature;
+                    if (caster!=null)
+                    {
+                        caster.DoSkillHit(hit.skillId, hit.hitId, hit.Damages);
+                    }
+                }
             }
         }
 

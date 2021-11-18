@@ -52,6 +52,7 @@ namespace Services
                     else //不是第一次进游戏，而是换地图就更新角色信息
                         User.Instance.CurrentCharacter.UpdateInfo(cha);
 
+                    User.Instance.CharacterInited();
                     CharacterManager.Instance.AddCharacter(User.Instance.CurrentCharacter);
                     continue;
                 }
