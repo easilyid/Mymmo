@@ -67,8 +67,7 @@ namespace Managers
 
         public Character GetCharacter(int id)
         {
-            Character character;
-            this.Characters.TryGetValue(id, out character);
+            this.Characters.TryGetValue(id, out var character);
             return character;
         }
     }

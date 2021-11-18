@@ -20,12 +20,12 @@ namespace Entities
             return EquipManager.Instance.GetEquipDefines();
         }
 
-        //public void UpdateInfo(NCharacterInfo info)
-        //{
-        //    SetEntityData(info.Entity);
-        //    this.Info = info;
-        //    this.Attributes.Init(this.Define, this.Info.Level, this.GetEquips(), this.Info.attrDynamic);
-        //    this.SkillMgr.UpdateSkills();
-        //}
+        public void UpdateInfo(NCharacterInfo info)
+        {
+            SetEntityData(info.Entity);
+            this.Info = info;
+            this.Attributes.Init(this.Define, this.Info.Level, this.GetEquips(), this.Info.attrDynamic);
+            this.SkillMgr.UpdateSkills();
+        }
     }
 }

@@ -1054,6 +1054,7 @@ MonoBehaviour:
   - {fileID: 4558688648368006960}
   - {fileID: 4702955915491222259}
   TabPages: []
+  index: -1
 --- !u!1 &6619322512682195365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2912,7 +2913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -321.38657}
+  m_AnchoredPosition: {x: 0.000061035156, y: -322.25082}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6399426788010315869
@@ -3363,7 +3364,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6396905564522044781}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.98760045
+  m_Size: 0.9999455
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

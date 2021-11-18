@@ -44,6 +44,16 @@ namespace GameServer.Entities
             this.Info.attrDynamic = this.Attributes.DynamicAttr;
         }
 
+        internal int Distance(Creature target)
+        {
+            return (int) Vector3Int.Distance(Position, target.Position);
+        }
+        internal int Distance(Vector3Int position)
+        {
+            return (int)Vector3Int.Distance(Position, position);
+        }
+
+
         private void InieSkills()
         {
             SkillMger = new SkillManager(this);

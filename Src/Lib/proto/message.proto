@@ -728,11 +728,18 @@ message ChatResponse{
 
 enum SKILL_RESULT
 {
-	OK = 0;
+	OK = 0;      //成功
 	OUT_OF_MP = 1;//本地
 	COOL_DOWN = 2;//冷却
-	INVALID_TARGET = 3;
-	Out_OF_RANGE = 4;
+	INVALID_TARGET = 3; //无效的目标
+	Out_OF_RANGE = 4;  //超出技能范围
+	CASTING = 5;    //技能正在释放
+}
+
+enum  SKILL_STATUS {
+	NONE = 0;
+	CASTING = 1; //施法中
+	RUNNING = 2; //执行中
 }
 
 message NSkillCastInfo

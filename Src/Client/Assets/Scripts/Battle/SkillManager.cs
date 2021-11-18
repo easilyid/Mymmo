@@ -66,11 +66,11 @@ namespace Battle
         }
         public Skill GetSkill(int skillId)
         {
-            for (int i = 0; i < this.Skills.Count; i++)
+            foreach (var skill in Skills)
             {
-                if (this.Skills[i].Define.ID==skillId)
+                if (skill.Define.ID==skillId)
                 {
-                    return this.Skills[i];
+                    return skill;
                 }
             }
             return null;

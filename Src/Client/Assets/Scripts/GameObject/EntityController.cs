@@ -156,12 +156,14 @@ public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
         this.anim.transform.position = position + (this.anim.transform.position - this.rideBone.position);
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
-        Creature target=this.entity as Creature;
-        if (target.IsCurrentPlayer)
+     
+        if (entity is Creature target && target.IsCurrentPlayer)
+        {
             return;
-            
+        }
+
         BattleManager.Instance.CurrentTarget = this.entity as Creature;
     }
     public void PlayAnim(string name)

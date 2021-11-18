@@ -1,4 +1,5 @@
-﻿using GameServer.Entities;
+﻿using GameServer.Core;
+using GameServer.Entities;
 using SkillBridge.Message;
 
 namespace GameServer.Battle
@@ -17,5 +18,6 @@ namespace GameServer.Battle
         public NSkillCastInfo CastSkill;
         public NDamageInfo Damage;
         public SkillResult Result;
+        public Vector3Int Position;
     }
 }
