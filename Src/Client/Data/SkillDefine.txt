@@ -33,10 +33,6 @@
       "MPCost": 10,
       "AOERange": 0,
       "SkillAnim": "SkillA",
-      "Buff": [
-        1,
-        2
-      ],
       "AD": 60.0,
       "AP": 0.0,
       "ADFator": 0.1
@@ -53,13 +49,10 @@
       "CastTime": 0.0,
       "CD": 7.0,
       "MPCost": 20,
-      "AOERange": 2,
+      "AOERange": 300,
       "SkillAnim": "SkillB",
       "Duration": 3.5,
       "Interval ": 0.8,
-      "Buff": [
-        3
-      ],
       "AD": 80.0,
       "AP": 0.0,
       "ADFator": 0.125
@@ -142,7 +135,7 @@
       "CastTime": 1.2,
       "CD": 12.0,
       "MPCost": 30,
-      "AOERange": 3,
+      "AOERange": 500,
       "SkillAnim": "SkillB",
       "Duration": 3.5,
       "Interval ": 0.8,
@@ -166,9 +159,6 @@
       "SkillAnim": "SkillC",
       "HitTimes": [
         0.8
-      ],
-      "Buff": [
-        4
       ],
       "AD": 0.0,
       "AP": 140.0,
@@ -215,9 +205,6 @@
       "HitTimes": [
         0.3
       ],
-      "Buff": [
-        5
-      ],
       "AD": 70.0,
       "AP": 0.0,
       "ADFator": 0.125
@@ -234,13 +221,10 @@
       "CastTime": 1.2,
       "CD": 7.0,
       "MPCost": 25,
-      "AOERange": 3,
+      "AOERange": 500,
       "SkillAnim": "SkillB",
       "HitTimes": [
         0.8
-      ],
-      "Buff": [
-        6
       ],
       "AD": 80.0,
       "AP": 0.0,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common;
 using Common.Battle;
 using Common.Data;
 using Entities;
@@ -16,6 +17,8 @@ namespace Battle
     {
         public NSkillInfo Info;
         public Creature Owner;
+        public Creature Target;
+
         public SkillDefine Define;
         private float cd;
         public float CD => cd;
@@ -23,9 +26,12 @@ namespace Battle
         private float castTime;
         private float skillTime;
         private SkillStatus Status;
+        public int Hit;
+
 
         private Dictionary<int, List<NDamageInfo>> HitMap = new Dictionary<int, List<NDamageInfo>>();
 
+        private List<Bullet> Bullets = new List<Bullet>();
         public Skill(NSkillInfo skillInfo, Creature owner)
         {
             this.Info = skillInfo;
@@ -67,15 +73,17 @@ namespace Battle
             return SkillResult.Ok;
         }
 
-        public void BeginCast(NDamageInfo damage)
+        public void BeginCast(Creature target)
         {
             this.IsCasting = true;
             this.castTime = 0;
             this.cd = this.Define.CD;
             this.skillTime = 0;
             this.Hit = 0;
-            this.Damage = damage;
+            this.Target = target;
             Owner.PlayAnim(this.Define.SkillAnim);
+            this.Bullets.Clear();
+            this.HitMap.Clear();
 
             if (this.Define.CastTime>0)
             {
@@ -87,8 +95,6 @@ namespace Battle
             }
         }
 
-        public NDamageInfo Damage;
-        public int Hit;
 
         public void OnUpdate(float delta)
         {
@@ -131,9 +137,30 @@ namespace Battle
                 }
                 else
                 {
-                    this.Status = SkillStatus.None;
-                    this.IsCasting = false;
-                    Debug.LogFormat("Skill[{0}] .UpdateSkill Finish", Define.Name);
+                    if (!this.Define.Bullet)
+                    {
+                        this.Status = SkillStatus.None;
+                        this.IsCasting = false;
+                        Debug.LogFormat("Skill[{0}].UpdateSkill Finish",this.Define.Name);
+
+                    }
+
+                    if (this.Define.Bullet)
+                    {
+                        bool finish = true;
+                        foreach (Bullet bullet in this.Bullets)
+                        {
+                            bullet.Update();
+                            if (!bullet.Stoped) finish = false;
+                        }
+
+                        if (finish && this.Hit >= this.Define.HitTimes.Count)
+                        {
+                            this.Status = SkillStatus.None;
+                            this.IsCasting = false;
+                            Debug.LogFormat("Skill[{0}] .UpdateSkill Finish", Define.Name);
+                        }
+                    }
                 }
             }
         }
@@ -155,22 +182,29 @@ namespace Battle
 
         private void DoHit()
         {
-            List<NDamageInfo> damages;
-            if (this.HitMap.TryGetValue(this.Hit,out damages))
+            if(this.Define.Bullet)
+                this.CastBullet();
+            else
             {
-                DoHitDamages(damages);
+                this.DoHitDamages(this.Hit);
             }
             Hit++;
         }
 
-        private void DoHitDamages(List<NDamageInfo> damages)
+        public void DoHitDamages(int hit)
         {
-            foreach (var dmg in damages)
+            List<NDamageInfo> damages;
+            if (this.HitMap.TryGetValue(hit, out damages))
             {
-                Creature target=EntityManager.Instance.GetEntity(dmg.entityId)as Creature;
-                if (target==null)continue;
-                target.DoDamage(dmg);
+                DoHitDamages(damages);
             }
+        }
+        public void CastBullet()
+        {
+            Bullet bullet = new Bullet(this);
+            Log.InfoFormat("Skill[{0}].CastBullet[{1}] Target:{2}", this.Define.Name, this.Define.BulletResource,
+                this.Target.Name);
+            this.Bullets.Add(bullet);
         }
 
         private void UpdateCD(float delta)
@@ -186,6 +220,15 @@ namespace Battle
             }
         }
 
+        //给服务器发回来的消息用的
+        internal void DoHit(NSkillHitInfo hit)
+        {
+            if (hit.isBullet || this.Define.Bullet)
+            {
+                this.DoHit(hit.hitId,hit.Damages);
+            }
+        }
+
         internal void DoHit(int hitId, List<NDamageInfo> damages)
         {
             if (hitId<=this.Hit)
@@ -197,5 +240,16 @@ namespace Battle
                 DoHitDamages(damages);
             }
         }
+        //直接造成伤害
+        internal void DoHitDamages(List<NDamageInfo> damages)
+        {
+            foreach (var dmg in damages)
+            {
+                Creature target = EntityManager.Instance.GetEntity(dmg.entityId) as Creature;
+                if (target == null) continue;
+                target.DoDamage(dmg);
+            }
+        }
+
     }
 }
