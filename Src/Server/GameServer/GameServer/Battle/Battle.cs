@@ -110,7 +110,7 @@ namespace GameServer.Battle
 
         public void AddHitInfo(NSkillHitInfo hitInfo)
         {
-
+            this.Hits.Add(hitInfo);
         }
         private void BroadcastHitsMessage()
         {

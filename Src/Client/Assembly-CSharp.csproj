@@ -64,6 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FX\Scripts\DelayActiveChild.cs" />
+    <Compile Include="Assets\FX\Scripts\uv_l.cs" />
     <Compile Include="Assets\MatrixEffect\Resources\AfterImageEffects.cs" />
     <Compile Include="Assets\Scripts\Assets\Resloader.cs" />
     <Compile Include="Assets\Scripts\Battle\Bullet.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Assets\Scripts\GameObject\PlayerInputController.cs" />
     <Compile Include="Assets\Scripts\GameObject\RideController.cs" />
     <Compile Include="Assets\Scripts\GameObject\SpawnPoint.cs" />
+    <Compile Include="Assets\Scripts\GameObject\TargetSelector.cs" />
     <Compile Include="Assets\Scripts\GameObject\TeleporterObject.cs" />
     <Compile Include="Assets\Scripts\Log\UnityLogger.cs" />
     <Compile Include="Assets\Scripts\Managers\BagManager.cs" />
@@ -225,14 +228,19 @@
     <None Include="Assets\Shader\MyMobile Particles AddNoMask Diff.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Shader\Lightmap\Lightmap.shader" />
+    <None Include="Assets\Shader\Projector.shader" />
     <None Include="Assets\ThirdParty\Candlelight\Asset Store Products\HyperText\Documentation\Readme.txt" />
+    <None Include="Assets\FX\Shader\ParticlesAlphaBlended.shader" />
     <None Include="Assets\Shader\DepthBloom.shader" />
     <None Include="Assets\References\log4net.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\FX\Shader\ParticlesAdditive.shader" />
     <None Include="Assets\JsonDotNet\link.xml" />
     <None Include="Assets\References\protobuf-net.xml" />
     <None Include="Assets\Shader\UITest.shader" />
+    <None Include="Assets\FX\Shader\ParticlesNiuQu01.shader" />
     <None Include="Assets\ThirdParty\Candlelight\Asset Store Products\HyperText\Documentation\Changelog.txt" />
+    <None Include="Assets\FX\Shader\ParticlesFresnel.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -242,6 +250,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Shader\Particle\ParticleAdditive.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\FX\Shader\ParticlesAlphaBlendedMask.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />

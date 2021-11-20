@@ -85,7 +85,7 @@ namespace Battle
             this.Bullets.Clear();
             this.HitMap.Clear();
 
-            if (this.Define.CastTime>0)
+            if (this.Define.CastTime > 0)
             {
                 this.Status = SkillStatus.Casting;
             }
@@ -103,7 +103,7 @@ namespace Battle
             {
                 this.UpdateCasting();
             }
-            else if(this.Status == SkillStatus.Running)
+            else if (this.Status == SkillStatus.Running)
             {
                 this.UpdateSkill();
             }
@@ -141,7 +141,7 @@ namespace Battle
                     {
                         this.Status = SkillStatus.None;
                         this.IsCasting = false;
-                        Debug.LogFormat("Skill[{0}].UpdateSkill Finish",this.Define.Name);
+                        Debug.LogFormat("Skill[{0}].UpdateSkill Finish", this.Define.Name);
 
                     }
 
@@ -182,7 +182,7 @@ namespace Battle
 
         private void DoHit()
         {
-            if(this.Define.Bullet)
+            if (this.Define.Bullet)
                 this.CastBullet();
             else
             {
@@ -225,13 +225,13 @@ namespace Battle
         {
             if (hit.isBullet || this.Define.Bullet)
             {
-                this.DoHit(hit.hitId,hit.Damages);
+                this.DoHit(hit.hitId, hit.Damages);
             }
         }
 
         internal void DoHit(int hitId, List<NDamageInfo> damages)
         {
-            if (hitId<=this.Hit)
+            if (hitId > this.Hit)
             {
                 this.HitMap[hitId] = damages;
             }
