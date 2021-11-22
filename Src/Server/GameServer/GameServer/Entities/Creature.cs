@@ -22,6 +22,8 @@ namespace GameServer.Entities
 
         public Attributes Attributes;
         public SkillManager SkillMger;
+        public BuffManager BuffMger;
+        public EffectManager EffectMar;
 
         public bool IsDeath = false;
 
@@ -37,12 +39,14 @@ namespace GameServer.Entities
             this.Info.Entity = this.EntityData;
             this.Info.EntityId = this.entityId;
             this.Info.Name = this.Define.Name;
-            this.InieSkills();
+            this.InitSkills();
+            this.InitBuffs();
 
             this.Attributes = new Attributes();
             this.Attributes.Init(this.Define,this.Info.Level,this.GetEquips(),this.Info.attrDynamic);
             this.Info.attrDynamic = this.Attributes.DynamicAttr;
         }
+
 
         internal int Distance(Creature target)
         {
@@ -54,10 +58,16 @@ namespace GameServer.Entities
         }
 
 
-        private void InieSkills()
+        private void InitSkills()
         {
             SkillMger = new SkillManager(this);
             this.Info.Skills.AddRange(this.SkillMger.Infos);
+        }
+
+        private void InitBuffs()
+        {
+            BuffMger = new BuffManager(this);
+            EffectMar = new EffectManager(this);
         }
 
         public virtual List<EquipDefine> GetEquips()
@@ -84,6 +94,13 @@ namespace GameServer.Entities
         public override void Update()
         {
             this.SkillMger.Update();
+            this.BuffMger.Update();
+
+        }
+
+        internal void AddBuff(BattleContext context, BuffDefine buffDefine)
+        {
+            this.BuffMger.AddBuff(context, buffDefine);
         }
     }
 }

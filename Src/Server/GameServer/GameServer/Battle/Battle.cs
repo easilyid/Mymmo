@@ -29,6 +29,8 @@ namespace GameServer.Battle
         private List<Creature> DeahPool = new List<Creature>();
 
         private List<NSkillHitInfo> Hits = new List<NSkillHitInfo>();
+        private List<NBuffInfo> BuffActions = new List<NBuffInfo>();
+
 
         public Battle(Map map)
         {
@@ -38,9 +40,9 @@ namespace GameServer.Battle
         public void ProcessBattleMessage(NetConnection<NetSession> sender, SkillCastRequest request)
         {
             Character character = sender.Session.Character;
-            if (request.castInfo!=null)
+            if (request.castInfo != null)
             {
-                if (character.entityId!=request.castInfo.casterId)
+                if (character.entityId != request.castInfo.casterId)
                     return;
                 this.Actions.Enqueue(request.castInfo);
             }
@@ -49,7 +51,8 @@ namespace GameServer.Battle
         public void Update()
         {
             this.Hits.Clear();
-            if (this.Actions.Count>0)
+            this.BuffActions.Clear();
+            if (this.Actions.Count > 0)
             {
                 NSkillCastInfo skillCast = this.Actions.Dequeue();
                 this.ExecuteAction(skillCast);
@@ -59,7 +62,6 @@ namespace GameServer.Battle
 
             this.BroadcastHitsMessage();
         }
-
 
         private void ExecuteAction(NSkillCastInfo cast)
         {
@@ -77,7 +79,6 @@ namespace GameServer.Battle
             NetMessageResponse message = new NetMessageResponse();
             message.skillCast = new SkillCastResponse();
             message.skillCast.castInfo = context.CastSkill;
-            message.skillCast.Damage = context.Damage;
             message.skillCast.Result = context.Result == SkillResult.Ok ? Result.Success : Result.Failed;
             message.skillCast.Errormsg = context.Result.ToString();
             this.Map.BroadcasrBattleResponse(message);
@@ -99,7 +100,7 @@ namespace GameServer.Battle
             List<Creature> result = new List<Creature>();
             foreach (var unit in this.AllUnits)
             {
-                if (unit.Value.Distance(pos)<range)
+                if (unit.Value.Distance(pos) < range)
                 {
                     result.Add(unit.Value);
                 }
@@ -108,18 +109,36 @@ namespace GameServer.Battle
             return result;
         }
 
+        public List<Creature> FindUnitsInMapRange(Vector3Int pos, int range)
+        {
+            return EntityManager.Instance.GetMapEntitiesInRange<Creature>(this.Map.ID, pos, range);
+        }
+
+
         public void AddHitInfo(NSkillHitInfo hitInfo)
         {
             this.Hits.Add(hitInfo);
         }
         private void BroadcastHitsMessage()
         {
-            if(this.Hits.Count==0)return;
+            if (this.Hits.Count == 0 && this.BuffActions.Count == 0) return;
             NetMessageResponse message = new NetMessageResponse();
-            message.skillHits = new SkillHitResponse();
-            message.skillHits.Hits.AddRange(Hits);
-            message.skillHits.Result = Result.Success;
-            message.skillHits.Errormsg = "";
+            if (this.Hits.Count > 0)
+            {
+                message.skillHits = new SkillHitResponse();
+                message.skillHits.Hits.AddRange(Hits);
+                message.skillHits.Result = Result.Success;
+                message.skillHits.Errormsg = "";
+            }
+            if (this.BuffActions.Count > 0)
+            {
+                message.buffRes = new BuffResponse();
+                message.buffRes.Buffs.AddRange(this.BuffActions);
+                message.buffRes.Result = Result.Success;
+                message.buffRes.Errormsg = "";
+            }
+
+
             this.Map.BroadcasrBattleResponse(message);
 
         }
@@ -141,6 +160,10 @@ namespace GameServer.Battle
                 this.LeaveBattle(unit);
             }
 
+        }
+        public void AddBuffAction(NBuffInfo buff)
+        {
+            this.BuffActions.Add(buff);
         }
 
     }

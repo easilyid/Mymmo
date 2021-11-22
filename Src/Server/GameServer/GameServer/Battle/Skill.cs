@@ -31,6 +31,7 @@ namespace GameServer.Battle
 
 
         private List<Bullet> Bullets = new List<Bullet>();
+
         public float CD
         {
             get { return cd; }
@@ -62,6 +63,7 @@ namespace GameServer.Battle
             {
                 return SkillResult.Casting;
             }
+
             if (Define.CastTarget == TargetType.Target)
             {
                 if (context.Target == null || context.Target == Owner)
@@ -110,6 +112,9 @@ namespace GameServer.Battle
                 this.Context = context;
                 this.Hit = 0;
                 this.Bullets.Clear();
+
+                this.AddBuff(TriggerType.SkillCast);
+
                 if (this.Instant)
                 {
                     this.DoHit();
@@ -130,6 +135,28 @@ namespace GameServer.Battle
             Log.InfoFormat("Skill[{0}].Cast Result:[{1}] Status:{2}", Define.Name, result, this.Status);
             return result;
         }
+
+        private void AddBuff(TriggerType trigger)
+        {
+            if (this.Define.Buff == null || this.Define.Buff.Count == 0) return;
+
+            foreach (var buffId in this.Define.Buff)
+            {
+                var buffDefine = DataManager.Instance.Buffs[buffId];
+
+                if (buffDefine.Trigger != trigger) continue; //触发类型不一致
+
+                if (buffDefine.Target == TargetType.Self)
+                {
+                    this.Owner.AddBuff(this.Context, buffDefine);
+                }
+                else if (buffDefine.Target == TargetType.Target)
+                {
+                    this.Context.Target.AddBuff(this.Context, buffDefine);
+                }
+            }
+        }
+
 
         NSkillHitInfo InitHitInfo(bool isBullet)
         {
@@ -262,12 +289,12 @@ namespace GameServer.Battle
                 if (finish && this.Hit >= this.Define.HitTimes.Count)
                 {
                     this.Status = SkillStatus.None;
-                    Log.InfoFormat("Skill[{0}] .UpdateSkill Finish",this.Define.Name);
+                    Log.InfoFormat("Skill[{0}] .UpdateSkill Finish", this.Define.Name);
                 }
             }
         }
 
-        private void HitTarget(Creature target,NSkillHitInfo hit)
+        private void HitTarget(Creature target, NSkillHitInfo hit)
         {
             if (this.Define.CastTarget == TargetType.Self && (target != Context.Caster)) return;
 
@@ -277,7 +304,11 @@ namespace GameServer.Battle
             Log.InfoFormat("Skill[{0}].HitTarget[{1}] Damage:{2} Crit:{3}", this.Define.Name, target.Name, damage.Damage, damage.Crit);
             target.DoDamage(damage);
             hit.Damages.Add(damage);
+
+            this.AddBuff(TriggerType.SkillHit);
         }
+
+
         private void HitRange(NSkillHitInfo hit)
         {
             Vector3Int pos;
@@ -294,11 +325,11 @@ namespace GameServer.Battle
                 pos = Owner.Position;
             }
 
-            List<Creature> units = this.Context.Battle.FindUnitsInRange(pos, this.Define.AOERange);
+            List<Creature> units = this.Context.Battle.FindUnitsInMapRange(pos, this.Define.AOERange);
 
             foreach (var target in units)
             {
-                this.HitTarget(target,hit);
+                this.HitTarget(target, hit);
             }
         }
 
@@ -311,7 +342,7 @@ namespace GameServer.Battle
             Log.InfoFormat("Skill[{0}].CastBullet[{1}] Target:{2}", this.Define.Name, this.Define.BulletResource,
                 this.Context.Target.Name);
 
-            Bullet bullet = new Bullet(this, this.Context.Target,hitInfo);
+            Bullet bullet = new Bullet(this, this.Context.Target, hitInfo);
             this.Bullets.Add(bullet);
         }
         /* 战斗计算公式

@@ -112,7 +112,7 @@ namespace Entities
             Debug.LogFormat("SetPosition:{0}", position);
             this.position = position;
         }
-        public void CastSkill(int skillId, Creature target, NVector3 position,NDamageInfo damage)
+        public void CastSkill(int skillId, Creature target, NVector3 position)
         {
             this.SetStandby(true);
             var skill = this.SkillMgr.GetSkill(skillId);

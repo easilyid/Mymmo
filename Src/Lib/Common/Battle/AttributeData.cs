@@ -40,12 +40,12 @@ namespace Common.Battle
         public float AD { get { return Data[(int)AttributeType.AD]; } set { Data[(int)AttributeType.AD] = value; } }
 
         /// <summary>
-        /// 物理攻击
+        /// 法术攻击
         /// </summary>
         public float AP { get { return Data[(int)AttributeType.AP]; } set { Data[(int)AttributeType.AP] = value; } }
 
         /// <summary>
-        /// 法术攻击
+        /// 物理防御
         /// </summary>
         public float DEF { get { return Data[(int)AttributeType.DEF]; } set { Data[(int)AttributeType.DEF] = value; } }
 
