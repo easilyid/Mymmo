@@ -12,6 +12,7 @@ public class UICreatureInfo : MonoBehaviour
     public Slider MPBar;
     public Text HPText;
     public Text MPText;
+    public UIBuffIcons UiBuffIcons;
 
     private Creature target;
 
@@ -24,6 +25,7 @@ public class UICreatureInfo : MonoBehaviour
         set
         {
             this.target = value;
+            UiBuffIcons.SetOwner(value);
             this.UpdateUI();
         }
     }

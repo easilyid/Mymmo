@@ -21,12 +21,19 @@ namespace Entities
         public Attributes Attributes;
 
         public SkillManager SkillMgr;
+        public BuffManager BuffMger;
+        public EffectManager EffectMar;
+
+
+        public Action<Buff> OnBuffAdd;
+        public Action<Buff> OnBuffRemove;
 
         public int Id { get { return this.Info.Id; } }
 
         public string Name { get { if (this.Info.Type == CharacterType.Player) return this.Info.Name;else return this.Define.Name; } }
 
         public bool IsPlayer { get { return this.Info.Type == CharacterType.Player; } }
+
 
         public bool IsCurrentPlayer
         {
@@ -68,6 +75,9 @@ namespace Entities
             this.Attributes = new Attributes();
             this.Attributes.Init(this.Define, this.Info.Level, this.GetEquips(), this.Info.attrDynamic);
             this.SkillMgr = new SkillManager(this);
+            this.BuffMger = new BuffManager(this);
+            this.EffectMar = new EffectManager(this);
+
         }
 
         public void UpdateInfo(NCharacterInfo info)
@@ -76,6 +86,7 @@ namespace Entities
             this.Info = info;
             this.Attributes.Init(this.Define, this.Info.Level, this.GetEquips(), this.Info.attrDynamic);
             this.SkillMgr.UpdateSkills();
+
         }
 
         public virtual List<EquipDefine> GetEquips()
@@ -132,6 +143,7 @@ namespace Entities
         {
             base.OnUpdate(delta);
             this.SkillMgr.OnUpdate(delta);
+            this.BuffMger.OnUpdate(delta);
         }
 
         public void DoDamage(NDamageInfo damage)
@@ -148,5 +160,50 @@ namespace Entities
             var skill = this.SkillMgr.GetSkill(hit.skillId);
             skill.DoHit(hit);
         }
+
+        internal void DoBuffAction(NBuffInfo buff)
+        {
+            switch (buff.Action)
+            {
+                case BuffAction.Add:
+                    this.AddBuff(buff.buffId, buff.buffType, buff.casterId);
+                    break;
+                case BuffAction.Remove:
+                    this.RemoveBuff(buff.buffId);
+                    break;
+                case BuffAction.Hit:
+                    this.DoDamage(buff.Damage);
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void AddBuff(int buffId, int buffType, int casterId)
+        {
+           var buff = this.BuffMger.AddBuff(buffId, buffType, casterId);
+           if (buff != null && this.OnBuffAdd != null)
+           {
+               this.OnBuffAdd(buff);
+           }
+
+        }
+        public void RemoveBuff(int buffId)
+        {
+            var buff = this.BuffMger.RemoveBuff(buffId);
+            if (buff != null && this.OnBuffRemove != null)
+            {
+                this.OnBuffRemove(buff);
+            }
+
+        }
+        internal void AddBuffEffect(BuffEffect effect)
+        {
+            this.EffectMar.AddEffect(effect);
+        }
+        internal void RemoveBuffEffect(BuffEffect effect)
+        {
+            this.EffectMar.RemoveEffect(effect);
+        }
+
     }
 }

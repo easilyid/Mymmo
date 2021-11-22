@@ -68,7 +68,10 @@
     <Compile Include="Assets\FX\Scripts\uv_l.cs" />
     <Compile Include="Assets\MatrixEffect\Resources\AfterImageEffects.cs" />
     <Compile Include="Assets\Scripts\Assets\Resloader.cs" />
+    <Compile Include="Assets\Scripts\Battle\Buff.cs" />
+    <Compile Include="Assets\Scripts\Battle\BuffManager.cs" />
     <Compile Include="Assets\Scripts\Battle\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Battle\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Battle\Skill.cs" />
     <Compile Include="Assets\Scripts\Battle\SkillManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Character.cs" />
@@ -159,6 +162,8 @@
     <Compile Include="Assets\Scripts\UI\Setting\UISetting.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\UIShop.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\UIShopItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Skill\UIBuffIcons.cs" />
+    <Compile Include="Assets\Scripts\UI\Skill\UIBuffItem.cs" />
     <Compile Include="Assets\Scripts\UI\Skill\UISkill.cs" />
     <Compile Include="Assets\Scripts\UI\Skill\UISkillItem.cs" />
     <Compile Include="Assets\Scripts\UI\Skill\UISkillSlot.cs" />
