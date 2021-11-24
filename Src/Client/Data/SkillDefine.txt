@@ -100,6 +100,7 @@
       "MPCost": 0,
       "Bullet": true,
       "BulletSpeed": 800.0,
+      "BulletResource": "EFX_Wizard_AtkA_Bullet_prefab",
       "AOERange": 0,
       "SkillAnim": "Attack",
       "HitTimes": [
@@ -121,6 +122,7 @@
       "MPCost": 20,
       "Bullet": true,
       "BulletSpeed": 800.0,
+      "BulletResource": "EFX_Wizard_SkillA_Bullet_prefab",
       "AOERange": 0,
       "SkillAnim": "SkillA",
       "HitTimes": [
@@ -189,6 +191,7 @@
       "MPCost": 0,
       "Bullet": true,
       "BulletSpeed": 800.0,
+      "BulletResource": "EFX_Archer_AtkA_B_dandao_prefab",
       "AOERange": 0,
       "SkillAnim": "Attack",
       "HitTimes": [
@@ -210,6 +213,7 @@
       "MPCost": 15,
       "Bullet": true,
       "BulletSpeed": 800.0,
+      "BulletResource": "EFX_Archer_AtkA_B_dandao_prefab",
       "AOERange": 0,
       "SkillAnim": "SkillA",
       "HitTimes": [
@@ -260,6 +264,7 @@
       "MPCost": 20,
       "Bullet": true,
       "BulletSpeed": 800.0,
+      "BulletResource": "EFX_Archer_AtkA_B_dandao_prefab",
       "AOERange": 0,
       "SkillAnim": "SkillC",
       "HitTimes": [

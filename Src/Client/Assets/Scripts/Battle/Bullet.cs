@@ -12,7 +12,7 @@ namespace Battle
         private Skill skill;
         private int hit = 0;
         private float flyTime = 0;
-        private float duration = 0;
+        public float duration = 0;
 
         public bool Stoped ;
 

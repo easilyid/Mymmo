@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class Creature : Entity,IEntityController
+    public class Creature : Entity
     {
         public NCharacterInfo Info;
 
@@ -100,6 +100,14 @@ namespace Entities
             this.speed = this.Define.Speed;
         }
 
+        internal void FaceTo(Vector3Int position)
+        {
+            this.SetDirection(GameObjectTool.WorldToLogic(GameObjectTool.LogicToWorld(position-this.position).normalized));
+            this.UpdateEntityData();
+            if (this.Controller != null)
+                this.Controller.UpdateDirection();
+        }
+
         public void MoveBack()
         {
             Debug.LogFormat("MoveBack");
@@ -123,11 +131,11 @@ namespace Entities
             Debug.LogFormat("SetPosition:{0}", position);
             this.position = position;
         }
-        public void CastSkill(int skillId, Creature target, NVector3 position)
+        public void CastSkill(int skillId, Creature target, NVector3 pos)
         {
             this.SetStandby(true);
             var skill = this.SkillMgr.GetSkill(skillId);
-            skill.BeginCast(target);
+            skill.BeginCast(target,pos);
         }
 
         public void SetStandby(bool standby)
@@ -205,5 +213,11 @@ namespace Entities
             this.EffectMar.RemoveEffect(effect);
         }
 
+        public void PlayEffect(EffectType type, string name, Entity target, float duration)
+        {
+            if (string.IsNullOrEmpty(name))return;
+            if (this.Controller != null)
+                this.Controller.PlayEffect(type, name, target, duration);
+        }
     }
 }
