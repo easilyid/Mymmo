@@ -16,6 +16,7 @@
       "HitTimes": [
         0.4
       ],
+      "HitEffect": "EFX_Warrior_Behurt_prefab",
       "AP": 0.0,
       "ADFator": 1.0
     },
@@ -106,6 +107,7 @@
       "HitTimes": [
         0.4
       ],
+      "HitEffect": "EFX_Wizard_AttkA_hit_prefab",
       "APFator": 1.0
     },
     "202": {
@@ -128,6 +130,7 @@
       "HitTimes": [
         0.6
       ],
+      "HitEffect": "EFX_Wizard_SkillA_Hit_prefab",
       "AD": 0.0,
       "AP": 80.0,
       "APFator": 0.125
@@ -145,6 +148,7 @@
       "CD": 12.0,
       "MPCost": 30,
       "AOERange": 500,
+      "AOEEffect": "EFX_Wizard_SkillB_bullet_perfab",
       "SkillAnim": "SkillB",
       "Duration": 3.5,
       "Interval ": 0.8,
@@ -169,6 +173,7 @@
       "HitTimes": [
         0.8
       ],
+      "HitEffect": "EFX_Wizard_SkillA_Hit_prefab",
       "Buff": [
         4
       ],
@@ -197,6 +202,7 @@
       "HitTimes": [
         0.8
       ],
+      "HitEffect": "EFX_Archer_AtkA_B_Behurt_prefab",
       "ADFator": 1.0
     },
     "302": {
@@ -219,6 +225,7 @@
       "HitTimes": [
         0.3
       ],
+      "HitEffect": "EFX_Archer_AtkA_B_Behurt_prefab",
       "Buff": [
         5
       ],
@@ -239,10 +246,12 @@
       "CD": 7.0,
       "MPCost": 25,
       "AOERange": 500,
+      "AOEEffect": "EFX_Archer_SkillB_behurt_prefab",
       "SkillAnim": "SkillB",
       "HitTimes": [
         0.8
       ],
+      "HitEffect": "EFX_Archer_AtkA_B_Behurt_prefab",
       "Buff": [
         6
       ],
@@ -272,6 +281,7 @@
         1.25,
         2.0
       ],
+      "HitEffect": "EFX_Archer_AtkA_B_Behurt_prefab",
       "AD": 70.0,
       "AP": 0.0,
       "ADFator": 0.2

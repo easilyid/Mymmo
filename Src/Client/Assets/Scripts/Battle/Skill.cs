@@ -99,8 +99,24 @@ namespace Battle
             }
             else
             {
-                this.Status = SkillStatus.Running;
-                //this.StartSkill();
+                this.StartSkill();
+            }
+        }
+
+        /// <summary>
+        /// 技能执行开始
+        /// </summary>
+        private void StartSkill()
+        {
+            this.Status = SkillStatus.Running;
+            if (!string.IsNullOrEmpty(this.Define.AOEEffect))
+            {
+                if(this.Define.CastTarget==TargetType.Position)
+                    this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.TargetPosition);
+                else if (this.Define.CastTarget == TargetType.Target)
+                    this.Owner.PlayEffect(EffectType.Position, this.Define.AOEEffect, this.Target);
+                else if(this.Define.CastTarget==TargetType.Self)
+                    this.Owner.PlayEffect(EffectType.Position,this.Define.AOEEffect,this.Owner);
             }
         }
 
@@ -185,7 +201,7 @@ namespace Battle
             else
             {
                 castTime = 0;
-                Status = SkillStatus.Running;
+                this.StartSkill();
                 Debug.LogFormat("Skill[{0}] .UpdateCasting Finish", Define.Name);
 
             }
@@ -259,7 +275,12 @@ namespace Battle
             {
                 Creature target = EntityManager.Instance.GetEntity(dmg.entityId) as Creature;
                 if (target == null) continue;
-                target.DoDamage(dmg);
+                target.DoDamage(dmg,true);
+
+                if (Define.HitEffect!=null)
+                {
+                    target.PlayEffect(EffectType.Hit, this.Define.HitEffect, target);
+                }
             }
         }
 

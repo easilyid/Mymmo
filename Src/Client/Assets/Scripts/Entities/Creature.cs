@@ -154,11 +154,17 @@ namespace Entities
             this.BuffMger.OnUpdate(delta);
         }
 
-        public void DoDamage(NDamageInfo damage)
+        public void DoDamage(NDamageInfo damage,bool playHurt)
         {
             Debug.LogFormat("Domage:{0} DMG:{1} CRIT:{2}",this.Name,damage.Damage, damage.Crit);
             this.Attributes.HP -= damage.Damage;
-            this.PlayAnim("Hurt");
+
+            if(playHurt) this.PlayAnim("Hurt");
+            if (this.Controller != null)
+            {
+                UIWorldElementManager.Instance.ShowPopupText(PopupType.Damage,
+                    this.Controller.GetTransform().position + GetPopupOffset(), -damage.Damage, damage.Crit);
+            }
         }
 
         public void DoSkillHit(NSkillHitInfo hit)
@@ -180,12 +186,13 @@ namespace Entities
                     this.RemoveBuff(buff.buffId);
                     break;
                 case BuffAction.Hit:
-                    this.DoDamage(buff.Damage);
+                    this.DoDamage(buff.Damage,false);
                     break;
                 default:
                     break;
             }
         }
+
         private void AddBuff(int buffId, int buffType, int casterId)
         {
            var buff = this.BuffMger.AddBuff(buffId, buffType, casterId);
@@ -213,11 +220,31 @@ namespace Entities
             this.EffectMar.RemoveEffect(effect);
         }
 
-        public void PlayEffect(EffectType type, string name, Entity target, float duration)
+        public void PlayEffect(EffectType type, string name, Creature target, float duration = 0)
         {
             if (string.IsNullOrEmpty(name))return;
             if (this.Controller != null)
                 this.Controller.PlayEffect(type, name, target, duration);
         }
+
+        public void PlayEffect(EffectType type, string name, NVector3 position)
+        {
+            if (string.IsNullOrEmpty(name)) return;
+            if (this.Controller != null)
+                this.Controller.PlayEffect(type, name, position, 0);
+        }
+
+        //伤害飘字
+        public Vector3 GetPopupOffset()
+        {
+            return new Vector3(0, this.Define.Height, 0);
+        }
+
+
+        internal Vector3 GetHitOffset()
+        {
+            return new Vector3(0, this.Define.Height * 0.8f, 0);
+        }
+
     }
 }

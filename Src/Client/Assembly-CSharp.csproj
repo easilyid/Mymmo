@@ -66,6 +66,14 @@
   <ItemGroup>
     <Compile Include="Assets\FX\Scripts\DelayActiveChild.cs" />
     <Compile Include="Assets\FX\Scripts\uv_l.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LTDescr.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LTDescrOptional.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LTSeq.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LeanAudio.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LeanSmooth.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LeanTest.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LeanTween.cs" />
+    <Compile Include="Assets\LeanTween\Framework\LeanTweenExt.cs" />
     <Compile Include="Assets\MatrixEffect\Resources\AfterImageEffects.cs" />
     <Compile Include="Assets\Scripts\Assets\Resloader.cs" />
     <Compile Include="Assets\Scripts\Battle\Buff.cs" />
@@ -73,6 +81,7 @@
     <Compile Include="Assets\Scripts\Battle\Bullet.cs" />
     <Compile Include="Assets\Scripts\Battle\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Battle\EffectType.cs" />
+    <Compile Include="Assets\Scripts\Battle\PopupType.cs" />
     <Compile Include="Assets\Scripts\Battle\Skill.cs" />
     <Compile Include="Assets\Scripts\Battle\SkillManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Character.cs" />
@@ -84,6 +93,7 @@
     <Compile Include="Assets\Scripts\GameObject\EffectController.cs" />
     <Compile Include="Assets\Scripts\GameObject\EntityController.cs" />
     <Compile Include="Assets\Scripts\GameObject\EntityEffectManager.cs" />
+    <Compile Include="Assets\Scripts\GameObject\FXManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\GameObjectManager.cs" />
     <Compile Include="Assets\Scripts\GameObject\GameObjectTool.cs" />
     <Compile Include="Assets\Scripts\GameObject\MainPlayerCamera.cs" />
@@ -189,6 +199,7 @@
     <Compile Include="Assets\Scripts\UI\UIMain.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Scripts\UI\UINameBar.cs" />
+    <Compile Include="Assets\Scripts\UI\UIPopupText.cs" />
     <Compile Include="Assets\Scripts\UI\UIRegister.cs" />
     <Compile Include="Assets\Scripts\UI\UITest.cs" />
     <Compile Include="Assets\Scripts\UI\UIWindow.cs" />
@@ -235,9 +246,11 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Shader\MyMobile VertexLit Diffuse.shader" />
     <None Include="Assets\Shader\MyMobile Particles AddNoMask Diff.shader" />
+    <None Include="Assets\LeanTween\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Shader\Lightmap\Lightmap.shader" />
     <None Include="Assets\Shader\Projector.shader" />
+    <None Include="Assets\LeanTween\License.txt" />
     <None Include="Assets\ThirdParty\Candlelight\Asset Store Products\HyperText\Documentation\Readme.txt" />
     <None Include="Assets\FX\Shader\ParticlesAlphaBlended.shader" />
     <None Include="Assets\Shader\DepthBloom.shader" />

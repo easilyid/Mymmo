@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum EffectType
+
+public enum PopupType
 {
     None,
-    Bullet,//子弹
-    Position,//位置
-    Hit, //受击
+    Damage,
+    Heal
 }
