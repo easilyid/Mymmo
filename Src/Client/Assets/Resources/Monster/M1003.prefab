@@ -722,6 +722,7 @@ MonoBehaviour:
   isPlayer: 0
   rideController: {fileID: 0}
   rideBone: {fileID: 0}
+  EffectMar: {fileID: 0}
 --- !u!136 &-6388124058577100540
 CapsuleCollider:
   m_ObjectHideFlags: 0

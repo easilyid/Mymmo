@@ -36,7 +36,7 @@ namespace Battle
         {
             this.Info = skillInfo;
             this.Owner = owner;
-            Define = DataManager.Instance.Skills[(int)this.Owner.Define.Class][this.Info.Id];
+            Define = DataManager.Instance.Skills[Owner.Define.TID][this.Info.Id];
             cd = 0;
         }
 

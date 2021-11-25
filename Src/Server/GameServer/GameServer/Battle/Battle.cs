@@ -30,6 +30,7 @@ namespace GameServer.Battle
 
         private List<NSkillHitInfo> Hits = new List<NSkillHitInfo>();
         private List<NBuffInfo> BuffActions = new List<NBuffInfo>();
+        private List<NSkillCastInfo> CastSkills = new List<NSkillCastInfo>();
 
 
         public Battle(Map map)
@@ -50,6 +51,7 @@ namespace GameServer.Battle
 
         public void Update()
         {
+            this.CastSkills.Clear();
             this.Hits.Clear();
             this.BuffActions.Clear();
             if (this.Actions.Count > 0)
@@ -74,14 +76,14 @@ namespace GameServer.Battle
             if (context.Target != null)
                 this.JoinBattle(context.Target);
 
-            context.Caster.Caskill(context, cast.skillId);
+            context.Caster.CastSkill(context, cast.skillId);
 
-            NetMessageResponse message = new NetMessageResponse();
+           /*弃用 NetMessageResponse message = new NetMessageResponse();
             message.skillCast = new SkillCastResponse();
-            message.skillCast.castInfo = context.CastSkill;
+            message.skillCast.castInfoes = context.CastSkill;
             message.skillCast.Result = context.Result == SkillResult.Ok ? Result.Success : Result.Failed;
             message.skillCast.Errormsg = context.Result.ToString();
-            this.Map.BroadcasrBattleResponse(message);
+            this.Map.BroadcasrBattleResponse(message);*/
 
         }
 
@@ -114,15 +116,27 @@ namespace GameServer.Battle
             return EntityManager.Instance.GetMapEntitiesInRange<Creature>(this.Map.ID, pos, range);
         }
 
-
+        public void AddCastSkillInfo(NSkillCastInfo cast)
+        {
+            this.CastSkills.Add(cast);
+        }
         public void AddHitInfo(NSkillHitInfo hitInfo)
         {
             this.Hits.Add(hitInfo);
         }
         private void BroadcastHitsMessage()
         {
-            if (this.Hits.Count == 0 && this.BuffActions.Count == 0) return;
+            if (this.Hits.Count == 0 && this.BuffActions.Count == 0&&this.CastSkills.Count==0) return;
             NetMessageResponse message = new NetMessageResponse();
+            if (this.CastSkills.Count > 0)
+            {
+                message.skillCast = new SkillCastResponse();
+                message.skillCast.castInfoes.AddRange(CastSkills);
+                message.skillCast.Result = Result.Success;
+                message.skillCast.Errormsg = "";
+            }
+
+
             if (this.Hits.Count > 0)
             {
                 message.skillHits = new SkillHitResponse();
