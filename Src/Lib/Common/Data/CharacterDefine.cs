@@ -77,5 +77,6 @@ namespace Common.Data
         public float CRI { get; set; }
 
 
+        public string AI { get; set; }
     }
 }

@@ -12,6 +12,9 @@ namespace GameServer.Managers
 {
     class EquipManager:Singleton<EquipManager>
     {
+        //修复服务端重启，装备没了
+        //原因：装备数据没有保存成功，可能是EF6框架的BUG，检测不到二进制数据改变
+
         public Result EquipItem(NetConnection<NetSession> sender, int slot, int itemId, bool isEquip)
         {
             var character = sender.Session.Character;
@@ -20,18 +23,28 @@ namespace GameServer.Managers
                 return Result.Failed;
             }
 
-            UpdateEquip(character.Data.Equips, slot, itemId, isEquip);
+            character.Data.Equips= UpdateEquip(character.Data.Equips, slot, itemId, isEquip);
             DBService.Instance.Save();
             return Result.Success;
         }
 
-        private unsafe void UpdateEquip(byte[] equipData, int slot, int itemId, bool isEquip)
+        private unsafe byte[] UpdateEquip(byte[] equipData, int slot, int itemId, bool isEquip)
         {
+            byte[] EquipData = new byte[28];
             fixed (byte* pt = equipData)
             {
                 var slotId = (int*)(pt+slot*sizeof(int));
-                (*slotId) = isEquip ? itemId : 0;
+                if (isEquip)
+                {
+                    *slotId = itemId;
+                }
+                else
+                {
+                    *slotId = 0;
+                }
             }
+            Array.Copy(equipData,EquipData,28);
+            return EquipData;
         }
     }
 }

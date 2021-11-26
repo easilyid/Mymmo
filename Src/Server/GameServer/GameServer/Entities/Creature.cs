@@ -27,7 +27,8 @@ namespace GameServer.Entities
 
         public bool IsDeath = false;
 
-        public CharState State;
+        public BattleState BattleState;
+        public CharacterState State;
 
         public Creature(CharacterType type, int configId, int level, Vector3Int pos, Vector3Int dir) :
            base(pos, dir)
@@ -83,7 +84,7 @@ namespace GameServer.Entities
             context.Result = skill.Cast(context);
             if (context.Result == SkillResult.Ok)
             {
-                this.State = CharState.InBattle;
+                this.BattleState = BattleState.InBattle;
             }
 
             if (context.CastSkill==null)
@@ -110,7 +111,7 @@ namespace GameServer.Entities
 
         public void DoDamage(NDamageInfo damage, Creature source)
         {
-            this.State = CharState.InBattle;
+            this.BattleState = BattleState.InBattle;
             this.Attributes.HP -= damage.Damage;
             if (this.Attributes.HP<0)
             {
