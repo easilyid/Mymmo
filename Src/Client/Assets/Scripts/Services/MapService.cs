@@ -21,15 +21,17 @@ namespace Services
             MessageDistributer.Instance.Subscribe<MapCharacterLeaveResponse>(this.OnMapCharacterLeave);
 
             MessageDistributer.Instance.Subscribe<MapEntitySyncResponse>(this.OnEntitySync);
+
+            SceneManager.Instance.onSceneLoadDone += OnLoadDone;
         }
 
-
         public int CurrentMapId { get; set; }
-
+        private bool loadingDone = true;
         public void Dispose()
         {
             MessageDistributer.Instance.Unsubscribe<MapCharacterEnterResponse>(this.OnMapCharacterEnter);
             MessageDistributer.Instance.Unsubscribe<MapCharacterLeaveResponse>(this.OnMapCharacterLeave);
+            SceneManager.Instance.onSceneLoadDone -= OnLoadDone;
 
             //MessageDistributer.Instance.Unsubscribe<MapEntitySyncResponse>(this.OnEntitySync);
         }
@@ -52,19 +54,22 @@ namespace Services
                     else //不是第一次进游戏，而是换地图就更新角色信息
                         User.Instance.CurrentCharacter.UpdateInfo(cha);
 
+                    User.Instance.CurrentCharacter.ready = false;
                     User.Instance.CharacterInited();
                     CharacterManager.Instance.AddCharacter(User.Instance.CurrentCharacter);
+
+                    if (CurrentMapId != response.mapId)
+                    {
+                        this.EnterMap(response.mapId);
+                        this.CurrentMapId = response.mapId;
+                    }
+
                     continue;
                 }
 
                 CharacterManager.Instance.AddCharacter(new Character(cha));
             }
 
-            if (CurrentMapId != response.mapId)
-            {
-                this.EnterMap(response.mapId);
-                this.CurrentMapId = response.mapId;
-            }
         }
 
         void OnMapCharacterLeave(object sender, MapCharacterLeaveResponse response)
@@ -75,13 +80,20 @@ namespace Services
                 CharacterManager.Instance.RemoveCharacter(response.entityId);
             }
             else
+            {
+                if (User.Instance.CurrentCharacterObject != null)
+                {
+                    User.Instance.CurrentCharacterObject.OnLeavelevel();
+                }
                 CharacterManager.Instance.Clear();
+            }
         }
 
         void EnterMap(int mapId)
         {
             if (DataManager.Instance.Maps.ContainsKey(mapId))
             {
+                loadingDone = false;
                 MapDefine map = DataManager.Instance.Maps[mapId];
                 User.Instance.CurrentMapData = map;
                 SceneManager.Instance.LoadScene(map.Resource);
@@ -93,7 +105,8 @@ namespace Services
 
         public void SendMapEntitySync(EntityEvent entityEvent, NEntity entity, int param)
         {
-            Debug.LogFormat("MapEntityUpdateRequest :ID{0} POS:{1} DIR:{2} SPD:{3}", entity.Id, entity.Position.String(), entity.Direction.String(), entity.Speed);
+            if(!loadingDone)return;
+            Debug.LogFormat("SendMapEntitySync :EntityID{0} POS:{1} DIR:{2} SPD:{3}", entity.Id, entity.Position.String(), entity.Direction.String(), entity.Speed);
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.mapEntitySync = new MapEntitySyncRequest();
@@ -109,8 +122,9 @@ namespace Services
 
         void OnEntitySync(object sender, MapEntitySyncResponse response)
         {
+            if (!loadingDone) return;
             System.Text.StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("MapEntityUpdateResponse: Entitys:{0}", response.entitySyncs.Count);
+            sb.AppendFormat("OnEntitySync: Entitys:{0}", response.entitySyncs.Count);
             sb.AppendLine();
             foreach (var entity in response.entitySyncs)
             {
@@ -130,7 +144,19 @@ namespace Services
             NetClient.Instance.SendMessage(message);
         }
 
+
+        private void OnLoadDone()
+        {
+            if (User.Instance.CurrentCharacter != null)
+                User.Instance.CurrentCharacter.ready = true;
+
+            if (User.Instance.CurrentCharacterObject != null)
+            {
+                User.Instance.CurrentCharacterObject.OnEnterlevel();
+            }
+
+            loadingDone = true;
+        }
+
     }
-
-
 }

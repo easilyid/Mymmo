@@ -15,7 +15,6 @@ namespace GameServer.Entities
     public class Monster : Creature
     {
         AIAgent AI;
-        public Map Map;
         public Vector3Int moveTarget; 
         Vector3 movePosition;
         public Monster(int tid, int level, Vector3Int pos, Vector3Int dir) : base(CharacterType.Monster, tid, level, pos, dir)
@@ -23,9 +22,9 @@ namespace GameServer.Entities
             this.AI = new AIAgent(this);
         }
 
-        public void OnEnterMap(Map map)
+        public override void OnEnterMap(Map map)
         {
-            this.Map = map;
+            //this.AI.Init();
         }
 
         public override void Update()

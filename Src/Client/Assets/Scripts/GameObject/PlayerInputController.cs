@@ -6,6 +6,7 @@ using Entities;
 using Services;
 using SkillBridge.Message;
 using UnityEngine.AI;
+using System;
 
 public class PlayerInputController : MonoBehaviour {
 
@@ -31,31 +32,34 @@ public class PlayerInputController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         state = CharacterState.Idle;
-        //if(this.character == null)
-        //{
-        //    DataManager.Instance.Load();
-        //    NCharacterInfo cinfo = new NCharacterInfo();
-        //    cinfo.Id = 1;
-        //    cinfo.Name = "Test";
-        //    cinfo.ConfigId = 1;
-        //    cinfo.Entity = new NEntity();
-        //    cinfo.Entity.Position = new NVector3();
-        //    cinfo.Entity.Direction = new NVector3
-        //    {
-        //        X = 0,
-        //        Y = 100,
-        //        Z = 0
-        //    };
-        //    cinfo.attrDynamic = new NAttributeDynamic();
-        //    this.character = new Character(cinfo);
 
-        //    if (entityController != null) entityController.entity = this.character;
-        //}
+        /** 弃用
+         if (this.character == null)
+        {
+            DataManager.Instance.Load();
+            NCharacterInfo cinfo = new NCharacterInfo();
+            cinfo.Id = 1;
+            cinfo.Name = "Test";
+            cinfo.ConfigId = 1;
+            cinfo.Entity = new NEntity();
+            cinfo.Entity.Position = new NVector3();
+            cinfo.Entity.Direction = new NVector3
+            {
+                X = 0,
+                Y = 100,
+                Z = 0
+            };
+            cinfo.attrDynamic = new NAttributeDynamic();
+            this.character = new Character(cinfo);
+
+            if (entityController != null) entityController.entity = this.character;
+        }**/
 
         if (agent==null)
         {
             agent = this.gameObject.AddComponent<NavMeshAgent>();
             agent.stoppingDistance = 0.3f;
+            //agent.updatePosition = false;
         }
     }
 
@@ -66,6 +70,7 @@ public class PlayerInputController : MonoBehaviour {
 
     private IEnumerator BeginNav(Vector3 target)
     {
+        //agent.updatePosition = true;
         agent.SetDestination(target);
         yield return null;
         autoNav = true;
@@ -89,8 +94,8 @@ public class PlayerInputController : MonoBehaviour {
             this.character.Stop();
             this.SendEntityEvent(EntityEvent.Idle);
         }
-
-       NavPathRenderer.Instance.SetPath(null, Vector3.zero);
+        //agent.updatePosition = false;
+        NavPathRenderer.Instance.SetPath(null, Vector3.zero);
     }
 
     public void NavMove()
@@ -120,6 +125,20 @@ public class PlayerInputController : MonoBehaviour {
             StopNav();
             return;
         }
+    }
+
+    internal void OnLeavelevel()
+    {
+        //this.enabledRigidbody = false;
+        this.rb.velocity = Vector3.zero;
+    }
+
+    internal void OnEnterlevel()
+    {
+        this.rb.velocity=Vector3.zero;
+        this.entityController.UpdateTransform();
+        this.lastPos = this.rb.transform.position;
+        //this.enabledRigidbody = true;
     }
 
 
@@ -193,9 +212,19 @@ public class PlayerInputController : MonoBehaviour {
     }
     Vector3 lastPos;
     float lastSync = 0;
+    public bool enabledRigidbody
+    {
+        get { return !this.rb.isKinematic; }
+        set
+        {
+            this.rb.isKinematic = !value;
+            this.rb.detectCollisions = value;
+        }
+    } 
+
     private void LateUpdate()
     {
-        if (this.character == null) return;
+        if (this.character == null ) return;
 
         Vector3 offset = this.rb.transform.position - lastPos;
         this.speed = (int)(offset.magnitude * 100f / Time.deltaTime);

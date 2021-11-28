@@ -35,6 +35,7 @@ namespace GameServer.AI
             }
         }
 
+
         internal void Update()
         {
             if (ai != null)

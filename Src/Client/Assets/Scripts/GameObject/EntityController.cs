@@ -49,14 +49,18 @@ public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
             rb.useGravity = false;
     }
 
-    void UpdateTransform()
+     public void UpdateTransform()
     {
         this.position = GameObjectTool.LogicToWorld(entity.position);
-        this.direction = GameObjectTool.LogicToWorld(entity.direction);
-
         this.rb.MovePosition(this.position);
-        this.transform.forward = this.direction;
         this.lastPosition = this.position;
+        UpdateDirection();
+    }
+
+    public void UpdateDirection()
+    {
+        this.direction = GameObjectTool.LogicToWorld(entity.direction);
+        this.transform.forward = this.direction;
         this.lastRotation = this.rotation;
     }
 
@@ -177,13 +181,6 @@ public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
     public void SetStandby(bool standby)
     {
         this.anim.SetBool("Standby", standby);
-    }
-
-    public void UpdateDirection()
-    {
-        this.direction = GameObjectTool.LogicToWorld(entity.direction);
-        this.transform.forward = this.direction;
-        this.lastRotation = this.rotation;
     }
 
     public void PlayEffect(EffectType type, string name, Creature target, float duration)
