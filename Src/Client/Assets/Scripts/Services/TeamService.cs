@@ -67,8 +67,8 @@ namespace Services
         /// <param name="request"></param>
         private void OnTeamInviteRequest(object sender, TeamInviteRequest request)
         {
-            var confirm = MessageBox.Show(String.Format("{0} 邀请你加入队伍", request.FromName), "组队请求",
-                MessageBoxType.Confirm, "接受", "拒绝"); confirm.OnYes = () =>
+            var confirm = MessageBox.Show(String.Format("{0} 邀请你加入队伍", request.FromName), "组队请求", MessageBoxType.Confirm, "接受", "拒绝"); 
+            confirm.OnYes = () =>
              {
                  this.SendTeamInviteResponse(true, request);
              };

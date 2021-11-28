@@ -124,6 +124,28 @@ public class UIFriends : UIWindow
                 TeamService.Instance.SendTeamInviteRequest(this.selectedItem.Info.friendInfo.Id,
                     this.selectedItem.Info.friendInfo.Name);
             };
+    }
+
+    public void OnClickChallenge()
+    {
+        if (selectedItem==null)
+        {
+            MessageBox.Show("请选择要挑战的好友");
+            return;
+        }
+        if (selectedItem.Info.Status == 0)
+        {
+            MessageBox.Show("请选择在线的好友");
+            return;
+        }
+        MessageBox.Show(string.Format("确定要与好友[{0}]进行竞技场挑战吗?", selectedItem.Info.friendInfo.Name), "竞技场挑战",
+                MessageBoxType.Confirm, "挑战", "取消").OnYes =
+            () =>
+            {
+                ArenaService.Instance.SendArenaChallengeRequest(this.selectedItem.Info.friendInfo.Id,
+                    this.selectedItem.Info.friendInfo.Name);
+            };
+
 
     }
 

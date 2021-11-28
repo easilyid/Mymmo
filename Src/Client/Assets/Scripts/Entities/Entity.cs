@@ -15,6 +15,7 @@ namespace Entities
         public Vector3Int position;
         public Vector3Int direction;
         public int speed;
+        public bool ready = true;
 
         public IEntityController Controller;
         private NEntity entityData;
@@ -33,8 +34,6 @@ namespace Entities
 
         public Entity(NEntity entity)
         {
-            this.entityId = entity.Id;
-            this.entityData = entity;
             this.SetEntityData(entity);
         }
 
@@ -49,6 +48,9 @@ namespace Entities
 
         public void SetEntityData(NEntity entity)
         {
+            if(!ready)return;
+            this.entityId = entity.Id;
+            this.entityData = entity;
             this.position = this.position.FromNVector3(entity.Position);
             this.direction = this.direction.FromNVector3(entity.Direction);
             this.speed = entity.Speed;

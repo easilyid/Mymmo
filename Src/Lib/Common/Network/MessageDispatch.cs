@@ -47,6 +47,10 @@ namespace Network
             if (message.skillHits != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.skillHits); }
 
             if (message.buffRes != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.buffRes); }
+            if (message.arenaChallengeReq != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.arenaChallengeReq); }
+            if (message.arenaChallengeRes != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.arenaChallengeRes); }
+            if (message.arenaBegin != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.arenaBegin); }
+            if (message.arenaEnd != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.arenaEnd); }
 
         }
 
@@ -89,6 +93,8 @@ namespace Network
 
 
             if (message.skillCast != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.skillCast); }
+            if (message.arenaChallengeReq != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.arenaChallengeReq); }
+            if (message.arenaChallengeRes != null) { MessageDistributer<T>.Instance.RaiseEvent(sender, message.arenaChallengeRes); }
 
         }
     }

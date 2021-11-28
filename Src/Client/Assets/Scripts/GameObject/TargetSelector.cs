@@ -24,7 +24,7 @@ public class TargetSelector : MonoSingleton<TargetSelector>
     public void Active(bool active)
     {
         this.actived = active;
-        if (projector = null) return;
+        if (projector == null) return;
 
         projector.gameObject.SetActive(this.actived);
         projector.orthographicSize = this.size * 0.5f;
