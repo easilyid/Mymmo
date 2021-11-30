@@ -52,9 +52,13 @@ public class EntityController : MonoBehaviour, IEntityNotify, IEntityController
      public void UpdateTransform()
     {
         this.position = GameObjectTool.LogicToWorld(entity.position);
+        this.direction = GameObjectTool.LogicToWorld(entity.direction);
+        this.transform.forward = this.direction;
+
         this.rb.MovePosition(this.position);
         this.lastPosition = this.position;
-        UpdateDirection();
+        this.lastRotation = this.rotation;
+
     }
 
     public void UpdateDirection()

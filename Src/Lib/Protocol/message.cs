@@ -365,6 +365,9 @@ namespace SkillBridge.Message
         [global::ProtoBuf.ProtoMember(61)]
         public ArenaChallengeResponse arenaChallengeRes { get; set; }
 
+        [global::ProtoBuf.ProtoMember(64)]
+        public ArenaReadyRequest arenaReady { get; set; }
+
     }
 
     [global::ProtoBuf.ProtoContract()]
@@ -484,6 +487,15 @@ namespace SkillBridge.Message
 
         [global::ProtoBuf.ProtoMember(63)]
         public ArenaEndResponse arenaEnd { get; set; }
+
+        [global::ProtoBuf.ProtoMember(64)]
+        public ArenaReadyResponse arenaReady { get; set; }
+
+        [global::ProtoBuf.ProtoMember(65)]
+        public ArenaRoundStartResponse arenaRoundStart { get; set; }
+
+        [global::ProtoBuf.ProtoMember(66)]
+        public ArenaRoundEndResponse arenaRoundEnd { get; set; }
 
         [global::ProtoBuf.ProtoMember(100)]
         public StatusNotify statusNotify { get; set; }
@@ -1889,6 +1901,66 @@ namespace SkillBridge.Message
 
     }
 
+    [global::ProtoBuf.ProtoContract()]
+    public partial class ArenaReadyRequest : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+            => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+
+        [global::ProtoBuf.ProtoMember(1)]
+        public int arenaId { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2)]
+        public int entityId { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class ArenaReadyResponse : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+            => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+
+        [global::ProtoBuf.ProtoMember(1, Name = @"round")]
+        public int Round { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2, Name = @"arena_info")]
+        public ArenaInfo ArenaInfo { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class ArenaRoundStartResponse : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+            => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+
+        [global::ProtoBuf.ProtoMember(1, Name = @"round")]
+        public int Round { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2, Name = @"arena_info")]
+        public ArenaInfo ArenaInfo { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class ArenaRoundEndResponse : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+            => global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+
+        [global::ProtoBuf.ProtoMember(1, Name = @"round")]
+        public int Round { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2, Name = @"arena_info")]
+        public ArenaInfo ArenaInfo { get; set; }
+
+    }
+
     [global::ProtoBuf.ProtoContract(Name = @"RESULT")]
     public enum Result
     {
@@ -2136,6 +2208,32 @@ namespace SkillBridge.Message
         Remove = 2,
         [global::ProtoBuf.ProtoEnum(Name = @"HIT")]
         Hit = 3,
+    }
+
+    [global::ProtoBuf.ProtoContract(Name = @"ARENA_STATUS")]
+    public enum ArenaStatus
+    {
+        [global::ProtoBuf.ProtoEnum(Name = @"NONE")]
+        None = 0,
+        [global::ProtoBuf.ProtoEnum(Name = @"WAIT")]
+        Wait = 1,
+        [global::ProtoBuf.ProtoEnum(Name = @"GAME")]
+        Game = 2,
+        [global::ProtoBuf.ProtoEnum(Name = @"RESULT")]
+        Result = 3,
+    }
+
+    [global::ProtoBuf.ProtoContract(Name = @"ARENA_ROUND_STATUS")]
+    public enum ArenaRoundStatus
+    {
+        [global::ProtoBuf.ProtoEnum(Name = @"NONE")]
+        None = 0,
+        [global::ProtoBuf.ProtoEnum(Name = @"READY")]
+        Ready = 1,
+        [global::ProtoBuf.ProtoEnum(Name = @"FIGHT")]
+        Fight = 2,
+        [global::ProtoBuf.ProtoEnum(Name = @"RESULT")]
+        Result = 3,
     }
 
 }

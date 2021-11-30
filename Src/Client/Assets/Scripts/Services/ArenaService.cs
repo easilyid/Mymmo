@@ -24,8 +24,12 @@ namespace Services
             MessageDistributer.Instance.Subscribe<ArenaChallengeResponse>(this.OnArenaChallengeResponse);
             MessageDistributer.Instance.Subscribe<ArenaBeginResponse>(this.OnArenaBeginResponse);
             MessageDistributer.Instance.Subscribe<ArenaEndResponse>(this.OnArenaEndResponse);
+            MessageDistributer.Instance.Subscribe<ArenaReadyResponse>(this.OnArenaReadyResponse);
+            MessageDistributer.Instance.Subscribe<ArenaRoundEndResponse>(this.OnArenaRoundEndResponse);
+            MessageDistributer.Instance.Subscribe<ArenaRoundStartResponse>(this.OnArenaRoundStartResponse);
 
         }
+
 
         public void Dispose()
         {
@@ -33,6 +37,9 @@ namespace Services
             MessageDistributer.Instance.Unsubscribe<ArenaChallengeResponse>(this.OnArenaChallengeResponse);
             MessageDistributer.Instance.Unsubscribe<ArenaBeginResponse>(this.OnArenaBeginResponse);
             MessageDistributer.Instance.Unsubscribe<ArenaEndResponse>(this.OnArenaEndResponse);
+            MessageDistributer.Instance.Unsubscribe<ArenaReadyResponse>(this.OnArenaReadyResponse);
+            MessageDistributer.Instance.Unsubscribe<ArenaRoundEndResponse>(this.OnArenaRoundEndResponse);
+            MessageDistributer.Instance.Unsubscribe<ArenaRoundStartResponse>(this.OnArenaRoundStartResponse);
 
         }
         /// <summary>
@@ -99,13 +106,38 @@ namespace Services
         private void OnArenaEndResponse(object sender, ArenaEndResponse message)
         {
             Debug.Log("OnArenaEndResponse");
-            //ArenaManager.Instance.ExitArena(message.ArenaInfo);
+            ArenaManager.Instance.ExitArena(message.ArenaInfo);
         }
 
         private void OnArenaBeginResponse(object sender, ArenaBeginResponse message)
         {
             Debug.Log("OnArenaBeginResponse");
-            //ArenaManager.Instance.EnterArena(message.ArenaInfo);
+            ArenaManager.Instance.EnterArena(message.ArenaInfo);
+        }
+        internal void SendArenaReadyRequest(int arenaId)
+        {
+            Debug.Log("SendArenaReadyRequest");
+            NetMessage message = new NetMessage();
+            message.Request = new NetMessageRequest();
+            message.Request.arenaReady = new ArenaReadyRequest();
+            message.Request.arenaReady.entityId = User.Instance.CurrentCharacter.entityId;
+            message.Request.arenaReady.arenaId = arenaId;
+            NetClient.Instance.SendMessage(message);
+        }
+        private void OnArenaRoundStartResponse(object sender, ArenaRoundStartResponse message)
+        {
+            ArenaManager.Instance.OnRoundStart(message.Round,message.ArenaInfo);
+        }
+
+        private void OnArenaRoundEndResponse(object sender, ArenaRoundEndResponse message)
+        {
+            ArenaManager.Instance.OnRoundEnd(message.Round, message.ArenaInfo);
+        }
+
+        private void OnArenaReadyResponse(object sender, ArenaReadyResponse message)
+        {
+            ArenaManager.Instance.OnReady(message.Round, message.ArenaInfo);
+
         }
 
     }

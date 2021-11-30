@@ -9,7 +9,7 @@ using GameServer.Entities;
 
 namespace GameServer.Managers
 {
-    class EntityManager:Singleton<EntityManager>
+    class EntityManager : Singleton<EntityManager>
     {
         private int idx = 0;
         public Dictionary<int, Entity> AllEntities = new Dictionary<int, Entity>();
@@ -20,12 +20,12 @@ namespace GameServer.Managers
             return mapId * 1000 + instanceId;
         }
 
-        public void AddEntity(int mapId, int instanceId,Entity entity)
+        public void AddEntity(int mapId, int instanceId, Entity entity)
         {
             entity.EntityData.Id = ++this.idx;
-            AllEntities.Add(entity.EntityData.Id,entity);
+            AllEntities.Add(entity.EntityData.Id, entity);
 
-            this. AddMapEntity(mapId, instanceId, entity);
+            this.AddMapEntity(mapId, instanceId, entity);
         }
 
         public void AddMapEntity(int mapId, int instanceId, Entity entity)
@@ -41,14 +41,14 @@ namespace GameServer.Managers
             entities.Add(entity);
         }
 
-        public void RemoveEntity(int mapId,int instanceID, Entity entity)
+        public void RemoveEntity(int mapId, int instanceID, Entity entity)
         {
             this.AllEntities.Remove(entity.entityId);
-            this.RemoveMapEntity(mapId,instanceID,entity);
+            this.RemoveMapEntity(mapId, instanceID, entity);
         }
         internal void RemoveMapEntity(int mapId, int instanceID, Entity entity)
         {
-            this.MapEntities[this.GetMapIndex(mapId,instanceID)].Remove(entity);
+            this.MapEntities[this.GetMapIndex(mapId, instanceID)].Remove(entity);
         }
 
         public Entity GetEntity(int entityId)
@@ -69,7 +69,7 @@ namespace GameServer.Managers
             List<T> result = new List<T>();
             foreach (var entity in this.MapEntities[mapId])
             {
-                if(entity is T&&match.Invoke(entity))
+                if (entity is T && match.Invoke(entity))
                     result.Add((T)entity);
             }
 

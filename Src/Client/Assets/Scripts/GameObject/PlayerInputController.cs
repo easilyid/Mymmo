@@ -8,7 +8,8 @@ using SkillBridge.Message;
 using UnityEngine.AI;
 using System;
 
-public class PlayerInputController : MonoBehaviour {
+public class PlayerInputController : MonoBehaviour
+{
 
     public Rigidbody rb;
     CharacterState state;
@@ -30,7 +31,8 @@ public class PlayerInputController : MonoBehaviour {
     private bool autoNav = false;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         state = CharacterState.Idle;
 
         /** 弃用
@@ -55,11 +57,11 @@ public class PlayerInputController : MonoBehaviour {
             if (entityController != null) entityController.entity = this.character;
         }**/
 
-        if (agent==null)
+        if (agent == null)
         {
             agent = this.gameObject.AddComponent<NavMeshAgent>();
             agent.stoppingDistance = 0.3f;
-            //agent.updatePosition = false;
+            agent.updatePosition = false;
         }
     }
 
@@ -70,11 +72,11 @@ public class PlayerInputController : MonoBehaviour {
 
     private IEnumerator BeginNav(Vector3 target)
     {
-        //agent.updatePosition = true;
+        agent.updatePosition = true;
         agent.SetDestination(target);
         yield return null;
         autoNav = true;
-        if (state!=SkillBridge.Message.CharacterState.Move)
+        if (state != CharacterState.Move)
         {
             state = CharacterState.Move;
             this.character.MoveForward();
@@ -87,15 +89,16 @@ public class PlayerInputController : MonoBehaviour {
     {
         autoNav = false;
         agent.ResetPath();
-        if (state!=CharacterState.Idle)
+        if (state != CharacterState.Idle)
         {
             state = CharacterState.Idle;
-            this.rb.velocity=Vector3.zero;
+            this.rb.velocity = Vector3.zero;
             this.character.Stop();
             this.SendEntityEvent(EntityEvent.Idle);
         }
-        //agent.updatePosition = false;
+        agent.updatePosition = false;
         NavPathRenderer.Instance.SetPath(null, Vector3.zero);
+        agent.nextPosition = transform.position;
     }
 
     public void NavMove()
@@ -113,14 +116,14 @@ public class PlayerInputController : MonoBehaviour {
             return;
         }
 
-        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1||Mathf.Abs(Input.GetAxis("Horizontal"))>0.1f)
+        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1 || Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
         {
             StopNav();
             return;
         }
 
         NavPathRenderer.Instance.SetPath(agent.path, agent.destination);
-        if (agent.isStopped||agent.remainingDistance<0.3f)
+        if (agent.isStopped || agent.remainingDistance < 0.3f)
         {
             StopNav();
             return;
@@ -129,16 +132,16 @@ public class PlayerInputController : MonoBehaviour {
 
     internal void OnLeavelevel()
     {
-        //this.enabledRigidbody = false;
+        this.enabledRigidbody = false;
         this.rb.velocity = Vector3.zero;
     }
 
     internal void OnEnterlevel()
     {
-        this.rb.velocity=Vector3.zero;
+        this.rb.velocity = Vector3.zero;
         this.entityController.UpdateTransform();
         this.lastPos = this.rb.transform.position;
-        //this.enabledRigidbody = true;
+        this.enabledRigidbody = true;
     }
 
 
@@ -153,12 +156,12 @@ public class PlayerInputController : MonoBehaviour {
             return;
         }
 
-       if (InputManager.Instance!=null && InputManager.Instance.IsInputMode) return;
-        
+        if (InputManager.Instance != null && InputManager.Instance.IsInputMode) return;
+
         float v = Input.GetAxis("Vertical");
         if (v > 0.01)
         {
-            if (state != SkillBridge.Message.CharacterState.Move)
+            if (state != CharacterState.Move)
             {
                 state = SkillBridge.Message.CharacterState.Move;
                 this.character.MoveForward();
@@ -168,7 +171,7 @@ public class PlayerInputController : MonoBehaviour {
         }
         else if (v < -0.01)
         {
-            if (state != SkillBridge.Message.CharacterState.Move)
+            if (state != CharacterState.Move)
             {
                 state = SkillBridge.Message.CharacterState.Move;
                 this.character.MoveBack();
@@ -178,9 +181,9 @@ public class PlayerInputController : MonoBehaviour {
         }
         else
         {
-            if (state != SkillBridge.Message.CharacterState.Idle)
+            if (state != CharacterState.Idle)
             {
-                state = SkillBridge.Message.CharacterState.Idle;
+                state = CharacterState.Idle;
                 this.rb.velocity = Vector3.zero;
                 this.character.Stop();
                 this.SendEntityEvent(EntityEvent.Idle);
@@ -193,14 +196,15 @@ public class PlayerInputController : MonoBehaviour {
         }
 
         float h = Input.GetAxis("Horizontal");
-        if (h<-0.1 || h>0.1)
+        if (h < -0.1 || h > 0.1)
         {
             this.transform.Rotate(0, h * rotateSpeed, 0);
             Vector3 dir = GameObjectTool.LogicToWorld(character.direction);
             Quaternion rot = new Quaternion();
             rot.SetFromToRotation(dir, this.transform.forward);
-            
-            if(rot.eulerAngles.y > this.turnAngle && rot.eulerAngles.y < (360 - this.turnAngle))
+            //agent.nextPosition = this.transform.position;
+
+            if (rot.eulerAngles.y > this.turnAngle && rot.eulerAngles.y < (360 - this.turnAngle))
             {
                 character.SetDirection(GameObjectTool.WorldToLogic(this.transform.forward));
                 rb.transform.forward = this.transform.forward;
@@ -220,17 +224,17 @@ public class PlayerInputController : MonoBehaviour {
             this.rb.isKinematic = !value;
             this.rb.detectCollisions = value;
         }
-    } 
+    }
 
     private void LateUpdate()
     {
-        if (this.character == null ) return;
+        if (this.character == null) return;
 
         Vector3 offset = this.rb.transform.position - lastPos;
         this.speed = (int)(offset.magnitude * 100f / Time.deltaTime);
         //Debug.LogFormat("LateUpdate velocity {0} : {1}", this.rb.velocity.magnitude, this.speed);
         this.lastPos = this.rb.transform.position;
-        
+
         if ((GameObjectTool.WorldToLogic(this.rb.transform.position) - this.character.position).magnitude > 50)
         {
             this.character.SetPosition(GameObjectTool.WorldToLogic(this.rb.transform.position));
@@ -241,8 +245,10 @@ public class PlayerInputController : MonoBehaviour {
         Vector3 dir = GameObjectTool.LogicToWorld(character.direction);
         Quaternion rot = new Quaternion();
         rot.SetFromToRotation(dir, this.transform.forward);
+        //agent.nextPosition = this.transform.position;
 
-        if (rot.eulerAngles.y>this.turnAngle&&rot.eulerAngles.y<(360-this.turnAngle))
+
+        if (rot.eulerAngles.y > this.turnAngle && rot.eulerAngles.y < (360 - this.turnAngle))
         {
             character.SetDirection(GameObjectTool.WorldToLogic(this.transform.forward));
             this.SendEntityEvent(EntityEvent.None);
@@ -252,7 +258,7 @@ public class PlayerInputController : MonoBehaviour {
     public void SendEntityEvent(EntityEvent entityEvent, int param = 0)
     {
         if (entityController != null)
-            entityController.OnEntityEvent(entityEvent,param);
-        MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData,param);
+            entityController.OnEntityEvent(entityEvent, param);
+        MapService.Instance.SendMapEntitySync(entityEvent, this.character.EntityData, param);
     }
 }

@@ -16,7 +16,7 @@ namespace GameServer.Managers
         public const int MaxInstance = 100; //最大的实例
 
         private Queue<int> InstanceIndexes = new Queue<int>(); //副本实例的索引
-        private Dictionary<int, Arena> Arenas = new Dictionary<int, Arena>();//方便后期维护
+        private Arena[] Arenas = new Arena[MaxInstance];//方便后期维护
 
         public void Init()
         {
@@ -34,6 +34,22 @@ namespace GameServer.Managers
             this.Arenas[instance] = arena;
             arena.PlayerEnter();
             return arena;
+        }
+
+        internal void Update()
+        {
+            for (int i = 0; i < Arenas.Length; i++)
+            {
+                if (Arenas[i]!=null)
+                {
+                    Arenas[i].Update();
+                }
+            }
+        }
+
+        public Arena GetArena(int arenaId)
+        {
+            return this.Arenas[arenaId];
         }
     }
 
