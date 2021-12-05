@@ -98,7 +98,7 @@ public class PlayerInputController : MonoBehaviour
         }
         agent.updatePosition = false;
         NavPathRenderer.Instance.SetPath(null, Vector3.zero);
-        agent.nextPosition = transform.position;
+       // agent.nextPosition = transform.position;
     }
 
     public void NavMove()

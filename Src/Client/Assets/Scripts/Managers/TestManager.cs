@@ -15,7 +15,7 @@ namespace Manager
         public void Init()
         {
             NPCManager.Instance.RegisterNpcEvent(NpcFunction.InvokeShop, OnNpcInvokeShop);
-            NPCManager.Instance.RegisterNpcEvent(NpcFunction.InvokeInsrance, OnNpcInvokeInsrance);
+            NPCManager.Instance.RegisterNpcEvent(NpcFunction.InvokeStory, OnNpcInvokeInsrance);
         }
 
         private bool OnNpcInvokeShop(NpcDefine npc)

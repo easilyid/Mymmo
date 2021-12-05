@@ -48,6 +48,8 @@ public class LoadingManager : MonoBehaviour
         SoundManager.Instance.PlayMusic(SoundDefine.Music_Login);
         BattleService.Instance.Init();
         ArenaService.Instance.Init();
+        StoryService.Instance.Init();
+        
 
        for (float i = 0; i < 100;)
        {

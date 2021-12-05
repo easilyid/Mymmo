@@ -168,5 +168,39 @@
       "Y": 0,
       "Z": 0
     }
+  },
+  "11": {
+    "ID": 11,
+    "Name": "副本->主城",
+    "MapID": 4,
+    "LinkTo": 4,
+    "Descript": null,
+    "Position": {
+      "X": -2192,
+      "Y": 2200,
+      "Z": 140
+    },
+    "Direction": {
+      "X": 0,
+      "Y": 100,
+      "Z": 0
+    }
+  },
+  "12": {
+    "ID": 12,
+    "Name": "副本传入点",
+    "MapID": 4,
+    "LinkTo": 0,
+    "Descript": null,
+    "Position": {
+      "X": 1740,
+      "Y": 734,
+      "Z": 140
+    },
+    "Direction": {
+      "X": 8,
+      "Y": 100,
+      "Z": 0
+    }
   }
 }
